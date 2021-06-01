@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import loginScreen from './screens/logIn'
 import signupScreen from './screens/signUp'
 import resetpasswordScreen from './screens/resetPassword'
+import resetpasswordScreen2 from './screens/resetPassword-2'
 
 const Stack = createStackNavigator();
 
@@ -29,14 +30,24 @@ const MyStack = () => {
           component={signupScreen} />
         <Stack.Screen
           options={{
-            title: 'Reset Password',
+            title: 'Forget Password?',
             headerTransparent: true,
             headerTitleStyle: {
-              fontFamily: 'Montserrat-Bold'
+              fontFamily: 'Montserrat-Bold',
             }
           }}
           name="resetpasswordScreen"
           component={resetpasswordScreen} />
+          <Stack.Screen
+          options={{
+            title: 'Reset Password',
+            headerTransparent: true,
+            headerTitleStyle: {
+              fontFamily: 'Montserrat-Bold',
+            }
+          }}
+          name="resetpasswordScreen2"
+          component={resetpasswordScreen2} />
       </Stack.Navigator>
     </NavigationContainer>
   );
