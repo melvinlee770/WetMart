@@ -5,7 +5,6 @@
 
 import React, { Component, useState } from 'react';
 import { StyleSheet, Text, View, Image, ImageBackground, TextInput, Button } from 'react-native';
-import { set } from 'react-native-reanimated';
 import { Card } from 'react-native-shadow-cards'
 
 import Background from '../img/big.jpeg'
@@ -13,11 +12,11 @@ import Background from '../img/big.jpeg'
 
 export default function logIn({ navigation }) {
 
+  // use props to use back the useState data
   function SellerLoginButton(props) {
-    const email_email = props.login_email
-    const password_password = props.login_password
+    const seller_email = props.login_email
+    const seller_password = props.login_password
     function submitLogin() {
-      console.log('point A')
       fetch("http://192.168.1.66:3000/seller/login",
         {
           method: "POST",
@@ -25,27 +24,43 @@ export default function logIn({ navigation }) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            email: email_email,
-            password: password_password
+            email: seller_email,
+            password: seller_password
           })
         })
         .then((response) => {
-          console.log('response' + email_email + ' ' + password_password)
+          if (response.status == 200) {
+            console.log('Login success')
+          }
+          else if (response.status == 404) {
+            console.log('Email cannot be found')
+          }
+          else if (response.status == 403) {
+            console.log('Password is incorrect')
+          }
         })
-        .catch((error => { console.log(error) }))
+        .catch((error => { console.log('Error') }))
     }
+
+    /**
+     * ========================== navigation to the home page =========================
+     */
+
+    // function loginNavigate() {                //do not delete
+    //   setTimeout(function () { navigation.navigate('signupScreen') }, 3000)
+    // }
     return (
       <Card style={styles.login_signup_button}>
         <Text style={{ color: 'white', fontFamily: 'Montserrat-Regular', fontSize: 20, textAlign: 'center' }}
-          onPress={() => submitLogin()}>LOG IN</Text>
+          onPress={() => { submitLogin(); }}>LOG IN</Text>
       </Card>
 
     )
   }
 
-  // const buttonToSignUp = () => {
-  //   navigation.navigate('signupScreen')
-  // }
+  const buttonToSignUp = () => {
+    navigation.navigate('signupScreen')
+  }
   const buttonToReset = () => {
     navigation.navigate('resetpasswordScreen')
   }
@@ -71,12 +86,13 @@ export default function logIn({ navigation }) {
           value={'' + login_password} onChangeText={function (text) { updateloginPassword(text) }} />
       </Card>
 
+      {/* useState data pass to SellerLoginButton */}
       <SellerLoginButton login_email={login_email} login_password={login_password}></SellerLoginButton>
 
       <Text style={{ color: 'black', fontFamily: 'Montserrat-Bold', fontSize: 18, marginLeft: 'auto', marginRight: 'auto' }}>Or</Text>
 
       <Card style={styles.login_signup_button}>
-        <Text style={{ color: 'white', fontFamily: 'Montserrat-Regular', fontSize: 20 }}>SIGN UP</Text>
+        <Text style={{ color: 'white', fontFamily: 'Montserrat-Regular', fontSize: 20 }} onPress={buttonToSignUp}>SIGN UP</Text>
       </Card>
 
       <Text style={{ color: 'black', fontFamily: 'Montserrat-Regular', fontSize: 15, marginLeft: 'auto', marginRight: 'auto' }} onPress={buttonToReset}>Forget Password? Reset</Text>
