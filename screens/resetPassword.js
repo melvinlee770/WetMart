@@ -1,3 +1,7 @@
+/**
+ * WetMart-Seller
+ * author: Lee Yong Zun
+ */
 import React, { Component, useState } from 'react';
 import { StyleSheet, Text, View, Image, ImageBackground, TextInput } from 'react-native';
 import { Card } from 'react-native-shadow-cards'
