@@ -31,6 +31,7 @@ export default function logIn({ navigation }) {
         .then((response) => {
           if (response.status == 200) {
             console.log('Login success')
+            loginNavigate()
           }
           else if (response.status == 404) {
             console.log('Email cannot be found')
@@ -46,21 +47,21 @@ export default function logIn({ navigation }) {
      * ========================== navigation to the home page =========================
      */
 
-    // function loginNavigate() {                //do not delete
-    //   setTimeout(function () { navigation.navigate('signupScreen') }, 3000)
-    // }
+    function loginNavigate() {                //do not delete
+      setTimeout(function () { navigation.navigate('signupScreen') }, 3000)
+    }
     return (
       <Card style={styles.login_signup_button}>
         <Text style={{ color: 'white', fontFamily: 'Montserrat-Regular', fontSize: 20, textAlign: 'center' }}
-          onPress={() => { submitLogin(); }}>LOG IN</Text>
+          onPress={() => { submitLogin();}}>LOG IN</Text>
       </Card>
 
     )
   }
 
-  const buttonToSignUp = () => {
-    navigation.navigate('signupScreen')
-  }
+  // const buttonToSignUp = () => {
+  //   navigation.navigate('signupScreen')
+  // }
   const buttonToReset = () => {
     navigation.navigate('resetpasswordScreen')
   }
@@ -92,7 +93,7 @@ export default function logIn({ navigation }) {
       <Text style={{ color: 'black', fontFamily: 'Montserrat-Bold', fontSize: 18, marginLeft: 'auto', marginRight: 'auto' }}>Or</Text>
 
       <Card style={styles.login_signup_button}>
-        <Text style={{ color: 'white', fontFamily: 'Montserrat-Regular', fontSize: 20 }} onPress={buttonToSignUp}>SIGN UP</Text>
+        <Text style={{ color: 'white', fontFamily: 'Montserrat-Regular', fontSize: 20 }}>SIGN UP</Text>
       </Card>
 
       <Text style={{ color: 'black', fontFamily: 'Montserrat-Regular', fontSize: 15, marginLeft: 'auto', marginRight: 'auto' }} onPress={buttonToReset}>Forget Password? Reset</Text>
