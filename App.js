@@ -6,6 +6,7 @@ import loginScreen from './screens/logIn'
 import signupScreen from './screens/signUp'
 import resetpasswordScreen from './screens/resetPassword'
 import resetpasswordScreen2 from './screens/resetPassword-2'
+// import homeScreen from './screens/home'
 
 const Stack = createStackNavigator();
 
@@ -38,7 +39,7 @@ const MyStack = () => {
           }}
           name="resetpasswordScreen"
           component={resetpasswordScreen} />
-          <Stack.Screen
+        <Stack.Screen
           options={{
             title: 'Reset Password',
             headerTransparent: true,
@@ -54,3 +55,4 @@ const MyStack = () => {
 };
 
 export default MyStack
+

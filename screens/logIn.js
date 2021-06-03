@@ -11,6 +11,10 @@ import Background from '../img/big.jpeg'
 
 export default function logIn({ navigation }) {
 
+  const buttonToLogin = () => {
+    navigation.navigate('homeScreen')
+  }
+
   const buttonToSignUp = () => {
     navigation.navigate('signupScreen')
   }
@@ -41,7 +45,7 @@ export default function logIn({ navigation }) {
 
       <Card style={styles.login_signup_button}>
         <Text style={{ color: 'white', fontFamily: 'Montserrat-Regular', fontSize: 20, textAlign: 'center' }}
-          onPress={() => console.log(email + ' ' + password)}>LOG IN</Text>
+          onPress={buttonToLogin}>LOG IN</Text>
       </Card>
 
       <Text style={{ color: 'black', fontFamily: 'Montserrat-Bold', fontSize: 18, marginLeft: 'auto', marginRight: 'auto' }}>Or</Text>
