@@ -4,7 +4,7 @@
  */
 
 import React, { Component, useState } from 'react';
-import { StyleSheet, Text, View, Image, ImageBackground, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, ImageBackground, TextInput, Button, Alert } from 'react-native';
 import { Card } from 'react-native-shadow-cards'
 
 import Background from '../img/big.jpeg'
@@ -33,11 +33,36 @@ export default function logIn({ navigation }) {
             console.log('Login success')
             // loginNavigate()
           }
+          // error message alert
           else if (response.status == 404) {
             console.log('Email cannot be found')
+            Alert.alert(
+              "Email is not use",
+              "Please input correct email",
+              [
+                {
+                  text: "Cancel",
+                  style: "cancel"
+                }
+              ],
+              { cancelable: false }
+            )
+            return false
           }
           else if (response.status == 403) {
             console.log('Password is incorrect')
+            Alert.alert(
+              "Password incorrect",
+              "Please input correct password",
+              [
+                {
+                  text: "Cancel",
+                  style: "cancel"
+                }
+              ],
+              { cancelable: false }
+            )
+            return false
           }
         })
         .catch((error => { console.log('Error') }))
@@ -53,7 +78,7 @@ export default function logIn({ navigation }) {
     return (
       <Card style={styles.login_signup_button}>
         <Text style={{ color: 'white', fontFamily: 'Montserrat-Regular', fontSize: 20, textAlign: 'center' }}
-          onPress={() => { submitLogin();}}>LOG IN</Text>
+          onPress={() => { submitLogin(); }}>LOG IN</Text>
       </Card>
 
     )
