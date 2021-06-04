@@ -49,6 +49,7 @@ export default function logIn({ navigation }) {
             )
             return false
           }
+          // error message alert
           else if (response.status == 403) {
             console.log('Password is incorrect')
             Alert.alert(
@@ -91,8 +92,8 @@ export default function logIn({ navigation }) {
     navigation.navigate('resetpasswordScreen')
   }
 
-  const [login_email, updateloginEmail] = useState('')
-  const [login_password, updateloginPassword] = useState('')
+  const [login_email, updateLoginEmail] = useState('')
+  const [login_password, updateLoginPassword] = useState('')
 
   return (
     <ImageBackground source={Background} style={styles.container}>
@@ -103,13 +104,13 @@ export default function logIn({ navigation }) {
       <Card style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', alignItems: 'center' }}>
         <Image source={require('../img/email.png')} style={{ marginLeft: '5%' }} />
         <TextInput placeholder="Email" placeholderTextColor='#808080'
-          value={'' + login_email} onChangeText={function (text) { updateloginEmail(text) }} />
+          value={'' + login_email} onChangeText={function (text) { updateLoginEmail(text) }} />
       </Card>
 
       <Card style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', marginTop: '5%', marginBottom: '5%', flexDirection: 'row', alignItems: 'center' }}>
         <Image source={require('../img/lock.png')} style={{ marginLeft: '5%' }} />
         <TextInput placeholder="Password" placeholderTextColor='#808080'
-          value={'' + login_password} onChangeText={function (text) { updateloginPassword(text) }} />
+          value={'' + login_password} onChangeText={function (text) { updateLoginPassword(text) }} />
       </Card>
 
       {/* useState data pass to SellerLoginButton */}
