@@ -1,10 +1,46 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, ImageBackground, TextInput, Button } from 'react-native';
 import { Card } from 'react-native-shadow-cards'
+import DropDownPicker from 'react-native-dropdown-picker';
 import Background from '../img/big.jpeg'
 
-export default function signUp({navigation}){
+export default function signUp({ navigation }) {
+
+    const markets = []
+    const [items, setItems] = useState([]);
+    function insertMarketList() {                                   //fetch the market list when the screen loaded
+        fetch("http://192.168.1.66:3000/seller/list/market")
+            .then(response => response.json())
+            // .then(json => { console.log(json) })
+            .then(json => {
+                for (let i = 0; i < json[0].length; i++) {
+                    markets.push(json[0][i])
+                    items.push({label: markets[i].market_name, value: markets[i].market_id})
+                }
+            })
+            .catch((error) => { console.log('Error') })
+    }
+    useEffect(insertMarketList)                                     //fetch the market list when the screen loaded
+
+    
+    function Testing() {
+        const [open, setOpen] = useState(false);
+        const [value, setValue] = useState(null);
+
+        return (
+            <DropDownPicker
+                open={open}
+                value={value}
+                items={items}
+                setOpen={setOpen}
+                setValue={setValue}
+                setItems={setItems}
+                dropDownDirection="TOP"
+                style={{ borderColor: 'transparent' }}
+            />
+        );
+    }
 
     const nextScreen = () => {
         navigation.navigate('signupScreen2')
@@ -32,45 +68,52 @@ export default function signUp({navigation}){
 
     return (
         <ImageBackground source={Background} style={styles.container}>
-            <Card onPress = {() => {console.log('onclick')}} style={{width: '70%', marginLeft: 'auto', marginRight: 'auto',flexDirection: 'row', alignItems: 'center'}}>
+            <Card onPress={() => { console.log('onclick') }} style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', alignItems: 'center' }}>
                 <View style={styles.cardcontainer}>
-                    <Image source={require('../img/up.png')} style={styles.imageStyle}/>
+                    <Image source={require('../img/up.png')} style={styles.imageStyle} />
                     <Text style={styles.userStyle}>Upload Photo of Store</Text>
                 </View>
             </Card>
-            <Card style={{width: '70%', marginLeft: 'auto', marginRight: 'auto',flexDirection: 'row', alignItems: 'center',marginTop: '5%'}}>
-                <Image source={require('../img/email.png')} style={{marginLeft: '3%'}}/>
+            <Card style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', alignItems: 'center', marginTop: '5%' }}>
+                <Image source={require('../img/email.png')} style={{ marginLeft: '3%' }} />
                 <TextInput placeholder="Email" placeholderTextColor='#808080'
-                value={''+signup_email} onChangeText={function (text) {updateSignUpEmail}}/>
+                    value={'' + signup_email} onChangeText={function (text) { updateSignUpEmail }} />
             </Card>
-            <Card style={{width: '70%', marginLeft: 'auto', marginRight: 'auto',flexDirection: 'row', alignItems: 'center',marginTop: '5%'}}>
-                <Image source={require('../img/email.png')} style={{marginLeft: '3%'}}/>
+            <Card style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', alignItems: 'center', marginTop: '5%' }}>
+                <Image source={require('../img/email.png')} style={{ marginLeft: '3%' }} />
                 <TextInput placeholder="Store Name" placeholderTextColor='#808080'
-                value={''+signup_storeName} onChangeText={function (text) {updateSignUpStoreName}}/>
+                    value={'' + signup_storeName} onChangeText={function (text) { updateSignUpStoreName }} />
             </Card>
-            <Card style={{width: '70%', marginLeft: 'auto', marginRight: 'auto',flexDirection: 'row', alignItems: 'center',marginTop: '5%'}}>
-                <Image source={require('../img/lock.png')} style={{marginLeft: '3%'}}/>
+            <Card style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', alignItems: 'center', marginTop: '5%' }}>
+                <Image source={require('../img/lock.png')} style={{ marginLeft: '3%' }} />
                 <TextInput placeholder="Password" placeholderTextColor='#808080'
-                value={''+signup_password} onChangeText={function(text) {updateSignUpPassword}}/>
+                    value={'' + signup_password} onChangeText={function (text) { updateSignUpPassword }} />
             </Card>
-            <Card style={{width: '70%', marginLeft: 'auto', marginRight: 'auto',flexDirection: 'row', alignItems: 'center',marginTop: '5%'}}>
-                <Image source={require('../img/lock.png')} style={{marginLeft: '3%'}}/>
+            <Card style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', alignItems: 'center', marginTop: '5%' }}>
+                <Image source={require('../img/lock.png')} style={{ marginLeft: '3%' }} />
                 <TextInput placeholder="Confirm Password" placeholderTextColor='#808080'
-                value={''+signup_retypePassword} onChangeText={function(text) {updateSignUpRetypePassword}}/>
+                    value={'' + signup_retypePassword} onChangeText={function (text) { updateSignUpRetypePassword }} />
             </Card>
-            <Card style={{height:'6%', 
-                       width: '70%', 
-                       marginLeft: 'auto', 
-                       marginRight: 'auto', 
-                       alignItems: 'center', 
-                       justifyContent: 'center', 
-                       marginTop: '10%',
-                       backgroundColor: '#5A9896'}}>
-           <Text style={{color: 'white', fontFamily: 'Montserrat-Regular', fontSize: 20}} onPress={nextScreen}>NEXT</Text>
-         </Card>
-         <Text style={{color: 'black', fontFamily: 'Montserrat-Regular', fontSize: 16, alignSelf:'center',marginTop:'3%'}}>
-             Already have an account? <Text style={{color:'blue',textDecorationLine: 'underline'}} onPress={loginScreen}>Sign In</Text>
-         </Text>
+
+            <Card style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', alignItems: 'center', marginTop: '5%' }}>
+                <Testing></Testing>
+            </Card>
+
+            <Card style={{
+                height: '6%',
+                width: '70%',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginTop: '10%',
+                backgroundColor: '#5A9896'
+            }}>
+                <Text style={{ color: 'white', fontFamily: 'Montserrat-Regular', fontSize: 20 }} onPress={nextScreen}>NEXT</Text>
+            </Card>
+            <Text style={{ color: 'black', fontFamily: 'Montserrat-Regular', fontSize: 16, alignSelf: 'center', marginTop: '3%' }}>
+                Already have an account? <Text style={{ color: 'blue', textDecorationLine: 'underline' }} onPress={loginScreen}>Sign In</Text>
+            </Text>
 
         </ImageBackground>
     )
@@ -83,19 +126,19 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         fontFamily: 'Montserrat-ExtraLight'
     },
-    cardcontainer:{
+    cardcontainer: {
         flex: 1,
     },
     imageStyle: {
-        flexGrow:1,
-        width:"50%",
-        height:"20%",
+        flexGrow: 1,
+        width: "50%",
+        height: "20%",
         alignSelf: 'center',
     },
-    userStyle:{
-        fontSize:18,
-        color:'black',
+    userStyle: {
+        fontSize: 18,
+        color: 'black',
         textAlign: 'center',
         fontFamily: 'Montserrat-Regular'
     },
-  })
+})

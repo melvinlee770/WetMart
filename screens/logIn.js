@@ -28,13 +28,9 @@ export default function logIn({ navigation }) {
             password: seller_password
           })
         })
-        .then((response) => {
-          if (response.status == 200) {
-            console.log('Login success')
-            // loginNavigate()
-          }
-          // error message alert
-          else if (response.status == 404) {
+        .then(response => response.json())
+        .then(json => {
+          if (json.status == 404) {
             console.log('Email cannot be found')
             Alert.alert(
               "Email is not use",
@@ -49,8 +45,7 @@ export default function logIn({ navigation }) {
             )
             return false
           }
-          // error message alert
-          else if (response.status == 403) {
+          else if (json.status == 403) {
             console.log('Password is incorrect')
             Alert.alert(
               "Password incorrect",
@@ -64,6 +59,11 @@ export default function logIn({ navigation }) {
               { cancelable: false }
             )
             return false
+          }
+         else{
+            console.log('Login success')
+            console.log(json)
+            // loginNavigate()
           }
         })
         .catch((error => { console.log('Error') }))
