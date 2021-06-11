@@ -4,7 +4,9 @@
  */
 
 import React, { Component, useState } from 'react';
-import { StyleSheet, Text, View, Image, ImageBackground, TextInput, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, ImageBackground, TextInput, Button, Alert, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwt_decode from 'jwt-decode';
 import { Card } from 'react-native-shadow-cards'
 
 import Background from '../img/big.jpeg'
@@ -16,8 +18,10 @@ export default function logIn({ navigation }) {
   function SellerLoginButton(props) {
     const seller_email = props.login_email
     const seller_password = props.login_password
+    const seller_id = []
+
     function submitLogin() {
-      fetch("http://192.168.1.66:3000/seller/login",
+      fetch("http://192.168.1.66:3000/seller/login",    //seller login
         {
           method: "POST",
           headers: {
@@ -60,26 +64,43 @@ export default function logIn({ navigation }) {
             )
             return false
           }
-         else{
+          else {
             console.log('Login success')
             console.log(json)
-            // loginNavigate()
+            // console.log(jwt_decode(json.accessToken))
+            const value = json.accessToken
+            // storing the jwt token response into the async storage
+            const jsonValue = JSON.stringify(value)
+            AsyncStorage.setItem('token', jsonValue)
+            console.log('Success to store token')
+
+            const getSellerIDURL = 'http://192.168.1.66:3000/seller/id/login?seller_email=' + seller_email
+            fetch(getSellerIDURL)
+              .then(response => response.json())
+              .then(json => {
+                seller_id.push(json)
+              })
+              .catch(error => console.log(error))
+              console.log('point A')
+              console.log(seller_id)
+            loginNavigate()
           }
         })
-        .catch((error => { console.log('Error') }))
+        .catch((error => { console.log(error) }))
     }
 
     /**
      * ========================== navigation to the home page =========================
      */
 
-    // function loginNavigate() {                //do not delete
-    //   setTimeout(function () { navigation.navigate('signupScreen') }, 3000)
-    // }
+    function loginNavigate() {                //do not delete
+      setTimeout(function () { navigation.navigate('homescreen', { email: login_email }) }, 3000)
+    }
     return (
       <Card style={styles.login_signup_button}>
-        <Text style={{ color: 'white', fontFamily: 'Montserrat-Regular', fontSize: 20, textAlign: 'center' }}
-          onPress={() => { submitLogin(); }}>LOG IN</Text>
+        <TouchableOpacity onPress={() => { submitLogin(); }}>
+          <Text style={{ color: 'white', fontFamily: 'Montserrat-Regular', fontSize: 20, textAlign: 'center' }}>LOG IN</Text>
+        </TouchableOpacity>
       </Card>
 
     )
@@ -87,6 +108,13 @@ export default function logIn({ navigation }) {
 
   const buttonToSignUp = () => {
     navigation.navigate('signupScreen')
+    // try {
+    //   let abcd = await AsyncStorage.getItem('token')
+    //   console.log(abcd)
+    // }
+    // catch(error) {
+    //   console.log(error)
+    // }
   }
   const buttonToReset = () => {
     navigation.navigate('resetpasswordScreen')
@@ -119,7 +147,9 @@ export default function logIn({ navigation }) {
       <Text style={{ color: 'black', fontFamily: 'Montserrat-Bold', fontSize: 18, marginLeft: 'auto', marginRight: 'auto' }}>Or</Text>
 
       <Card style={styles.login_signup_button}>
-        <Text style={{ color: 'white', fontFamily: 'Montserrat-Regular', fontSize: 20 }} onPress={buttonToSignUp}>SIGN UP</Text>
+        <TouchableOpacity onPress={buttonToSignUp}>
+          <Text style={{ color: 'white', fontFamily: 'Montserrat-Regular', fontSize: 20 }}>SIGN UP</Text>
+        </TouchableOpacity>
       </Card>
 
       <Text style={{ color: 'black', fontFamily: 'Montserrat-Regular', fontSize: 15, marginLeft: 'auto', marginRight: 'auto' }} onPress={buttonToReset}>Forget Password? Reset</Text>

@@ -9,7 +9,8 @@ import signupScreen3 from './screens/signUp3'
 import signupScreen4 from './screens/signUp4'
 import resetpasswordScreen from './screens/resetPassword'
 import resetpasswordScreen2 from './screens/resetPassword-2'
-// import homeScreen from './screens/home'
+import homescreen from './screens/home'
+import testAuth from './screens/testAuth'
 
 const Stack = createStackNavigator();
 
@@ -32,7 +33,7 @@ const MyStack = () => {
           }}
           name="signupScreen"
           component={signupScreen} />
-	      <Stack.Screen
+        <Stack.Screen
           options={{
             title: 'Sign Up',
             headerTransparent: true,
@@ -42,7 +43,7 @@ const MyStack = () => {
           }}
           name="signupScreen2"
           component={signupScreen2} />
-          <Stack.Screen
+        <Stack.Screen
           options={{
             title: 'Sign Up',
             headerTransparent: true,
@@ -52,7 +53,7 @@ const MyStack = () => {
           }}
           name="signupScreen3"
           component={signupScreen3} />
-          <Stack.Screen
+        <Stack.Screen
           options={{
             title: 'Sign Up',
             headerTransparent: true,
@@ -82,6 +83,27 @@ const MyStack = () => {
           }}
           name="resetpasswordScreen2"
           component={resetpasswordScreen2} />
+        <Stack.Screen
+          options={{
+            title: false,
+            headerLeft: null,
+            headerTransparent: true,
+            headerTitleStyle: {
+              fontFamily: 'Montserrat-Bold',
+            }
+          }}
+          name="homescreen"
+          component={homescreen} />
+        <Stack.Screen
+          options={{
+            title: 'Reset Password',
+            headerTransparent: true,
+            headerTitleStyle: {
+              fontFamily: 'Montserrat-Bold',
+            }
+          }}
+          name="testAuth"
+          component={testAuth} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,49 +1,119 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, ImageBackground, TextInput, Button } from 'react-native';
-import { Card } from 'react-native-shadow-cards'
+import { Card } from 'react-native-shadow-cards';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import DropDownPicker from 'react-native-dropdown-picker';
-import Background from '../img/big.jpeg'
+import * as ImagePicker from 'react-native-image-picker';
+import Background from '../img/big.jpeg';
+import { RNS3 } from 'react-native-aws3';
+
 
 export default function signUp({ navigation }) {
 
-    const markets = []
-    const [items, setItems] = useState([]);
-    function insertMarketList() {                                   //fetch the market list when the screen loaded
-        fetch("http://192.168.1.66:3000/seller/list/market")
-            .then(response => response.json())
-            // .then(json => { console.log(json) })
-            .then(json => {
-                for (let i = 0; i < json[0].length; i++) {
-                    markets.push(json[0][i])
-                    items.push({label: markets[i].market_name, value: markets[i].market_id})
+    // const markets = []
+    // const [items, setItems] = useState([]);
+    // function insertMarketList() {                                   //fetch the market list when the screen loaded
+    //     fetch("http://192.168.1.66:3000/seller/list/market")
+    //         .then(response => response.json())
+    //         // .then(json => { console.log(json) })
+    //         .then(json => {
+    //             for (let i = 0; i < json[0].length; i++) {
+    //                 markets.push(json[0][i])
+    //                 items.push({ label: markets[i].market_name, value: markets[i].market_id })
+    //             }
+    //         })
+    //         .catch((error) => { console.log('Error') })
+    // }
+    // useEffect(insertMarketList)                                     //fetch the market list when the screen loaded
+
+
+    // function MarketListForm() {
+    //     const [open, setOpen] = useState(false);
+    //     const [value, setValue] = useState(null);
+
+    //     return (
+    //         <DropDownPicker
+    //             open={open}
+    //             value={value}
+    //             items={items}
+    //             setOpen={setOpen}
+    //             setValue={setValue}
+    //             setItems={setItems}
+    //             dropDownDirection="TOP"
+    //             style={{ borderColor: 'transparent' }}
+    //         />
+    //     );
+    // }
+
+    function handleChoosePhoto() {
+        const options = {}
+        ImagePicker.launchImageLibrary(options, response => {
+            if (response.didCancel) {
+                console.log('User cancelled image picker')
+            }
+            else if (response.error) {
+                console.log('Imagepicker Error: ', response.error)
+            }
+            else {
+                console.log(response)
+                const imgContent = {
+                    path: response.assets[0].uri,
+                    filename: response.assets[0].fileName,
+                    type: 'image/type'
                 }
-            })
-            .catch((error) => { console.log('Error') })
+                // const file = new FormData()
+                // file.append(imgContent)
+                fetch("http://192.168.1.66:3000/images", {
+                    method: "POST",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'multipart/form-data',
+                    },
+                    file: imgContent
+                })
+                .then((response) => response.json())
+                .then(json => {
+                    console.log(json)
+                    // console.log(responseJson)
+                })
+                .catch((error) => {
+                    console.log('Error')
+                    console.log(error)
+                })
+                // const testdefg = {
+                //     keyPrefix: 'uploads/',
+                //     bucket: 'testwetmart-bucket',
+                //     region: 'use-east-2',
+                //     accessKey: 'AKIASX2RQ4PYBNZHVXKY',
+                //     secretKey: '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',
+                //     successActionStatus: 201
+                // }
+                // return RNS3.put(imgContent, testdefg)
+                //     .then(response => {
+                //         if (response.status !== 201) {
+                //             console.log("Error")
+                //         }
+                //         console.log(response.status)
+                //         console.log(response.body)
+                //     })
+                //     .catch(error => {
+                //         console.log('fail')
+                //         console.log(error)
+                //     })
+            }
+        })
     }
-    useEffect(insertMarketList)                                     //fetch the market list when the screen loaded
 
-    
-    function Testing() {
-        const [open, setOpen] = useState(false);
-        const [value, setValue] = useState(null);
-
-        return (
-            <DropDownPicker
-                open={open}
-                value={value}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
-                dropDownDirection="TOP"
-                style={{ borderColor: 'transparent' }}
-            />
-        );
-    }
-
-    const nextScreen = () => {
+    const nextScreen = async () => {
         navigation.navigate('signupScreen2')
+        // try {
+        //     let abcd = await AsyncStorage.getItem('token')
+        //     console.log(abcd)
+        // }
+        // catch (error) {
+        //     console.log(error)
+        // }
     }
 
     const loginScreen = () => {
@@ -71,7 +141,7 @@ export default function signUp({ navigation }) {
             <Card onPress={() => { console.log('onclick') }} style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', alignItems: 'center' }}>
                 <View style={styles.cardcontainer}>
                     <Image source={require('../img/up.png')} style={styles.imageStyle} />
-                    <Text style={styles.userStyle}>Upload Photo of Store</Text>
+                    <Button title="Upload Photo of Store" style={styles.userStyle} onPress={() => { handleChoosePhoto(); }}></Button>
                 </View>
             </Card>
             <Card style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', alignItems: 'center', marginTop: '5%' }}>
@@ -96,7 +166,7 @@ export default function signUp({ navigation }) {
             </Card>
 
             <Card style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', alignItems: 'center', marginTop: '5%' }}>
-                <Testing></Testing>
+                {/* <MarketListForm></MarketListForm> */}
             </Card>
 
             <Card style={{
