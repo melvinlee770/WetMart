@@ -11,40 +11,40 @@ import { RNS3 } from 'react-native-aws3';
 
 export default function signUp({ navigation }) {
 
-    // const markets = []
-    // const [items, setItems] = useState([]);
-    // function insertMarketList() {                                   //fetch the market list when the screen loaded
-    //     fetch("http://192.168.1.66:3000/seller/list/market")
-    //         .then(response => response.json())
-    //         // .then(json => { console.log(json) })
-    //         .then(json => {
-    //             for (let i = 0; i < json[0].length; i++) {
-    //                 markets.push(json[0][i])
-    //                 items.push({ label: markets[i].market_name, value: markets[i].market_id })
-    //             }
-    //         })
-    //         .catch((error) => { console.log('Error') })
-    // }
-    // useEffect(insertMarketList)                                     //fetch the market list when the screen loaded
+    const markets = []
+    const [items, setItems] = useState([]);
+    function insertMarketList() {                                   //fetch the market list when the screen loaded
+        fetch("http://192.168.1.66:3000/seller/list/market")
+            .then(response => response.json())
+            // .then(json => { console.log(json) })
+            .then(json => {
+                for (let i = 0; i < json[0].length; i++) {
+                    markets.push(json[0][i])
+                    items.push({ label: markets[i].market_name, value: markets[i].market_id })
+                }
+            })
+            .catch((error) => { console.log('Error') })
+    }
+    useEffect(insertMarketList)                                     //fetch the market list when the screen loaded
 
 
-    // function MarketListForm() {
-    //     const [open, setOpen] = useState(false);
-    //     const [value, setValue] = useState(null);
+    function MarketListForm() {
+        const [open, setOpen] = useState(false);
+        const [value, setValue] = useState(null);
 
-    //     return (
-    //         <DropDownPicker
-    //             open={open}
-    //             value={value}
-    //             items={items}
-    //             setOpen={setOpen}
-    //             setValue={setValue}
-    //             setItems={setItems}
-    //             dropDownDirection="TOP"
-    //             style={{ borderColor: 'transparent' }}
-    //         />
-    //     );
-    // }
+        return (
+            <DropDownPicker
+                open={open}
+                value={value}
+                items={items}
+                setOpen={setOpen}
+                setValue={setValue}
+                setItems={setItems}
+                dropDownDirection="TOP"
+                style={{ borderColor: 'transparent' }}
+            />
+        );
+    }
 
     function handleChoosePhoto() {
         const options = {}
@@ -166,7 +166,7 @@ export default function signUp({ navigation }) {
             </Card>
 
             <Card style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', alignItems: 'center', marginTop: '5%' }}>
-                {/* <MarketListForm></MarketListForm> */}
+                <MarketListForm></MarketListForm>
             </Card>
 
             <Card style={{

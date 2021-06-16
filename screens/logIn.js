@@ -8,7 +8,6 @@ import { StyleSheet, Text, View, Image, ImageBackground, TextInput, Button, Aler
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import jwt_decode from 'jwt-decode';
 import { Card } from 'react-native-shadow-cards'
-
 import Background from '../img/big.jpeg'
 
 
@@ -66,7 +65,7 @@ export default function logIn({ navigation }) {
           }
           else {
             console.log('Login success')
-            console.log(json)
+            // console.log(json)
             // console.log(jwt_decode(json.accessToken))
             const value = json.accessToken
             // storing the jwt token response into the async storage
@@ -78,12 +77,14 @@ export default function logIn({ navigation }) {
             fetch(getSellerIDURL)
               .then(response => response.json())
               .then(json => {
-                seller_id.push(json)
+                while (seller_id.length >0) {
+                  seller_id.pop()
+                }
+                seller_id.push(json[0].seller_id)
+                console.log("using seller id: "+seller_id)
               })
               .catch(error => console.log(error))
-              console.log('point A')
-              console.log(seller_id)
-            loginNavigate()
+              loginNavigate()
           }
         })
         .catch((error => { console.log(error) }))
@@ -94,7 +95,7 @@ export default function logIn({ navigation }) {
      */
 
     function loginNavigate() {                //do not delete
-      setTimeout(function () { navigation.navigate('homescreen', { email: login_email }) }, 3000)
+      setTimeout(function () { navigation.navigate('homescreen', { email: login_email, id: seller_id[0] }) }, 2000)
     }
     return (
       <Card style={styles.login_signup_button}>
