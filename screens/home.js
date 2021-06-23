@@ -5,6 +5,7 @@ import { faPlayCircle, faWallet, faWindowClose } from '@fortawesome/free-solid-s
 // import { onChange, set } from 'react-native-reanimated';
 // import { roundToNearestPixel } from 'react-native/Libraries/Utilities/PixelRatio';
 import { Card } from 'react-native-shadow-cards'
+import Navbar from '../components/navbar';
 // import Background from '../img/big.jpeg'
 // import { parse } from '@babel/core';
 // import { PresignedPost } from 'aws-sdk/clients/s3';
@@ -27,6 +28,7 @@ export default function home({ route, navigation }) {
     const [noOfSalesBox, setnoOfSalesBox] = useState(false)
     const [first_detailsItem, setfirst_detailsItem] = useState([])
     const [second_detailsItem, setsecond_detailsItem] = useState([])
+    const [spe_order_id, setspe_order_id] = useState('')
     const posts = first_detailsItem
     const secondposts = second_detailsItem
 
@@ -90,6 +92,7 @@ export default function home({ route, navigation }) {
         var tmpTotalArr = 0
         const tmpPriceArr = []
         var totalPrice = 0
+        setspe_order_id(order_id)
 
         const allproductAquantityarr = []    //array for the useState
         const allinfoarr = []       //array for the useState
@@ -189,6 +192,37 @@ export default function home({ route, navigation }) {
         )
     }
 
+    const buttonToUpdateOrder = () => {
+        const updateOrderURL = 'http://192.168.1.66:3000/seller/home/update/order?order_id=' + spe_order_id
+        fetch(updateOrderURL, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ order_status: "completed" }),
+        })
+            .then(response => response.json())
+            .then((json) => {
+                console.log('update success')
+                console.log(json.command)
+                fetch(showSellerOrder_URL)              //non repeat
+                    .then((response) => response.json())
+                    .then((json) => {
+                        while (noOfOrders.length > 0) {
+                            noOfOrders.pop()
+                        }
+                        setnoOfOrders(json)
+                        setVisible(false)
+                    })
+                    .then()
+                    .catch((error) => {
+                        console.log(error)
+                    })
+            })
+            .catch((error) => {
+                console.log(error + "Fail")
+            })
+    }
 
     return (
         <SafeAreaView style={{ height: '100%' }}>
@@ -216,14 +250,15 @@ export default function home({ route, navigation }) {
                     <Text style={{ textAlign: 'center', fontFamily: 'Montserrat-Bold', fontSize: 30, textDecorationLine: 'underline' }}>Order Details</Text>
                     <ShowFirstModalContent posts={posts}></ShowFirstModalContent>
                     <ShowSecondModalContent secondposts={secondposts}></ShowSecondModalContent>
-                    <Card style={{height: '10%',width: '70%', marginLeft: 'auto', marginRight: 'auto', marginTop: '10%', alignItems: 'center', justifyContent: 'center', backgroundColor: '#5A9896'}}>
-                    <TouchableOpacity>
-                        <Text style={{ color: 'white', fontFamily: 'Montserrat-Regular', fontSize: 20 }}>PACKED</Text>
-                    </TouchableOpacity>
+                    <Card style={{ height: '10%', width: '70%', marginLeft: 'auto', marginRight: 'auto', marginTop: '10%', alignItems: 'center', justifyContent: 'center', backgroundColor: '#5A9896' }}>
+                        <TouchableOpacity onPress={buttonToUpdateOrder}>
+                            <Text style={{ color: 'white', fontFamily: 'Montserrat-Regular', fontSize: 20 }}>PACKED</Text>
+                        </TouchableOpacity>
                     </Card>
                 </View>
             </ModalPoup>
-
+        
+        <Navbar></Navbar>
         </SafeAreaView>
     )
 }

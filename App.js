@@ -10,6 +10,7 @@ import signupScreen4 from './screens/signUp4'
 import resetpasswordScreen from './screens/resetPassword'
 import resetpasswordScreen2 from './screens/resetPassword-2'
 import homescreen from './screens/home'
+import Navbar from './components/navbar'
 import testAuth from './screens/testAuth'
 
 const Stack = createStackNavigator();
@@ -83,6 +84,22 @@ const MyStack = () => {
           }}
           name="resetpasswordScreen2"
           component={resetpasswordScreen2} />
+        <Stack.Screen                           //tab navigation
+          options={{
+            title: 'Navbar',
+            headerTransparent: true,
+            headerTitle: false,
+            headerTintColor: '#ffffff',
+            headerStyle: {
+              backgroundColor: '#67ACAD',
+              height: 115
+            },
+            headerTitleStyle: {
+              fontFamily: 'Montserrat-Bold',
+            },
+          }}
+          name="Navbar"
+          component={Navbar} />
         <Stack.Screen
           options={{
             title: false,
