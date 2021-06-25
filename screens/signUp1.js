@@ -109,7 +109,9 @@ export default function signUp({ navigation }) {
         navigation.navigate('signupScreen2')
         // try {
         //     let abcd = await AsyncStorage.getItem('token')
+        //     let defg = await AsyncStorage.getItem('stroringID')
         //     console.log(abcd)
+        //     console.log(defg)
         // }
         // catch (error) {
         //     console.log(error)

@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { StyleSheet, Text, View, Image, ImageBackground, TextInput, Button, Alert, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { withDecay } from 'react-native-reanimated';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faCarrot, faHome, faPlayCircle, faShoppingBag, faUser, faWallet, faWindowClose } from '@fortawesome/free-solid-svg-icons'
+import { faCarrot, faHome, faShoppingBag, faUser, faWallet} from '@fortawesome/free-solid-svg-icons'
 
 export default function Navbar({ route }) {
     const navigation = useNavigation()
     // const { Buyeremail } = route.params
     const NavigateHome = () => {
-        navigation.navigate(`homescreen`);
+        navigation.navigate(`homeScreen`);
     }
     // navigation.navigate(`Stores`, { MarketId: `${market_id}`, MarketName: `${market_name}`, Buyeremail: `${buyer_email}` })
     const NavigateFollow = () => {
@@ -19,8 +19,7 @@ export default function Navbar({ route }) {
     }
 
     const NavigateOrders = () => {
-        // navigation.navigate(`Following`);
-        alert('go orders page')
+        navigation.navigate(`ordersScreen`);
     }
 
     const NavigateCart = () => {

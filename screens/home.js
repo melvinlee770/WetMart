@@ -1,11 +1,11 @@
 import React, { useState, useEffect, } from 'react';
-import { StyleSheet, View, Text, ImageBackground, FlatList, SafeAreaView, TouchableOpacity, Modal, Image } from 'react-native'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faPlayCircle, faWallet, faWindowClose } from '@fortawesome/free-solid-svg-icons'
-// import { onChange, set } from 'react-native-reanimated';
-// import { roundToNearestPixel } from 'react-native/Libraries/Utilities/PixelRatio';
+import { StyleSheet, View, Text, ImageBackground, FlatList, SafeAreaView, TouchableOpacity, Modal, Image } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faPlayCircle, faWallet, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { Card } from 'react-native-shadow-cards'
 import Navbar from '../components/navbar';
+// import { onChange, set } from 'react-native-reanimated';
+// import { roundToNearestPixel } from 'react-native/Libraries/Utilities/PixelRatio';
 // import Background from '../img/big.jpeg'
 // import { parse } from '@babel/core';
 // import { PresignedPost } from 'aws-sdk/clients/s3';
@@ -15,11 +15,11 @@ import Navbar from '../components/navbar';
 export default function home({ route, navigation }) {
 
     const seller_home_email = route.params.email       //pass the data from the login page  // const { email } = route.params
-    const seller_home_id = route.params.id                                                  // const { id } = route.params
+    const seller_home_id = route.params.id                                                 // const { id } = route.params
 
     const showSellerName_URL = 'http://192.168.1.66:3000/seller/home/show/name?seller_email=' + seller_home_email
-    const showSellerSales_URL = 'http://192.168.1.66:3000/seller/home/show/amount?seller_id=' + seller_home_id
-    const showSellerOrder_URL = 'http://192.168.1.66:3000/seller/home/show/order?seller_id=' + seller_home_id
+    const showSellerSales_URL = 'http://192.168.1.66:3000/seller/home/show/amount?seller_id=' + Number(seller_home_id)
+    const showSellerOrder_URL = 'http://192.168.1.66:3000/seller/show/order/pending?seller_id=' + Number(seller_home_id)
 
     const [nameOfSeller, setnameOfSeller] = useState('')
     const [nameOfStore, setnameOfStore] = useState('')
@@ -96,7 +96,7 @@ export default function home({ route, navigation }) {
 
         const allproductAquantityarr = []    //array for the useState
         const allinfoarr = []       //array for the useState
-        const showSellerOrderDetails_URL = 'http://192.168.1.66:3000/seller/home/show/order/details?seller_id=' + seller_home_id + '&order_id=' + order_id
+        const showSellerOrderDetails_URL = 'http://192.168.1.66:3000/seller/show/order/details?seller_id=' + seller_home_id + '&order_id=' + order_id
         fetch(showSellerOrderDetails_URL)
             .then((response) => response.json())
             .then((json) => {
@@ -193,7 +193,7 @@ export default function home({ route, navigation }) {
     }
 
     const buttonToUpdateOrder = () => {
-        const updateOrderURL = 'http://192.168.1.66:3000/seller/home/update/order?order_id=' + spe_order_id
+        const updateOrderURL = 'http://192.168.1.66:3000/seller/update/order?order_id=' + spe_order_id
         fetch(updateOrderURL, {
             method: "PUT",
             headers: {

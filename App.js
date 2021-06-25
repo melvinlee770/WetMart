@@ -9,7 +9,8 @@ import signupScreen3 from './screens/signUp3'
 import signupScreen4 from './screens/signUp4'
 import resetpasswordScreen from './screens/resetPassword'
 import resetpasswordScreen2 from './screens/resetPassword-2'
-import homescreen from './screens/home'
+import homeScreen from './screens/home'
+import ordersScreen from './screens/orders'
 import Navbar from './components/navbar'
 import testAuth from './screens/testAuth'
 
@@ -109,8 +110,20 @@ const MyStack = () => {
               fontFamily: 'Montserrat-Bold',
             }
           }}
-          name="homescreen"
-          component={homescreen} />
+          name="homeScreen"
+          component={homeScreen} />
+        <Stack.Screen
+          options={{
+            title: 'Orders',
+            headerLeft: null,
+            headerTransparent: true,
+            headerTitleStyle: {
+              fontFamily: 'Montserrat-Bold',
+              fontSize: 25
+            }
+          }}
+          name="ordersScreen"
+          component={ordersScreen} />
         <Stack.Screen
           options={{
             title: 'Reset Password',

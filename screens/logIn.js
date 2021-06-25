@@ -71,7 +71,9 @@ export default function logIn({ navigation }) {
             // storing the jwt token response into the async storage
             const jsonValue = JSON.stringify(value)
             AsyncStorage.setItem('token', jsonValue)
-            console.log('Success to store token')
+            AsyncStorage.setItem('testing', 'halo')
+            AsyncStorage.setItem('stroring1', login_email)
+            console.log('Success to store token ')
 
             const getSellerIDURL = 'http://192.168.1.66:3000/seller/id/login?seller_email=' + seller_email
             fetch(getSellerIDURL)
@@ -81,7 +83,8 @@ export default function logIn({ navigation }) {
                   seller_id.pop()
                 }
                 seller_id.push(json[0].seller_id)
-                console.log("using seller id: "+seller_id)
+                AsyncStorage.setItem('stroringID', String(seller_id[0]))
+                console.log("using seller id: "+seller_id[0])
               })
               .catch(error => console.log(error))
               loginNavigate()
@@ -95,7 +98,7 @@ export default function logIn({ navigation }) {
      */
 
     function loginNavigate() {                //do not delete
-      setTimeout(function () { navigation.navigate('homescreen', { email: login_email, id: seller_id[0] }) }, 2000)
+      setTimeout(function () { navigation.navigate('homeScreen', { email: login_email, id: seller_id[0]}) }, 2000)
     }
     return (
       <Card style={styles.login_signup_button}>
@@ -109,13 +112,6 @@ export default function logIn({ navigation }) {
 
   const buttonToSignUp = () => {
     navigation.navigate('signupScreen')
-    // try {
-    //   let abcd = await AsyncStorage.getItem('token')
-    //   console.log(abcd)
-    // }
-    // catch(error) {
-    //   console.log(error)
-    // }
   }
   const buttonToReset = () => {
     navigation.navigate('resetpasswordScreen')
