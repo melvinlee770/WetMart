@@ -8,7 +8,6 @@ import { faCarrot, faHome, faShoppingBag, faUser, faWallet} from '@fortawesome/f
 
 export default function Navbar({ route }) {
     const navigation = useNavigation()
-    // const { Buyeremail } = route.params
     const NavigateHome = () => {
         navigation.navigate(`homeScreen`);
     }
@@ -28,8 +27,7 @@ export default function Navbar({ route }) {
     }
 
     const NavigateProfile = () => {
-        // navigation.navigate(`Following`);
-        alert('go profile page')
+        navigation.navigate(`profileScreen`);
     }
 
     return (
@@ -40,28 +38,28 @@ export default function Navbar({ route }) {
                 </TouchableOpacity>
 
 
-                <TouchableOpacity style={styles.iconContainter} style={styles.iconStyle}
+                <TouchableOpacity style={styles.iconStyle}
                     onPress={() => NavigateFollow()} >
                     <FontAwesomeIcon icon={faCarrot} size={32} style={{ color: '#A2A5A8' }} />
                     <Text style={styles.iconName}>Products</Text>
                 </TouchableOpacity>
 
 
-            <TouchableOpacity style={styles.iconContainter} style={styles.iconStyle}
+            <TouchableOpacity style={styles.iconStyle}
                 onPress={() => NavigateOrders()} >
                 <FontAwesomeIcon icon={faShoppingBag} size={32} style={{ color: '#A2A5A8' }} />
                 <Text style={styles.iconName}>Orders</Text>
             </TouchableOpacity>
 
 
-            <TouchableOpacity style={styles.iconContainter} style={styles.iconStyle}
+            <TouchableOpacity style={styles.iconStyle}
                 onPress={() => NavigateCart()} >
                 <FontAwesomeIcon icon={faWallet} size={32} style={{ color: '#A2A5A8' }} />
                 <Text style={styles.iconName}>Finance</Text>
             </TouchableOpacity>
 
 
-            <TouchableOpacity style={styles.iconContainter} style={styles.iconStyle}
+            <TouchableOpacity style={styles.iconStyle}
                 onPress={() => NavigateProfile()} >
                 <FontAwesomeIcon icon={faUser} size={32} style={{ color: '#A2A5A8' }} />
                 <Text style={styles.iconName}>Account</Text>

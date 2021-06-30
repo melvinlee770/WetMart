@@ -1,9 +1,11 @@
 import React, { useState, useEffect, } from 'react';
 import { StyleSheet, View, Text, ImageBackground, FlatList, SafeAreaView, TouchableOpacity, Modal, Image } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faPlayCircle, faWallet, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { Card } from 'react-native-shadow-cards'
 import Navbar from '../components/navbar';
+// ## not need to
 // import { onChange, set } from 'react-native-reanimated';
 // import { roundToNearestPixel } from 'react-native/Libraries/Utilities/PixelRatio';
 // import Background from '../img/big.jpeg'
@@ -11,6 +13,7 @@ import Navbar from '../components/navbar';
 // import { PresignedPost } from 'aws-sdk/clients/s3';
 // import Animated, { color } from 'react-native-reanimated';
 // import { WellArchitected } from 'aws-sdk';
+// ###
 
 export default function home({ route, navigation }) {
 
@@ -23,7 +26,7 @@ export default function home({ route, navigation }) {
 
     const [nameOfSeller, setnameOfSeller] = useState('')
     const [nameOfStore, setnameOfStore] = useState('')
-    const [noOfSales, setnoOfSales] = useState('')
+    const [noOfSales, setnoOfSales] = useState(0)
     const [noOfOrders, setnoOfOrders] = useState([])
     const [noOfSalesBox, setnoOfSalesBox] = useState(false)
     const [first_detailsItem, setfirst_detailsItem] = useState([])
@@ -45,8 +48,11 @@ export default function home({ route, navigation }) {
             .catch((error) => {
                 console.log(error)
             })
+    }, [])
 
-        fetch(showSellerSales_URL)
+    useFocusEffect(
+        React.useCallback(() => {
+            fetch(showSellerSales_URL)
             .then((response) => response.json())
             .then(json => {
                 setnoOfSales(noOfSales => noOfSales = 0)
@@ -57,20 +63,22 @@ export default function home({ route, navigation }) {
                 console.log(error)
             })
 
-        fetch(showSellerOrder_URL)              //non repeat
-            .then((response) => response.json())
-            .then((json) => {
-                while (noOfOrders.length > 0) {
-                    noOfOrders.pop()
-                }
-                setnoOfOrders(json)
-            })
-            .then()
-            .catch((error) => {
-                console.log(error)
-            })
-
-    }, [])
+            fetch(showSellerOrder_URL)              //non repeat
+                .then((response) => response.json())
+                .then((json) => {
+                    while (noOfOrders.length > 0) {
+                        noOfOrders.pop()
+                    }
+                    setnoOfOrders(json)
+                })
+                .then()
+                .catch((error) => {
+                    console.log(error)
+                })
+            return () => {
+                null
+            }
+        }, []))
 
     const ModalPoup = ({ visible, children }) => {
         const [showModal, setShowModal] = useState(visible)
@@ -257,8 +265,8 @@ export default function home({ route, navigation }) {
                     </Card>
                 </View>
             </ModalPoup>
-        
-        <Navbar></Navbar>
+
+            <Navbar></Navbar>
         </SafeAreaView>
     )
 }

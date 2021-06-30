@@ -11,6 +11,7 @@ import resetpasswordScreen from './screens/resetPassword'
 import resetpasswordScreen2 from './screens/resetPassword-2'
 import homeScreen from './screens/home'
 import ordersScreen from './screens/orders'
+import profileScreen from './screens/profile'
 import Navbar from './components/navbar'
 import testAuth from './screens/testAuth'
 
@@ -124,6 +125,18 @@ const MyStack = () => {
           }}
           name="ordersScreen"
           component={ordersScreen} />
+        <Stack.Screen
+          options={{
+            title: 'Account',
+            headerLeft: null,
+            headerTransparent: true,
+            headerTitleStyle: {
+              fontFamily: 'Montserrat-Bold',
+              fontSize: 25
+            }
+          }}
+          name="profileScreen"
+          component={profileScreen} />
         <Stack.Screen
           options={{
             title: 'Reset Password',
