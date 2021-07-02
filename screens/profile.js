@@ -1,12 +1,13 @@
 import React, { useState, useEffect, } from 'react';
 import { StyleSheet, View, Text, ImageBackground, FlatList, SafeAreaView, TouchableOpacity, Modal, Image, ScrollView } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAddressBook, faEnvelope, faLocationArrow, faMapMarker, faPhone, faPlayCircle, faStore, faUser, faWallet, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { Card } from 'react-native-shadow-cards'
 import Navbar from '../components/navbar';
 
-export default function profile() {
+export default function profile({ navigation }) {
 
     const [callsellerid, setcallsellerid] = useState('')
     const [sellerProfileRatingInfo, setsellerProfileRatingInfo] = useState('')
@@ -19,10 +20,6 @@ export default function profile() {
     const [sellerProfileAddress, setsellerProfileAddress] = useState('')
     const [sellerProfileUnitNumber, setsellerProfileUnitNumber] = useState('')
 
-    useEffect(() => {
-        drawer()
-    }, [])
-
     const drawer = async () => {
         try {
             let defg = await AsyncStorage.getItem('stroringID')
@@ -32,8 +29,7 @@ export default function profile() {
             fetch(showSellerProfileURL)
                 .then((response) => response.json())
                 .then((json) => {
-                    console.log(json)
-                    setsellerProfileRatingInfo(sellerProfileRatingInfo => sellerProfileRatingInfo = "Seller Rating -" + json[0].rating)
+                    setsellerProfileRatingInfo(sellerProfileRatingInfo => sellerProfileRatingInfo = json[0].rating)
 
                     setsellerProfilePic(sellerProfilePic => sellerProfilePic = json[0].store_image_id)
 
@@ -60,6 +56,19 @@ export default function profile() {
         }
     }
 
+    useFocusEffect(
+        React.useCallback(() => {
+            drawer()
+            return () => {
+                null
+            }
+        }, []))
+
+
+    const buttonToEditProfile = () => {
+        navigation.navigate('editprofileScreen', { pass_id: callsellerid, pass_rating: sellerProfileRatingInfo, pass_imgURL: sellerProfilePic, pass_email: sellerProfileEmail, pass_storeName: sellerProfileStoreName, pass_firstName: sellerProfileFirstName, pass_lastName: sellerProfileLastName, pass_mobile: sellerProfileMobile, pass_address: sellerProfileAddress, pass_unitNumber: sellerProfileUnitNumber })
+    }
+
     return (
         // <SafeAreaView >
         // <View style={{ marginTop: '10%', alignItems: 'center'}}>
@@ -67,7 +76,7 @@ export default function profile() {
             <ScrollView style={{ marginTop: '10%' }}>
                 <View>
                     <Text style={{ textAlign: 'center', fontFamily: 'Montserrat-Regular', fontSize: 20, }}>
-                        {sellerProfileRatingInfo}
+                        Seller Rating : {sellerProfileRatingInfo}
                     </Text>
                 </View>
 
@@ -78,7 +87,7 @@ export default function profile() {
                 {/* </Card> */}
 
                 {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
-                <View style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row', backgroundColor: 'white', marginLeft: 'auto', marginRight: 'auto', borderRadius: 10, elevation: 3 }}>
+                <View style={styles.eachProfileInfo}>
                     <FontAwesomeIcon icon={faEnvelope} size={25} style={{ color: '#5A9896' }} />
                     <Text style={styles.eachProfileInfoText}>
                         {sellerProfileEmail}
@@ -87,7 +96,7 @@ export default function profile() {
                 {/* </Card> */}
 
                 {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
-                <View style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row', backgroundColor: 'white', marginLeft: 'auto', marginRight: 'auto', borderRadius: 10, elevation: 3 }}>
+                <View style={styles.eachProfileInfo}>
                     <FontAwesomeIcon icon={faStore} size={25} style={{ color: '#5A9896' }} />
                     <Text style={styles.eachProfileInfoText}>
                         {sellerProfileStoreName}
@@ -96,7 +105,7 @@ export default function profile() {
                 {/* </Card> */}
 
                 {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
-                <View style={ styles.eachProfileInfo }>
+                <View style={styles.eachProfileInfo}>
                     <FontAwesomeIcon icon={faUser} size={25} style={{ color: '#5A9896' }} />
                     <Text style={styles.eachProfileInfoText}>
                         {sellerProfileFirstName}
@@ -105,7 +114,7 @@ export default function profile() {
                 {/* </Card> */}
 
                 {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
-                <View style={ styles.eachProfileInfo }>
+                <View style={styles.eachProfileInfo}>
                     <FontAwesomeIcon icon={faUser} size={25} style={{ color: '#5A9896' }} />
                     <Text style={styles.eachProfileInfoText}>
                         {sellerProfileLastName}
@@ -114,7 +123,7 @@ export default function profile() {
                 {/* </Card> */}
 
                 {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
-                <View style={ styles.eachProfileInfo }>
+                <View style={styles.eachProfileInfo}>
                     <FontAwesomeIcon icon={faPhone} size={25} style={{ color: '#5A9896' }} />
                     <Text style={styles.eachProfileInfoText}>
                         {sellerProfileMobile}
@@ -123,7 +132,7 @@ export default function profile() {
                 {/* </Card> */}
 
                 {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
-                <View style={ styles.eachProfileInfo }>
+                <View style={styles.eachProfileInfo}>
                     <FontAwesomeIcon icon={faMapMarker} size={25} style={{ color: '#5A9896' }} />
                     <Text style={styles.eachProfileInfoText}>
                         {sellerProfileAddress}
@@ -132,7 +141,7 @@ export default function profile() {
                 {/* </Card> */}
 
                 {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
-                <View style={ styles.eachProfileInfo }>
+                <View style={styles.eachProfileInfo}>
                     <FontAwesomeIcon icon={faMapMarker} size={25} style={{ color: '#5A9896' }} />
                     <Text style={styles.eachProfileInfoText}>
                         {sellerProfileUnitNumber}
@@ -149,7 +158,7 @@ export default function profile() {
                 </View>
 
                 <View style={{ marginLeft: 'auto', marginRight: 'auto' }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={buttonToEditProfile}>
                         <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 17, textDecorationLine: 'underline' }}>
                             Edit Profile
                         </Text>
@@ -157,7 +166,7 @@ export default function profile() {
                 </View>
 
                 {/* <Card style={{ marginTop: '10%', borderRadius: 10, width: '80%', padding: '2%', backgroundColor: '#5A9896' }}> */}
-                <View style={{marginBottom: '5%', marginTop: '5%', borderRadius: 10, width: '80%', padding: '2%', backgroundColor: '#5A9896', marginLeft: 'auto', marginRight: 'auto', elevation: 3 }}>
+                <View style={{ marginBottom: '5%', marginTop: '5%', borderRadius: 10, width: '80%', padding: '2%', backgroundColor: '#5A9896', marginLeft: 'auto', marginRight: 'auto', elevation: 3 }}>
                     <TouchableOpacity>
                         <Text style={{ textAlign: 'center', fontFamily: 'Montserrat-Bold', fontSize: 20, color: 'white' }}>
                             LOG OUT
@@ -166,7 +175,7 @@ export default function profile() {
                 </View>
                 {/* </Card> */}
             </ScrollView>
-            <Navbar style={{marginBottom: '40%'}}></Navbar>
+            <Navbar style={{ marginBottom: '40%' }}></Navbar>
         </View>
 
         // </SafeAreaView>
@@ -175,21 +184,21 @@ export default function profile() {
 
 const styles = StyleSheet.create({
     eachProfileInfo: {
-        marginTop: '3%', 
-        borderRadius: 10, 
-        width: '85%', 
-        padding: '2%', 
-        flexDirection: 'row', 
-        backgroundColor: 'white', 
-        marginLeft: 'auto', 
-        marginRight: 'auto', 
-        borderRadius: 10, 
-        elevation: 3 
+        marginTop: '3%',
+        borderRadius: 10,
+        width: '85%',
+        padding: '2%',
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        borderRadius: 10,
+        elevation: 3
     },
     eachProfileInfoText: {
-        marginLeft: 'auto', 
-        marginRight: 'auto', 
-        fontFamily: 'Montserrat-Regular', 
-        fontSize: 23 
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        fontFamily: 'Montserrat-Regular',
+        fontSize: 23
     }
 })
