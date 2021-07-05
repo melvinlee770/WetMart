@@ -106,43 +106,43 @@ export default function editprofile({ route, navigation }) {
                 {/* </Card> */}
 
                 {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
-                <View style={{ marginTop: '3%', borderRadius: 10, width: '85%', backgroundColor: 'white', marginLeft: 'auto', marginRight: 'auto', borderRadius: 10, elevation: 3 }}>
+                <View style={styles.eachProfileInfo}>
                     <TextInput style={[styles.eachProfileInfoText, { textAlign: 'center' }]} placeholder={passparamsEmail} value={'' + sellerProfileEmail} onChangeText={function (text) { setsellerProfileEmail(text) }} />
                 </View>
                 {/* </Card> */}
 
                 {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
-                <View style={{ marginTop: '3%', borderRadius: 10, width: '85%', backgroundColor: 'white', marginLeft: 'auto', marginRight: 'auto', borderRadius: 10, elevation: 3 }}>
+                <View style={styles.eachProfileInfo}>
                     <TextInput style={[styles.eachProfileInfoText, { textAlign: 'center' }]} placeholder={passparamsStoreName} value={'' + sellerProfileStoreName} onChangeText={function (text) { setsellerProfileStoreName(text) }} />
                 </View>
                 {/* </Card> */}
 
                 {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
-                <View style={{ marginTop: '3%', borderRadius: 10, width: '85%', backgroundColor: 'white', marginLeft: 'auto', marginRight: 'auto', borderRadius: 10, elevation: 3 }}>
+                <View style={styles.eachProfileInfo}>
                     <TextInput style={[styles.eachProfileInfoText, { textAlign: 'center' }]} placeholder={passparamsFirstName} value={'' + sellerProfileFirstName} onChangeText={function (text) { setsellerProfileFirstName(text) }} />
                 </View>
                 {/* </Card> */}
 
                 {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
-                <View style={{ marginTop: '3%', borderRadius: 10, width: '85%', backgroundColor: 'white', marginLeft: 'auto', marginRight: 'auto', borderRadius: 10, elevation: 3 }}>
+                <View style={styles.eachProfileInfo}>
                     <TextInput style={[styles.eachProfileInfoText, { textAlign: 'center' }]} placeholder={passparamsLastName} value={'' + sellerProfileLastName} onChangeText={function (text) { setsellerProfileLastName(text) }} />
                 </View>
                 {/* </Card> */}
 
                 {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
-                <View style={{ marginTop: '3%', borderRadius: 10, width: '85%', backgroundColor: 'white', marginLeft: 'auto', marginRight: 'auto', borderRadius: 10, elevation: 3 }}>
+                <View style={styles.eachProfileInfo}>
                     <TextInput style={[styles.eachProfileInfoText, { textAlign: 'center' }]} placeholder={passparamsMobile} value={'' + sellerProfileMobile} onChangeText={function (text) { setsellerProfileMobile(text) }} />
                 </View>
                 {/* </Card> */}
 
                 {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
-                <View style={{ marginTop: '3%', borderRadius: 10, width: '85%', backgroundColor: 'white', marginLeft: 'auto', marginRight: 'auto', borderRadius: 10, elevation: 3 }}>
+                <View style={styles.eachProfileInfo}>
                     <TextInput style={[styles.eachProfileInfoText, { textAlign: 'center' }]} placeholder={passparamsAddress} value={'' + sellerProfileAddress} onChangeText={function (text) { setsellerProfileAddress(text) }} />
                 </View>
                 {/* </Card> */}
 
                 {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
-                <View style={{ marginTop: '3%', borderRadius: 10, width: '85%', backgroundColor: 'white', marginLeft: 'auto', marginRight: 'auto', borderRadius: 10, elevation: 3 }}>
+                <View style={styles.eachProfileInfo}>
                     <TextInput style={[styles.eachProfileInfoText, { textAlign: 'center' }]} placeholder={passparamsUnitNumber} value={'' + sellerProfileUnitNumber} onChangeText={function (text) { setsellerProfileUnitNumber(text) }} />
                 </View>
                 {/* </Card> */}
@@ -164,21 +164,18 @@ export default function editprofile({ route, navigation }) {
 
 const styles = StyleSheet.create({
     eachProfileInfo: {
-        marginTop: '3%',
-        borderRadius: 10,
-        width: '85%',
-        padding: '2%',
-        flexDirection: 'row',
-        backgroundColor: 'white',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        borderRadius: 10,
+        marginTop: '3%', 
+        borderRadius: 10, 
+        width: '85%', 
+        backgroundColor: 'white', 
+        marginLeft: 'auto', 
+        marginRight: 'auto', 
+        borderRadius: 10, 
         elevation: 3
     },
     eachProfileInfoText: {
-        // marginLeft: 'auto', 
-        // marginRight: 'auto', 
         fontFamily: 'Montserrat-Regular',
         fontSize: 23
-    }
+    },
+
 })

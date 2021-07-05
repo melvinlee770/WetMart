@@ -13,8 +13,10 @@ import homeScreen from './screens/home'
 import ordersScreen from './screens/orders'
 import profileScreen from './screens/profile'
 import editprofileScreen from './screens/editprofile'
+import changepasswordScreen from './screens/changePassword'
 import Navbar from './components/navbar'
 import testAuth from './screens/testAuth'
+import changepassword from './screens/changePassword';
 
 const Stack = createStackNavigator();
 
@@ -149,6 +151,17 @@ const MyStack = () => {
           }}
           name="editprofileScreen"
           component={editprofileScreen} />
+        <Stack.Screen
+          options={{
+            title: 'Change Password',
+            headerTransparent: true,
+            headerTitleStyle: {
+              fontFamily: 'Montserrat-Bold',
+              fontSize: 25
+            }
+          }}
+          name="changepasswordScreen"
+          component={changepasswordScreen} />
         <Stack.Screen
           options={{
             title: 'Reset Password',

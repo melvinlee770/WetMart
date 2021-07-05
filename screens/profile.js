@@ -63,8 +63,11 @@ export default function profile({ navigation }) {
                 null
             }
         }, []))
-
-
+    
+    const buttonToChangePassword = () => {
+        navigation.navigate('changepasswordScreen')
+    }
+        
     const buttonToEditProfile = () => {
         navigation.navigate('editprofileScreen', { pass_id: callsellerid, pass_rating: sellerProfileRatingInfo, pass_imgURL: sellerProfilePic, pass_email: sellerProfileEmail, pass_storeName: sellerProfileStoreName, pass_firstName: sellerProfileFirstName, pass_lastName: sellerProfileLastName, pass_mobile: sellerProfileMobile, pass_address: sellerProfileAddress, pass_unitNumber: sellerProfileUnitNumber })
     }
@@ -150,7 +153,7 @@ export default function profile({ navigation }) {
                 {/* </Card> */}
 
                 <View style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: '3%' }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={buttonToChangePassword}>
                         <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 17, textDecorationLine: 'underline' }}>
                             Change Password
                         </Text>
