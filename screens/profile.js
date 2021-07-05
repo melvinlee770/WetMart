@@ -65,7 +65,7 @@ export default function profile({ navigation }) {
         }, []))
     
     const buttonToChangePassword = () => {
-        navigation.navigate('changepasswordScreen')
+        navigation.navigate('changepasswordScreen', { pass_id: callsellerid })
     }
         
     const buttonToEditProfile = () => {

@@ -87,7 +87,6 @@ export default function editprofile({ route, navigation }) {
             })
     }
 
-
     return (
         // <SafeAreaView >
         // <View style={{ marginTop: '10%', alignItems: 'center'}}>
