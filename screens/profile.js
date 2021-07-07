@@ -72,6 +72,10 @@ export default function profile({ navigation }) {
         navigation.navigate('editprofileScreen', { pass_id: callsellerid, pass_rating: sellerProfileRatingInfo, pass_imgURL: sellerProfilePic, pass_email: sellerProfileEmail, pass_storeName: sellerProfileStoreName, pass_firstName: sellerProfileFirstName, pass_lastName: sellerProfileLastName, pass_mobile: sellerProfileMobile, pass_address: sellerProfileAddress, pass_unitNumber: sellerProfileUnitNumber })
     }
 
+    const buttonToLogOut = () => {
+        navigation.navigate('loginScreen')
+    }
+
     return (
         // <SafeAreaView >
         // <View style={{ marginTop: '10%', alignItems: 'center'}}>
@@ -170,7 +174,7 @@ export default function profile({ navigation }) {
 
                 {/* <Card style={{ marginTop: '10%', borderRadius: 10, width: '80%', padding: '2%', backgroundColor: '#5A9896' }}> */}
                 <View style={{ marginBottom: '5%', marginTop: '5%', borderRadius: 10, width: '80%', padding: '2%', backgroundColor: '#5A9896', marginLeft: 'auto', marginRight: 'auto', elevation: 3 }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={buttonToLogOut}>
                         <Text style={{ textAlign: 'center', fontFamily: 'Montserrat-Bold', fontSize: 20, color: 'white' }}>
                             LOG OUT
                         </Text>

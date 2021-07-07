@@ -2,17 +2,53 @@
  * WetMart-Seller
  * author: Lee Yong Zun
  */
-import React, { Component, useState} from 'react';
-import { StyleSheet, Text, View, Image, ImageBackground, TextInput } from 'react-native';
+import React, { Component, useState } from 'react';
+import { StyleSheet, Text, View, Image, ImageBackground, TextInput, TouchableOpacity } from 'react-native';
 import { Card } from 'react-native-shadow-cards'
+import emailjs from 'emailjs-com';
 
 import Background from '../img/big.jpeg'
 
 export default function resetPassword({ navigation }) {
 
-    const buttonSendResetEmail = () => {
-        navigation.navigate('resetpasswordScreen2')
+    // function sendEmail(e) {
+    //     e.preventDefault();
+
+    //     emailjs.sendForm('service_eolevcr', 'template_fp98dn1', e.target, 'user_A4mwaGLq6wI3CQPB8WYFE')
+    //         .then((result) => {
+    //             console.log(result.text);
+    //         }, (error) => {
+    //             console.log(error.text);
+    //         });
+    // }
+    var data = {
+        service_id: 'service_eolevcr',
+        template_id: 'template_fp98dn1',
+        user_id: 'user_A4mwaGLq6wI3CQPB8WYFE',
+        template_params: {
+            'email': { reset_email }
+        }
+    }; const buttonSendResetEmail = () => {
+        console.log(reset_email)
+        // const sendemailURL = 'https://api.emailjs.com/api/v1.0/email/send'
+        // fetch(sendemailURL, {
+        //     type: "POST",
+        //     data: JSON.stringify(data),
+        //     contentType: 'application/json'
+        // })
+        //     .then(response => response.json())
+        //     .then((json) => {
+        //         console.log(json)
+        //     })
+        //     .catch((error) => {
+        //         console.log(error)
+        //     })
+        emailjs.init('user_A4mwaGLq6wI3CQPB8WYFE',"service_eolevcr","template_fp98dn1",{
+            email: reset_email,
+            });
+        // emailjs.init('user_A4mwaGLq6wI3CQPB8WYFE')
     }
+
 
     const [reset_email, updateResetEmail] = useState('')
     return (
@@ -26,10 +62,10 @@ export default function resetPassword({ navigation }) {
                     value={'' + reset_email} onChangeText={function (text) { updateResetEmail(text) }} />
             </Card>
 
-            <Card style={styles.reset_email_button}>
-                <Text style={{ color: 'white', fontFamily: 'Montserrat-Regular', fontSize: 20, textAlign: 'center' }}
-                    onPress={buttonSendResetEmail}>RESET</Text>
-            </Card>
+            <TouchableOpacity style={styles.reset_email_button} onPress={buttonSendResetEmail}>
+                <Text style={{ color: 'white', fontFamily: 'Montserrat-Regular', fontSize: 20, textAlign: 'center' }}>RESET</Text>
+            </TouchableOpacity>
+
 
         </ImageBackground>
     )

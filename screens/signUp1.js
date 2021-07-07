@@ -56,51 +56,32 @@ export default function signUp({ navigation }) {
                 console.log('Imagepicker Error: ', response.error)
             }
             else {
+                // console.log(response.assets[0])
+                // const imgContent = {
+                //     path: response.assets[0].uri,
+                //     filename: response.assets[0].fileName,
+                //     type: 'image/type'
+                // }
+                const fd = new FormData()
+                fd.append('image', response.assets[0])
                 console.log(response)
-                const imgContent = {
-                    path: response.assets[0].uri,
-                    filename: response.assets[0].fileName,
-                    type: 'image/type'
-                }
-                // const file = new FormData()
-                // file.append(imgContent)
-                fetch("http://192.168.1.66:3000/images", {
+                // console.log(fd)
+                fetch("http://172.22.49.80:3000/images", {
                     method: "POST",
                     headers: {
-                        'Accept': 'application/json',
                         'Content-Type': 'multipart/form-data',
                     },
-                    file: imgContent
+                    body: fd
                 })
                 .then((response) => response.json())
                 .then(json => {
                     console.log(json)
-                    // console.log(responseJson)
+                    console.log('marking a')
                 })
                 .catch((error) => {
                     console.log('Error')
                     console.log(error)
                 })
-                // const testdefg = {
-                //     keyPrefix: 'uploads/',
-                //     bucket: 'testwetmart-bucket',
-                //     region: 'use-east-2',
-                //     accessKey: 'AKIASX2RQ4PYBNZHVXKY',
-                //     secretKey: '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',
-                //     successActionStatus: 201
-                // }
-                // return RNS3.put(imgContent, testdefg)
-                //     .then(response => {
-                //         if (response.status !== 201) {
-                //             console.log("Error")
-                //         }
-                //         console.log(response.status)
-                //         console.log(response.body)
-                //     })
-                //     .catch(error => {
-                //         console.log('fail')
-                //         console.log(error)
-                //     })
             }
         })
     }
