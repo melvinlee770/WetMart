@@ -1,12 +1,13 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, ImageBackground, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, ImageBackground, TextInput, Button, Platform } from 'react-native';
 import { Card } from 'react-native-shadow-cards';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DropDownPicker from 'react-native-dropdown-picker';
 import * as ImagePicker from 'react-native-image-picker';
 import Background from '../img/big.jpeg';
 import { RNS3 } from 'react-native-aws3';
+import { faPhotoVideo } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function signUp({ navigation }) {
@@ -47,7 +48,9 @@ export default function signUp({ navigation }) {
     }
 
     function handleChoosePhoto() {
-        const options = {}
+        const options = {
+            // includeBase64: true
+        }
         ImagePicker.launchImageLibrary(options, response => {
             if (response.didCancel) {
                 console.log('User cancelled image picker')
@@ -56,35 +59,48 @@ export default function signUp({ navigation }) {
                 console.log('Imagepicker Error: ', response.error)
             }
             else {
-                // console.log(response.assets[0])
+                console.log(response)
                 // const imgContent = {
                 //     path: response.assets[0].uri,
                 //     filename: response.assets[0].fileName,
                 //     type: 'image/type'
                 // }
                 const fd = new FormData()
-                fd.append('image', response.assets[0])
-                console.log(response)
-                // console.log(fd)
-                fetch("http://172.22.49.80:3000/images", {
+                fd.append('name', response.assets[0].fileName)
+                fd.append('type', response.assets[0].type)   
+                fd.append('uri', response.assets[0].uri)
+                // fd.append('name', response.assets[0].fileName,
+                // {
+                //     name: response.assets[0].fileName,
+                //     type: response.assets.type,
+                //     // uri: response.assets[0].uri,
+                //     uri: 
+                //       Platform.OS === 'android'
+                //       ? response.assets[0].uri
+                //       : response.assets[0].uri.replace('file://', '')
+                // })
+                // console.log(response.assets[0].base64)
+                fetch("http://192.168.1.66:3000/images", {
                     method: "POST",
                     headers: {
+                        'Accept': "application/json",
                         'Content-Type': 'multipart/form-data',
                     },
                     body: fd
                 })
-                .then((response) => response.json())
-                .then(json => {
-                    console.log(json)
-                    console.log('marking a')
-                })
-                .catch((error) => {
-                    console.log('Error')
-                    console.log(error)
-                })
+                    .then((response) => response.json())
+                    .then(json => {
+                        console.log(json)
+                        console.log('successs')
+                    })
+                    .catch((error) => {
+                        console.log('Error')
+                        console.log(error)
+                    })
             }
         })
     }
+
 
     const nextScreen = async () => {
         navigation.navigate('signupScreen2')
