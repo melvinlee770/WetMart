@@ -20,7 +20,7 @@ export default function logIn({ navigation }) {
     const seller_id = []
 
     function submitLogin() {
-      fetch("http://172.22.49.80:3000/seller/login",    //seller login
+      fetch("http://192.168.1.66:3000/seller/login",    //seller login
         {
           method: "POST",
           headers: {
@@ -75,7 +75,7 @@ export default function logIn({ navigation }) {
             AsyncStorage.setItem('stroring1', login_email)
             console.log('Success to store token ')
 
-            const getSellerIDURL = 'http://172.22.49.80:3000/seller/id/login?seller_email=' + seller_email
+            const getSellerIDURL = 'http://192.168.1.66:3000/seller/id/login?seller_email=' + seller_email
             fetch(getSellerIDURL)
               .then(response => response.json())
               .then(json => {
