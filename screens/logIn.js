@@ -128,7 +128,7 @@ export default function logIn({ navigation }) {
 
       <Card style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', alignItems: 'center' }}>
         <Image source={require('../img/email.png')} style={{ marginLeft: '5%' }} />
-        <TextInput placeholder="Email" placeholderTextColor='#808080'
+        <TextInput placeholder="Email" placeholderTextColor='#808080' 
           value={'' + login_email} onChangeText={function (text) { updateLoginEmail(text) }} />
       </Card>
 

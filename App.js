@@ -7,6 +7,7 @@ import signupScreen from './screens/signUp1'
 import signupScreen2 from './screens/signUp2'
 import signupScreen3 from './screens/signUp3'
 import signupScreen4 from './screens/signUp4'
+import signupScreen5 from './screens/signUp5'
 import resetpasswordScreen from './screens/resetPassword'
 import resetpasswordScreen2 from './screens/resetPassword-2'
 import homeScreen from './screens/home'
@@ -69,6 +70,16 @@ const MyStack = () => {
           }}
           name="signupScreen4"
           component={signupScreen4} />
+        <Stack.Screen
+          options={{
+            title: 'Sign Up',
+            headerTransparent: true,
+            headerTitleStyle: {
+              fontFamily: 'Montserrat-Bold'
+            }
+          }}
+          name="signupScreen5"
+          component={signupScreen5} />
         <Stack.Screen
           options={{
             title: 'Forget Password?',
