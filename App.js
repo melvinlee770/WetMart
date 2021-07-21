@@ -18,6 +18,12 @@ import changepasswordScreen from './screens/changePassword'
 import Navbar from './components/navbar'
 import testAuth from './screens/testAuth'
 import changepassword from './screens/changePassword';
+import productsScreen from './screens/products'
+import productDScreen from './screens/productdetails'
+import productAScreen from './screens/productadd'
+import productEScreen from './screens/productedit'
+import financeScreen from './screens/finance'
+import financeDetails from './screens/financedetails'
 
 const Stack = createStackNavigator();
 
@@ -127,6 +133,81 @@ const MyStack = () => {
           }}
           name="homeScreen"
           component={homeScreen} />
+          <Stack.Screen
+          options={{
+            title: 'Products',
+            headerLeft: null,
+            headerShown: false,
+            headerTransparent: true,
+            headerTitleStyle: {
+              fontFamily: 'Montserrat-Bold',
+              fontSize: 25
+            }
+          }}
+          name="productsScreen"
+          component={productsScreen} />
+          <Stack.Screen
+          options={{
+            title: 'Products',
+            headerLeft: null,
+            headerShown: false,
+            headerTransparent: true,
+            headerTitleStyle: {
+              fontFamily: 'Montserrat-Bold',
+              fontSize: 25
+            }
+          }}
+          name="productDScreen"
+          component={productDScreen} />
+          <Stack.Screen
+          options={{
+            title: 'Products',
+            headerLeft: null,
+            headerTransparent: true,
+            headerTitleStyle: {
+              fontFamily: 'Montserrat-Bold',
+              fontSize: 25
+            }
+          }}
+          name="productAScreen"
+          component={productAScreen} />
+          <Stack.Screen
+          options={{
+            title: 'Products',
+            headerLeft: null,
+            headerTransparent: true,
+            headerShown: false,
+            headerTitleStyle: {
+              fontFamily: 'Montserrat-Bold',
+              fontSize: 25
+            }
+          }}
+          name="productEScreen"
+          component={productEScreen} />
+          <Stack.Screen
+          options={{
+            title: 'Finances',
+            headerLeft: null,
+            headerTransparent: true,
+            headerTitleStyle: {
+              fontFamily: 'Montserrat-Bold',
+              fontSize: 25
+            }
+          }}
+          name="financeScreen"
+          component={financeScreen} />
+          <Stack.Screen
+          options={{
+            title: 'Bank Account Details',
+            headerLeft: null,
+            headerTransparent: true,
+            headerTitleStyle: {
+              fontFamily: 'Montserrat-Bold',
+              fontSize: 25
+            }
+          }}
+          name="financeDetails"
+          component={financeDetails} />
         <Stack.Screen
           options={{
             title: 'Orders',

@@ -14,7 +14,7 @@ export default function Navbar({ route }) {
     // navigation.navigate(`Stores`, { MarketId: `${market_id}`, MarketName: `${market_name}`, Buyeremail: `${buyer_email}` })
     const NavigateFollow = () => {
         // navigation.navigate(`loginScreen`);
-        alert('go follows page (need find out how pass in buyeremail)')
+        navigation.navigate(`productsScreen`);
     }
 
     const NavigateOrders = () => {
@@ -22,8 +22,7 @@ export default function Navbar({ route }) {
     }
 
     const NavigateCart = () => {
-        // navigation.navigate(`Following`);
-        alert('go cart page')
+        navigation.navigate(`financeScreen`);
     }
 
     const NavigateProfile = () => {
