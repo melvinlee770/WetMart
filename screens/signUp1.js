@@ -15,7 +15,7 @@ export default function signUp({ navigation }) {
     const [storecatsItems, setstorecatsItems] = useState([])
 
     useEffect(() => {                                   //fetch the market list when the screen loaded
-        fetch("http://192.168.1.66:3000/seller/list/market")
+        fetch("http://172.22.48.119:3000/seller/list/market")
             .then(response => response.json())
             // .then(json => { console.log(json) })
             .then(json => {
@@ -33,7 +33,7 @@ export default function signUp({ navigation }) {
             })
             .catch((error) => { console.log('Error') })
 
-        fetch('http://192.168.1.66:3000/seller/list/store/category')
+        fetch('http://172.22.48.119:3000/seller/list/store/category')
             .then(response => response.json())
             .then(json => {
                 while (storecats.length > 0) {
@@ -112,7 +112,7 @@ export default function signUp({ navigation }) {
                     uri:
                         Platform.OS === 'android' ? response.assets[0].uri : response.assets[0].uri.replace("file://", "")
                 })
-                fetch("http://192.168.1.66:3000/images", {
+                fetch("http://172.22.48.119:3000/images", {
                     method: "POST",
                     headers: {
                         'Accept': "application/json",
