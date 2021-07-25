@@ -13,55 +13,55 @@ import { fontWeight } from 'styled-system';
 
 export default function signUp({ route, navigation }) {
 
-    // const [passtoImgUrl, setpasstoImgUrl] = useState(route.params.store_imgurl)
-    // const [passtoEmail, setpasstoEmail] = useState(route.params.store_email)
-    // const [passtoStoreName, setpasstoStoreName] = useState(route.params.store_storename)
-    // const [passtoPassword, setpasstoPassword] = useState(route.params.store_password)
-    // const [passtoSelectedMarket, setpasstoSelectedMarket] = useState(route.params.store_marketselected)
-    // const [passtoSelectedCat, setpasstoSelectedCat] = useState(route.params.store_storecatselected)
+    const [passtoImgUrl, setpasstoImgUrl] = useState(route.params.store_imgurl)
+    const [passtoEmail, setpasstoEmail] = useState(route.params.store_email)
+    const [passtoStoreName, setpasstoStoreName] = useState(route.params.store_storename)
+    const [passtoPassword, setpasstoPassword] = useState(route.params.store_password)
+    const [passtoSelectedMarket, setpasstoSelectedMarket] = useState(route.params.store_marketselected)
+    const [passtoSelectedCat, setpasstoSelectedCat] = useState(route.params.store_storecatselected)
 
     const nextScreen = () => {
-        // let fistnamerjx = /^[a-zA-z]+$/
-        // let lastnamerjx = /^[a-zA-z]+$/
-        // let firstnameisValid = fistnamerjx.test(signup_firstname)
-        // let lastnameisValid = lastnamerjx.test(signup_lastname)
-        // if (signup_firstname.length == 0) {
-        //     alert('Please input your first name')
-        // }
-        // else if (!firstnameisValid) {
-        //     alert('First name only input by using alphabet')
-        // }
-        // else if (signup_lastname.length == 0) {
-        //     alert('Please input your last name')
-        // }
-        // else if (!lastnameisValid) {
-        //     alert('Last name only input by using alphabet')
-        // }
-        // else if (selectedGenderValue == "Please pick one of the gender in the list") {
-        //     alert('Please pick one of the gender in the list')
-        // }
-        // else if (signup_dob.length == 0) {
-        //     alert('Please choose your date of birth')
-        // }
-        // else if (signup_address.length == 0) {
-        //     alert('Please input your address')
-        // }
-        // else if (signup_levelnumber.length == 0) {
-        //     alert('Please input your house level number')
-        // }
-        // else if (signup_houseunit.length == 0) {
-        //     alert('Please input your house unit number')
-        // }
-        // else if (signup_mobilenumber.length == 0) {
-        //     alert('Please input your mobile number')
-        // }
-        // else if (signup_firstname.length !== 0 && !!firstnameisValid && signup_lastname.length !== 0 && !!lastnameisValid && selectedGenderValue !== "Please pick one of the gender in the list" && signup_dob.length !== 0 && signup_address.length !== 0 && signup_levelnumber !== 0 && signup_houseunit !== 0) {
-        //     navigation.navigate('signupScreen3', {
-        //         secondpage_imgurl: passtoImgUrl, secondpage_email: passtoEmail, secondpage_storename: passtoStoreName, secondpage_password: passtoPassword, secondpage_selectedmarket: passtoSelectedMarket, secondpage_selectedstorecat: passtoSelectedCat,
-        //         secondpage_firstname: signup_firstname, secondpage_lastname: signup_lastname, secondpage_gender: selectedGenderValue, secondpage_dob: signup_dob, secondpage_address: signup_address, secondpage_houselevel: signup_levelnumber, secondpage_houseunit: signup_houseunit, secondpage_mobile: signup_mobilenumber
-        //     })
-        // }
-        navigation.navigate('signupScreen3')
+        let fistnamerjx = /^[a-zA-z]+$/
+        let lastnamerjx = /^[a-zA-z]+$/
+        let firstnameisValid = fistnamerjx.test(signup_firstname)
+        let lastnameisValid = lastnamerjx.test(signup_lastname)
+        if (signup_firstname.length == 0) {
+            alert('Please input your first name')
+        }
+        else if (!firstnameisValid) {
+            alert('First name only input by using alphabet')
+        }
+        else if (signup_lastname.length == 0) {
+            alert('Please input your last name')
+        }
+        else if (!lastnameisValid) {
+            alert('Last name only input by using alphabet')
+        }
+        else if (selectedGenderValue == "Please pick one of the gender in the list") {
+            alert('Please pick one of the gender in the list')
+        }
+        else if (signup_dob.length == 0) {
+            alert('Please choose your date of birth')
+        }
+        else if (signup_address.length == 0) {
+            alert('Please input your address')
+        }
+        else if (signup_levelnumber.length == 0) {
+            alert('Please input your house level number')
+        }
+        else if (signup_houseunit.length == 0) {
+            alert('Please input your house unit number')
+        }
+        else if (signup_mobilenumber.length == 0) {
+            alert('Please input your mobile number')
+        }
+        else if (signup_firstname.length !== 0 && !!firstnameisValid && signup_lastname.length !== 0 && !!lastnameisValid && selectedGenderValue !== "Please pick one of the gender in the list" && signup_dob.length !== 0 && signup_address.length !== 0 && signup_levelnumber !== 0 && signup_houseunit !== 0) {
+            navigation.navigate('signupScreen3', {
+                secondpage_imgurl: passtoImgUrl, secondpage_email: passtoEmail, secondpage_storename: passtoStoreName, secondpage_password: passtoPassword, secondpage_selectedmarket: passtoSelectedMarket, secondpage_selectedstorecat: passtoSelectedCat,
+                secondpage_firstname: signup_firstname, secondpage_lastname: signup_lastname, secondpage_gender: selectedGenderValue, secondpage_dob: signup_dob, secondpage_address: signup_address, secondpage_houselevel: signup_levelnumber, secondpage_houseunit: signup_houseunit, secondpage_mobile: signup_mobilenumber
+            })
+        }
+        // navigation.navigate('signupScreen3')
     }
 
     const loginScreen = () => {

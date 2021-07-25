@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAddressBook, faEnvelope, faLocationArrow, faMapMarker, faPhone, faPlayCircle, faStore, faUser, faWallet, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import Navbar from '../components/navbar';
-import DropDownPicker from 'react-native-dropdown-picker';
+// import DropDownPicker from 'react-native-dropdown-picker';
 
 export default function financedetails({ route,navigation }) {
     const fullname = route.params.fullname
@@ -73,7 +73,7 @@ export default function financedetails({ route,navigation }) {
                     }],{cancelable:false}
                 )
             }else{
-            fetch("http://192.168.1.23:3000/seller/update/finance",
+            fetch("http://192.168.1.66:3000/seller/update/finance",
             {
                 method: "PUT",
                 headers: {

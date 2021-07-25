@@ -10,37 +10,37 @@ import { PI } from 'aws-sdk';
 
 export default function signUp({ navigation, route }) {
 
-    // const [thirdpassImgUrl, setthirdpassImgUrl] = useState(route.params.secondpage_imgurl)
-    // const [thirdpassEmail, setthirdpassEmail] = useState(route.params.secondpage_email)
-    // const [thirdpassStoreName, setthirdpassStoreName] = useState(route.params.secondpage_storename)
-    // const [thirdpassPassword, setthirdpassPassword] = useState(route.params.secondpage_password)
-    // const [thirdpassSelectedMarket, setthirdpassSelectedMarket] = useState(route.params.secondpage_selectedmarket)
-    // const [thirdpassSelectedStoreCat, setthirdpassSelectedStoreCat] = useState(route.params.secondpage_selectedstorecat)
-    // const [thirdpassFirstName, setthirdpassFirstName] = useState(route.params.secondpage_firstname)
-    // const [thirdpassLastName, setthirdpassLastName] = useState(route.params.secondpage_lastname)
-    // const [thirdpassGender, setthirdpassGender] = useState(route.params.secondpage_gender)
-    // const [thirdpassDOB, setthirdpassDOB] = useState(route.params.secondpage_dob)
-    // const [thirdpassAddress, setthirdpassAddress] = useState(route.params.secondpage_address)
-    // const [thirdpassUnitNumber, setthirdpassUnitNumber] = useState(route.params.secondpage_houselevel + "-" + route.params.secondpage_houseunit)
-    // const [thirdpassMobile, setthirdpassMobile] = useState(route.params.secondpage_mobile)
+    const [thirdpassImgUrl, setthirdpassImgUrl] = useState(route.params.secondpage_imgurl)
+    const [thirdpassEmail, setthirdpassEmail] = useState(route.params.secondpage_email)
+    const [thirdpassStoreName, setthirdpassStoreName] = useState(route.params.secondpage_storename)
+    const [thirdpassPassword, setthirdpassPassword] = useState(route.params.secondpage_password)
+    const [thirdpassSelectedMarket, setthirdpassSelectedMarket] = useState(route.params.secondpage_selectedmarket)
+    const [thirdpassSelectedStoreCat, setthirdpassSelectedStoreCat] = useState(route.params.secondpage_selectedstorecat)
+    const [thirdpassFirstName, setthirdpassFirstName] = useState(route.params.secondpage_firstname)
+    const [thirdpassLastName, setthirdpassLastName] = useState(route.params.secondpage_lastname)
+    const [thirdpassGender, setthirdpassGender] = useState(route.params.secondpage_gender)
+    const [thirdpassDOB, setthirdpassDOB] = useState(route.params.secondpage_dob)
+    const [thirdpassAddress, setthirdpassAddress] = useState(route.params.secondpage_address)
+    const [thirdpassUnitNumber, setthirdpassUnitNumber] = useState(route.params.secondpage_houselevel + "-" + route.params.secondpage_houseunit)
+    const [thirdpassMobile, setthirdpassMobile] = useState(route.params.secondpage_mobile)
 
     const [signup_bankaccountnum, updatesignup_bankaccountnum] = useState('')
 
 
     const nextScreen = () => {
-        // if (selectedBankValue == 'Please pick one of the bank in the list') {
-        //     alert('Please pick one of the bank in the list')
-        // }
-        // else if (signup_bankaccountnum.length == 0) {
-        //     alert('Please input your bank account number')
-        // }
-        // else if (selectedBankValue !== 'Please pick one of the bank in the list' && signup_bankaccountnum.length !== 0)
-        //     navigation.navigate('signupScreen4', {
-        //         thirdpageImgUrl: thirdpassImgUrl, thirdpageEmail: thirdpassEmail, thirdpageStoreName: thirdpassStoreName, thirdpagePassword: thirdpassPassword, thirdpageSelectedMarket: thirdpassSelectedMarket, thirdpageSelectedStoreCat: thirdpassSelectedStoreCat,
-        //         thirdpageFirstName: thirdpassFirstName, thirdpageLastName: thirdpassLastName, thirdpageGender: thirdpassGender, thirdpageDOB: thirdpassDOB, thirdpageAddress: thirdpassAddress, thirdpageUnitNumber: thirdpassUnitNumber, thirdpageMobile: thirdpassMobile,
-        //         thirdpage_bank: selectedBankValue, thirdpage_bankaccountnum: signup_bankaccountnum
-        //     })
-        navigation.navigate('signupScreen4')
+        if (selectedBankValue == 'Please pick one of the bank in the list') {
+            alert('Please pick one of the bank in the list')
+        }
+        else if (signup_bankaccountnum.length == 0) {
+            alert('Please input your bank account number')
+        }
+        else if (selectedBankValue !== 'Please pick one of the bank in the list' && signup_bankaccountnum.length !== 0)
+            navigation.navigate('signupScreen4', {
+                thirdpageImgUrl: thirdpassImgUrl, thirdpageEmail: thirdpassEmail, thirdpageStoreName: thirdpassStoreName, thirdpagePassword: thirdpassPassword, thirdpageSelectedMarket: thirdpassSelectedMarket, thirdpageSelectedStoreCat: thirdpassSelectedStoreCat,
+                thirdpageFirstName: thirdpassFirstName, thirdpageLastName: thirdpassLastName, thirdpageGender: thirdpassGender, thirdpageDOB: thirdpassDOB, thirdpageAddress: thirdpassAddress, thirdpageUnitNumber: thirdpassUnitNumber, thirdpageMobile: thirdpassMobile,
+                thirdpage_bank: selectedBankValue, thirdpage_bankaccountnum: signup_bankaccountnum
+            })
+        // navigation.navigate('signupScreen4')
     }
 
     const loginScreen = () => {

@@ -6,19 +6,23 @@ import Background from '../img/big.jpeg'
 
 export default function signUp({ navigation, route }) {
 
-    // const [fourpassImgUrl, setfourpassImgUrl] = useState(route.params.thirdpageImgUrl)
-    // const [fourpassEmail, setfourpassEmail] = useState(route.params.thirdpageEmail)
-    // const [fourpassStoreName, setfourpassStoreName] = useState(route.params.thirdpageStoreName)
-    // const [fourpassPassword, setfourpassPassword] = useState(route.params.thirdpagePassword)
-    // const [fourpassSelectedMarket, setfourpassSelectedMarket] = useState(route.params.thirdpageSelectedMarket)
-    // const [fourpassSelectedStoreCat, setfourpassSelectedStoreCat] = useState(route.params.thirdpageSelectedStoreCat)
-    // const [fourpassFirstName, setfourpassFirstName] = useState(route.params.thirdpageFirstName)
-    // const [fourpassLastName, setfourpassLastName] = useState(route.params.thirdpageLastName)
-    // const [fourpassGender, setfourpassGender] = useState(route.params.thirdpageGender)
-    // const [fourpassDOB, setfourpassDOB] = useState(route.params.thirdpageDOB)
-    // const [fourpassAddress, setfourpassAddress] = useState(route.params.thirdpageAddress)
-    // const [fourpassUnitNumber, setfourpassUnitNumber] = useState(route.params.thirdpageUnitNumber)
-    // const [fourpassMobile, setfourpassMobile] = useState(route.params.thirdpageMobile)
+    const [fourpassImgUrl, setfourpassImgUrl] = useState(route.params.thirdpageImgUrl)
+    const [fourpassEmail, setfourpassEmail] = useState(route.params.thirdpageEmail)
+    const [fourpassStoreName, setfourpassStoreName] = useState(route.params.thirdpageStoreName)
+    const [fourpassPassword, setfourpassPassword] = useState(route.params.thirdpagePassword)
+    const [fourpassSelectedMarket, setfourpassSelectedMarket] = useState(route.params.thirdpageSelectedMarket)
+    const [fourpassSelectedStoreCat, setfourpassSelectedStoreCat] = useState(route.params.thirdpageSelectedStoreCat)
+    const [fourpassFirstName, setfourpassFirstName] = useState(route.params.thirdpageFirstName)
+    const [fourpassLastName, setfourpassLastName] = useState(route.params.thirdpageLastName)
+    const [fourpassGender, setfourpassGender] = useState(route.params.thirdpageGender)
+    const [fourpassDOB, setfourpassDOB] = useState(route.params.thirdpageDOB)
+    const [fourpassAddress, setfourpassAddress] = useState(route.params.thirdpageAddress)
+    const [fourpassUnitNumber, setfourpassUnitNumber] = useState(route.params.thirdpageUnitNumber)
+    const [fourpassMobile, setfourpassMobile] = useState(route.params.thirdpageMobile)
+    const [fourpassBank, setfourpassBank] = useState(route.params.thirdpage_bank)
+    const [fourpassBankNum, setfourpassBankNum] = useState(route.params.thirdpage_bankaccountnum)
+
+    const registerurl = "http://192.168.1.66:3000/seller/register"
 
 
     const nextScreen = () => {
@@ -26,9 +30,54 @@ export default function signUp({ navigation, route }) {
             alert('Please input some store description')
         }
         else if (storedescription !== 0) {
-            navigation.navigate('signupScreen5')
+            fetch(registerurl,
+                {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        store_image_id: fourpassImgUrl,
+                        email: fourpassEmail,
+                        store_name: fourpassStoreName,
+                        password: fourpassPassword,
+                        market_id: fourpassSelectedMarket,
+                        store_category_id: fourpassSelectedStoreCat,
+                        first_name: fourpassFirstName,
+                        last_name: fourpassLastName,
+                        gender: fourpassGender,
+                        date_of_birth: fourpassDOB,
+                        address: fourpassAddress,
+                        unit_number: fourpassUnitNumber,
+                        mobile_number: fourpassMobile,
+                        bank: fourpassBank,
+                        bank_account: fourpassBankNum,
+                        store_description: storedescription
+                    })
+                })
+                .then(response => response.json())
+                .then(json => {
+                    console.log('sucess register')
+                    console.log(json.command)
+                    navigation.navigate('signupScreen5')
+                })
+                .catch((error => { console.log(error) }))
         }
-        // console.log(route.params.testingcombine+'-'+route.params.testingtesting)
+        // console.log(fourpassImgUrl)
+        // console.log(fourpassEmail)
+        // console.log(fourpassStoreName)
+        // console.log(fourpassPassword)
+        // console.log(fourpassSelectedMarket)
+        // console.log(fourpassSelectedStoreCat)
+        // console.log(fourpassFirstName)
+        // console.log(fourpassLastName)
+        // console.log(fourpassGender)
+        // console.log(fourpassDOB)
+        // console.log(fourpassAddress)
+        // console.log(fourpassUnitNumber)
+        // console.log(fourpassMobile)
+        // console.log(fourpassBank)
+        // console.log(fourpassBankNum)
     }
 
     const loginScreen = () => {

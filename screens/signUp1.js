@@ -15,7 +15,7 @@ export default function signUp({ navigation }) {
     const [storecatsItems, setstorecatsItems] = useState([])
 
     useEffect(() => {                                   //fetch the market list when the screen loaded
-        fetch("http://172.22.48.119:3000/seller/list/market")
+        fetch("http://192.168.1.66:3000/seller/list/market")
             .then(response => response.json())
             // .then(json => { console.log(json) })
             .then(json => {
@@ -31,9 +31,9 @@ export default function signUp({ navigation }) {
                 }
                 setItems(items => items = markets)
             })
-            .catch((error) => { console.log('Error') })
+            .catch((error) => { console.log('Error for listing the market ') })
 
-        fetch('http://172.22.48.119:3000/seller/list/store/category')
+        fetch('http://192.168.1.66:3000/seller/list/store/category')
             .then(response => response.json())
             .then(json => {
                 while (storecats.length > 0) {
@@ -48,7 +48,7 @@ export default function signUp({ navigation }) {
                 }
                 setstorecatsItems(storecatsItems => storecatsItems = storecats)
             })
-            .catch((error) => { console.log('Error') })
+            .catch((error) => { console.log('Error for listing store category') })
     }, [])
 
     const [selectedValue, setSelectedValue] = useState("Please pick one of the market");
@@ -112,7 +112,7 @@ export default function signUp({ navigation }) {
                     uri:
                         Platform.OS === 'android' ? response.assets[0].uri : response.assets[0].uri.replace("file://", "")
                 })
-                fetch("http://172.22.48.119:3000/images", {
+                fetch("http://192.168.1.66:3000/images", {
                     method: "POST",
                     headers: {
                         'Accept': "application/json",
@@ -128,7 +128,7 @@ export default function signUp({ navigation }) {
                         console.log('successs')
                     })
                     .catch((error) => {
-                        console.log('Error')
+                        console.log('Error for upload image')
                         console.log(error)
                     })
             }
@@ -142,46 +142,46 @@ export default function signUp({ navigation }) {
     function NextRegisterButton() {
 
         const nextScreen = () => {
-            // let emailrjx = /^([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)$/gm
-            // let emailisValid = emailrjx.test(signup_email)
-            // if (signup_imglink.length == 0) {
-            //     alert('Please upload an image for your profile')
-            // }
-            // else if (signup_email.length == 0) {
-            //     alert('Please input your email address')
-            // }
-            // else if (!emailisValid) {
-            //     alert('Please input your email in a correct format')
-            // }
-            // else if (signup_storeName.length == 0) {
-            //     alert('Please input your store name')
-            // }
-            // else if (signup_password.length == 0) {
-            //     alert('Please input your password')
-            // }
-            // else if (signup_retypePassword.length == 0) {
-            //     alert('Please input your password again')
-            // }
-            // else if (signup_password !== signup_retypePassword) {
-            //     alert('The password and retype password must be same')
-            // }
-            // else if (selectedValue == "Please pick one of the market") {
-            //     alert('Please choose one of the market in the list')
-            // }
-            // else if (selectedCatValue == "Please pick one of the store category") {
-            //     alert('Please choose one of the store category in the list')
-            // }
-            // else if (signup_imglink.length !== 0 && !!emailisValid && signup_email.length !== 0 && signup_storeName.length !== 0 && signup_password.length !== 0 && signup_retypePassword !== 0 && selectedValue !== "Please pick one of the market" && selectedCatValue !== "Please pick one of the store category") {
-            //     console.log('Success for the part 1 register')
-            //     // console.log(signup_imglink)
-            //     // console.log(signup_email)
-            //     // console.log(signup_storeName)
-            //     // console.log(signup_password)
-            //     // console.log(signup_retypePassword)
-            //     // console.log(selectedValue)
-            //     navigation.navigate('signupScreen2', { store_imgurl: signup_imglink, store_email: signup_email, store_storename: signup_storeName, store_password: signup_password, store_marketselected: selectedValue, store_storecatselected: selectedCatValue })
-            // }
-            navigation.navigate('signupScreen2')
+            let emailrjx = /^([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)$/gm
+            let emailisValid = emailrjx.test(signup_email)
+            if (signup_imglink.length == 0) {
+                alert('Please upload an image for your profile')
+            }
+            else if (signup_email.length == 0) {
+                alert('Please input your email address')
+            }
+            else if (!emailisValid) {
+                alert('Please input your email in a correct format')
+            }
+            else if (signup_storeName.length == 0) {
+                alert('Please input your store name')
+            }
+            else if (signup_password.length == 0) {
+                alert('Please input your password')
+            }
+            else if (signup_retypePassword.length == 0) {
+                alert('Please input your password again')
+            }
+            else if (signup_password !== signup_retypePassword) {
+                alert('The password and retype password must be same')
+            }
+            else if (selectedValue == "Please pick one of the market") {
+                alert('Please choose one of the market in the list')
+            }
+            else if (selectedCatValue == "Please pick one of the store category") {
+                alert('Please choose one of the store category in the list')
+            }
+            else if (signup_imglink.length !== 0 && !!emailisValid && signup_email.length !== 0 && signup_storeName.length !== 0 && signup_password.length !== 0 && signup_retypePassword !== 0 && selectedValue !== "Please pick one of the market" && selectedCatValue !== "Please pick one of the store category") {
+                console.log('Success for the part 1 register')
+                // console.log(signup_imglink)
+                // console.log(signup_email)
+                // console.log(signup_storeName)
+                // console.log(signup_password)
+                // console.log(signup_retypePassword)
+                // console.log(selectedValue)
+                navigation.navigate('signupScreen2', { store_imgurl: signup_imglink, store_email: signup_email, store_storename: signup_storeName, store_password: signup_password, store_marketselected: selectedValue, store_storecatselected: selectedCatValue })
+            }
+            // navigation.navigate('signupScreen2')
         }
 
         return (

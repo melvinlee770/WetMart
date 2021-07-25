@@ -22,7 +22,7 @@ export default function finances({ route,navigation }) {
     const x = async() => {
         try{
             const defg = await AsyncStorage.getItem('stroringID')
-            fetch("http://192.168.1.23:3000/seller/list/finance?sellerid="+Number(defg),
+            fetch("http://192.168.1.66:3000/seller/list/finance?sellerid="+Number(defg),
             {
                 method: 'GET',
                 headers: {
@@ -40,7 +40,7 @@ export default function finances({ route,navigation }) {
             })
             .catch((error => { console.log('Error' + error) }))
 
-            fetch("http://192.168.1.23:3000/seller/list/transactions?sellerid="+Number(defg),
+            fetch("http://192.168.1.66:3000/seller/list/transactions?sellerid="+Number(defg),
             {
                 method: 'GET',
                 headers: {

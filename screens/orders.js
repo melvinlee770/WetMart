@@ -1,5 +1,5 @@
 import React, { useState, useEffect, } from 'react';
-import { StyleSheet, View, Text, ImageBackground, FlatList, SafeAreaView, TouchableOpacity, Modal, Image } from 'react-native';
+import { StyleSheet, View, Text, ImageBackground, FlatList, SafeAreaView, TouchableOpacity, Modal, Image, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faPlayCircle, faWallet, faWindowClose } from '@fortawesome/free-solid-svg-icons';
@@ -134,7 +134,7 @@ export default function orders() {
             <Card key={post.id} style={{ marginTop: '5%', flexDirection: 'row', width: '100%' }}>
                 <Image source={{ uri: `${post.product_pic}` }} style={{ width: 100, height: 100 }} />
                 <View>
-                    <Text style={{ fontFamily: 'Montserrat-Bold', fontSize: 20 }}>- {post.product_name}</Text>
+                    <Text multiline={true} style={{ fontFamily: 'Montserrat-Bold', fontSize: 20, width: '80%' }}>- {post.product_name}</Text>
                     <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 18 }}>Order quantity: {post.each_product_quantity}</Text>
                     <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 18 }}>Product id - {post.product_id}</Text>
                     <Text style={{ fontFamily: 'Montserrat-Bold', fontSize: 20 }}>{post.product_price}</Text>
@@ -204,7 +204,8 @@ export default function orders() {
                     var convert_price = Number(p_price.replace(/[^0-9.-]+/g, ""))
                     tmpPriceArr.push(convert_price)
 
-                    totalPrice += json[i].product_quantity * (tmpPriceArr[i])
+                    // totalPrice += json[i].product_quantity * (tmpPriceArr[i])
+                    totalPrice += tmpPriceArr[i]
 
                 }
                 while (allproductAquantityarr.length > 0) {
@@ -240,7 +241,7 @@ export default function orders() {
                             <Text style={{ fontSize: 25, marginLeft: '3%', fontFamily: 'Montserrat-Bold' }}>Order ID: {item.order_id}</Text>
 
                             <TouchableOpacity onPress={() => OrderDetails(item.order_id)}>
-                                <FontAwesomeIcon icon={faPlayCircle} size={32} style={{ color: '#5A9896', marginLeft: '60%' }} />
+                                <FontAwesomeIcon icon={faPlayCircle} size={32} style={{ color: '#5A9896', marginLeft: '50%' }} />
                             </TouchableOpacity>
                         </Card>}
                 />
@@ -257,7 +258,7 @@ export default function orders() {
                             <Text style={{ fontSize: 25, marginLeft: '3%', fontFamily: 'Montserrat-Bold' }}>Order ID: {item.order_id}</Text>
 
                             <TouchableOpacity onPress={() => OrderDetails(item.order_id)}>
-                                <FontAwesomeIcon icon={faPlayCircle} size={32} style={{ color: '#5A9896', marginLeft: '60%' }} />
+                                <FontAwesomeIcon icon={faPlayCircle} size={32} style={{ color: '#5A9896', marginLeft: '50%' }} />
                             </TouchableOpacity>
                         </Card>}
                 />
@@ -286,7 +287,9 @@ export default function orders() {
                         </TouchableOpacity>
                     </View>
                     <Text style={{ textAlign: 'center', fontFamily: 'Montserrat-Bold', fontSize: 30, textDecorationLine: 'underline' }}>Order Details</Text>
+                    <ScrollView style={{ height: '40%' }}>
                     <ShowFirstModalContent posts={posts}></ShowFirstModalContent>
+                    </ScrollView>
                     <ShowSecondModalContent secondposts={secondposts}></ShowSecondModalContent>
                     <Card style={{ height: '10%', width: '70%', marginLeft: 'auto', marginRight: 'auto', marginTop: '10%', alignItems: 'center', justifyContent: 'center', backgroundColor: '#5A9896' }}>
                         <PackedButtonControl></PackedButtonControl>

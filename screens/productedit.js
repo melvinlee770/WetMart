@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAddressBook, faEnvelope, faLocationArrow, faMapMarker, faPhone, faPlayCircle, faStore, faUser, faWallet, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import Navbar from '../components/navbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import DropDownPicker from 'react-native-dropdown-picker';
+// import DropDownPicker from 'react-native-dropdown-picker';
 
 export default function productdetails({ route,navigation }) {
 
@@ -86,7 +86,7 @@ export default function productdetails({ route,navigation }) {
                     }],{cancelable:false}
                 )
             }else{
-            fetch("http://192.168.1.23:3000/seller/list/product/edit",
+            fetch("http://192.168.1.66:3000/seller/list/product/edit",
             {
                 method: "PUT",
                 headers: {
@@ -140,7 +140,7 @@ export default function productdetails({ route,navigation }) {
 
     function deleteProduct(){
 
-        fetch("http://192.168.1.23:3000/seller/list/product/delete",
+        fetch("http://192.168.1.66:3000/seller/list/product/delete",
         {
             method: "DELETE",
             headers: {

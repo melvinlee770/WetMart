@@ -57,7 +57,7 @@ export default function products({route, navigation}){
     const x = async() => {
         try{
             const defg = await AsyncStorage.getItem('stroringID')
-            fetch("http://192.168.1.23:3000/seller/list/product?sellerid="+Number(defg),
+            fetch("http://192.168.1.66:3000/seller/list/product?sellerid="+Number(defg),
             {
                 method: 'GET',
                 headers: {

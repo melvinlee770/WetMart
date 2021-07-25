@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAddressBook, faEnvelope, faLocationArrow, faMapMarker, faPhone, faPlayCircle, faStore, faUser, faWallet, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import Navbar from '../components/navbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import DropDownPicker from 'react-native-dropdown-picker';
+// import DropDownPicker from 'react-native-dropdown-picker';
 
 export default function productdetails({ route,navigation }) {
 
@@ -14,7 +14,7 @@ export default function productdetails({ route,navigation }) {
     const [items, setItems] = useState([]);
     const [categoryid,setcategory]=useState(0);
     function insertMarketList() {
-        fetch("http://192.168.1.23:3000/seller/list/category")
+        fetch("http://192.168.1.66:3000/seller/list/category")
             .then(response => response.json())
             // .then(json => { console.log(json) })
             .then(json => {
@@ -82,7 +82,7 @@ export default function productdetails({ route,navigation }) {
                     }],{cancelable:false}
                 )
             }else{
-            fetch("http://192.168.1.23:3000/seller/list/product/add",
+            fetch("http://192.168.1.66:3000/seller/list/product/add",
             {
                 method: "POST",
                 headers: {

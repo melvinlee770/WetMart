@@ -13,7 +13,7 @@ export default function productdetails({ route,navigation }) {
 
     const x = async() => {
         try{
-            fetch("http://192.168.1.23:3000/seller/list/product/details?productid="+productid)
+            fetch("http://192.168.1.66:3000/seller/list/product/details?productid="+productid)
                 .then((response)=>response.json())
                 .then((json)=>{
                     setData(data=>data=json[0])
