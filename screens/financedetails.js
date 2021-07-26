@@ -4,16 +4,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAddressBook, faEnvelope, faLocationArrow, faMapMarker, faPhone, faPlayCircle, faStore, faUser, faWallet, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import Navbar from '../components/navbar';
-// import DropDownPicker from 'react-native-dropdown-picker';
+import { Picker } from '@react-native-community/picker';
 
 export default function financedetails({ route,navigation }) {
     const fullname = route.params.fullname
     const bank = route.params.bank
     const accno = route.params.accno
-    const [_fullname,setname]=useState('')
-    const [_bank,setbank]=useState('')
+    const [_fullname,setname]=useState(fullname)
+    const [_bank,setbank]=useState(bank)
     const [_accno,setaccno]=useState('')
-    const [data, setData] = useState([])
     const [sellerid,setID] = useState('')
     const [items,setItems] = useState([
         {label: 'DBS', value: 'DBS'},
@@ -36,25 +35,17 @@ export default function financedetails({ route,navigation }) {
         console.log(sellerid)
     },[])
     function BankForm() {
-        const [open, setOpen] = useState(false);
-        const [value, setValue] = useState(bank);
 
         return (
-            <DropDownPicker
-                open={open}
-                value={value}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
-                dropDownDirection="TOP"
-                onChangeValue={(value) => {
-                    console.log(value)
-                    setbank(value);
-                }}
-                style={{ borderColor: 'transparent' }}
-            />
-        );
+            <Picker
+                selectedValue={_bank}
+                style={{ height: 50, width: '100%' }}
+                onValueChange={(itemValue,itemPosition) => setbank(itemValue)}>
+                {items.map(move => {
+                    return <Picker.Item label={move.label} value={move.value} key={move.key} />
+                })}
+            </Picker>
+        )
     }
 
     function AddButton(props){
@@ -64,6 +55,9 @@ export default function financedetails({ route,navigation }) {
 
         function submit(){
             if(fullname==undefined||bank==undefined||accno==undefined||fullname==""||bank==""||accno==""){
+                console.log(fullname)
+                console.log(bank)
+                console.log(accno)
                 Alert.alert(
                     "Invalid inputs",
                     "Please key in valid inputs",
@@ -73,7 +67,7 @@ export default function financedetails({ route,navigation }) {
                     }],{cancelable:false}
                 )
             }else{
-            fetch("http://192.168.1.66:3000/seller/update/finance",
+            fetch("http://192.168.1.23:3000/seller/update/finance",
             {
                 method: "PUT",
                 headers: {

@@ -6,44 +6,46 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAddressBook, faEnvelope, faLocationArrow, faMapMarker, faPhone, faPlayCircle, faStore, faUser, faWallet, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import Navbar from '../components/navbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import DropDownPicker from 'react-native-dropdown-picker';
+import { Picker } from '@react-native-community/picker';
 
 export default function productdetails({ route,navigation }) {
 
     const categories = []
     const [items, setItems] = useState([]);
-    const [categoryid,setcategory]=useState(0);
     function insertMarketList() {
-        fetch("http://192.168.1.66:3000/seller/list/category")
+        fetch("http://192.168.1.23:3000/seller/list/category")
             .then(response => response.json())
             // .then(json => { console.log(json) })
             .then(json => {
-                for (let i = 0; i < json[0].length; i++) {
-                    categories.push(json[0][i])
-                    items.push({ label: categories[i].category_name, value: categories[i].product_category_id })
+
+                while (categories.length > 0) {
+                    categories.pop()
                 }
+                categories.push({ key: 0, label: 'Please select a category', value: '' })
+                while (items.length > 0) {
+                    items.pop()
+                }
+                for (let i = 0; i < json[0].length; i++) {
+                    categories.push({ key: i + 1, label: json[0][i].category_name, value: json[0][i].product_category_id })
+                }
+                setItems(items => items = categories)
             })
             .catch((error) => { console.log('Error') })
     }
 
+    const [selectedValue, setSelectedValue] = useState("Please select a category");
+
     function CategoryListForm() {
-        const [open, setOpen] = useState(false);
-        const [value, setValue] = useState(null);
 
         return (
-            <DropDownPicker
-                open={open}
-                value={value}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
-                dropDownDirection="TOP"
-                onChangeValue={(value) => {
-                    setcategory(value);
-                }}
-                style={{ borderColor: 'transparent' }}
-            />
+            <Picker
+                selectedValue={selectedValue}
+                style={{ height: 50, width: '100%' }}
+                onValueChange={(itemValue,itemPosition) => setSelectedValue(itemValue)}>
+                {items.map(move => {
+                    return <Picker.Item label={move.label} value={move.value} key={move.key} />
+                })}
+            </Picker>
         );
     }
 
@@ -82,7 +84,7 @@ export default function productdetails({ route,navigation }) {
                     }],{cancelable:false}
                 )
             }else{
-            fetch("http://192.168.1.66:3000/seller/list/product/add",
+            fetch("http://192.168.1.23:3000/seller/list/product/add",
             {
                 method: "POST",
                 headers: {
@@ -90,7 +92,7 @@ export default function productdetails({ route,navigation }) {
                   },
                   body: JSON.stringify({
                     sellerid: sellerid._W,
-                    categoryid: categoryid,
+                    categoryid: selectedValue,
                     productimage: "https://i.ibb.co/80kCwq5/c721459d-3826-4461-9e79-c077d5cf191e-3-ca214f10bb3c042f473588af8b240eca.jpg",
                     productname: name,
                     price: price,
