@@ -1,19 +1,13 @@
 import React, { useState, useEffect, } from 'react';
 import { StyleSheet, View, Text, ImageBackground, FlatList, SafeAreaView, TouchableOpacity, Modal, Image, ScrollView } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faPlayCircle, faWallet, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { Card } from 'react-native-shadow-cards'
 import Navbar from '../components/navbar';
-// ## not need to
-// import { onChange, set } from 'react-native-reanimated';
-// import { roundToNearestPixel } from 'react-native/Libraries/Utilities/PixelRatio';
-// import Background from '../img/big.jpeg'
-// import { parse } from '@babel/core';
-// import { PresignedPost } from 'aws-sdk/clients/s3';
-// import Animated, { color } from 'react-native-reanimated';
-// import { WellArchitected } from 'aws-sdk';
-// ###
+import jwtDecode from 'jwt-decode';
+
 
 export default function home({ route, navigation }) {
 
@@ -26,7 +20,7 @@ export default function home({ route, navigation }) {
 
     const [nameOfSeller, setnameOfSeller] = useState('')
     const [nameOfStore, setnameOfStore] = useState('')
-    const [noOfSales, setnoOfSales] = useState(0)
+    const [noOfSales, setnoOfSales] = useState('')
     const [noOfOrders, setnoOfOrders] = useState([])
     const [noOfSalesBox, setnoOfSalesBox] = useState(false)
     const [first_detailsItem, setfirst_detailsItem] = useState([])
@@ -37,6 +31,7 @@ export default function home({ route, navigation }) {
 
 
     useEffect(() => {
+
         fetch(showSellerName_URL)
             .then((response) => response.json())
             .then(json => {
@@ -52,11 +47,12 @@ export default function home({ route, navigation }) {
 
     useFocusEffect(
         React.useCallback(() => {
+
             fetch(showSellerSales_URL)
                 .then((response) => response.json())
                 .then(json => {
                     setnoOfSales(noOfSales => noOfSales = 0)
-                    setnoOfSales(noOfSales => noOfSales + json[0].amount)
+                    setnoOfSales(noOfSales => noOfSales = json[0].amount)
                     setnoOfSalesBox(noOfSalesBox => noOfSalesBox = true)
                 })
                 .catch((error) => {
@@ -242,7 +238,7 @@ export default function home({ route, navigation }) {
             {noOfSalesBox ? (
                 <Card style={styles.SalesAmount}>
                     <Text style={[styles.SalesAmountText, { fontSize: 15, textAlign: 'center' }]}>Total Wallet Amount (this month)</Text>
-                    <Text style={[styles.SalesAmountText, { fontSize: 45, marginLeft: '5%' }]}> <FontAwesomeIcon icon={faWallet} size={32} style={styles.SalesAmount_icon} /> $ {noOfSales}</Text>
+                    <Text style={[styles.SalesAmountText, { fontSize: 45, marginLeft: '5%' }]}> <FontAwesomeIcon icon={faWallet} size={32} style={styles.SalesAmount_icon} /> {noOfSales}</Text>
                 </Card>
             ) : null}
             <Orderlist></Orderlist>
