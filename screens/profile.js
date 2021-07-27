@@ -19,6 +19,7 @@ export default function profile({ navigation }) {
     const [sellerProfileMobile, setsellerProfileMobile] = useState('')
     const [sellerProfileAddress, setsellerProfileAddress] = useState('')
     const [sellerProfileUnitNumber, setsellerProfileUnitNumber] = useState('')
+    const [sellerStoreDescription, setsellerStoreDescription] = useState('')
 
     const drawer = async () => {
         try {
@@ -46,6 +47,8 @@ export default function profile({ navigation }) {
                     setsellerProfileAddress(sellerProfileAddress => sellerProfileAddress = json[0].address)
 
                     setsellerProfileUnitNumber(sellerProfileUnitNumber => sellerProfileUnitNumber = json[0].unit_number)
+
+                    setsellerStoreDescription(sellerStoreDescription => sellerStoreDescription = json[0].store_description)
                 })
                 .catch((error) => {
                     console.log(error)
@@ -63,13 +66,17 @@ export default function profile({ navigation }) {
                 null
             }
         }, []))
-    
+
     const buttonToChangePassword = () => {
         navigation.navigate('changepasswordScreen', { pass_id: callsellerid })
     }
-        
+
     const buttonToEditProfile = () => {
-        navigation.navigate('editprofileScreen', { pass_id: callsellerid, pass_rating: sellerProfileRatingInfo, pass_imgURL: sellerProfilePic, pass_email: sellerProfileEmail, pass_storeName: sellerProfileStoreName, pass_firstName: sellerProfileFirstName, pass_lastName: sellerProfileLastName, pass_mobile: sellerProfileMobile, pass_address: sellerProfileAddress, pass_unitNumber: sellerProfileUnitNumber })
+        navigation.navigate('editprofileScreen', {
+            pass_id: callsellerid, pass_rating: sellerProfileRatingInfo, pass_imgURL: sellerProfilePic, pass_email: sellerProfileEmail,
+            pass_storeName: sellerProfileStoreName, pass_firstName: sellerProfileFirstName, pass_lastName: sellerProfileLastName, pass_mobile: sellerProfileMobile,
+            pass_address: sellerProfileAddress, pass_unitNumber: sellerProfileUnitNumber, pass_description: sellerStoreDescription
+        })
     }
 
     const buttonToLogOut = () => {
@@ -155,6 +162,13 @@ export default function profile({ navigation }) {
                     </Text>
                 </View>
                 {/* </Card> */}
+
+                <View style={styles.eachProfileInfo}>
+                    <FontAwesomeIcon icon={faMapMarker} size={25} style={{ color: '#5A9896' }} />
+                    <Text style={styles.eachProfileInfoText}>
+                        {sellerStoreDescription}
+                    </Text>
+                </View>
 
                 <View style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: '3%' }}>
                     <TouchableOpacity onPress={buttonToChangePassword}>
