@@ -16,6 +16,7 @@ export default function editprofile({ route, navigation }) {
     const [passparamsMobile, setpassparamsMobile] = useState(route.params.pass_mobile)
     const [passparamsAddress, setpassparamsAddress] = useState(route.params.pass_address)
     const [passparamsUnitNumber, setpassparamsUnitNumber] = useState(route.params.pass_unitNumber)
+    const [passparamsDescription, setpassparamsDescription] = useState(route.params.pass_description)
 
 
     const [sellerProfileRatingInfo, setsellerProfileRatingInfo] = useState('')
@@ -27,11 +28,21 @@ export default function editprofile({ route, navigation }) {
     const [sellerProfileMobile, setsellerProfileMobile] = useState('')
     const [sellerProfileAddress, setsellerProfileAddress] = useState('')
     const [sellerProfileUnitNumber, setsellerProfileUnitNumber] = useState('')
+    const [sellerStoreDescription, setsellerStoreDescription] = useState('')
+
+    const [changeprofileButton, setchangeprofileButton] = useState(true)
+
+    const changePic = () => {
+        fetch('http://192.168.1.66:3000/images', {
+            
+        })
+    }
 
     const Edited = () => {
         if (sellerProfileEmail.length == 0) {
             setsellerProfileEmail(sellerProfileEmail => sellerProfileEmail = passparamsEmail)
         }
+        setchangeprofileButton(changeprofileButton => changeprofileButton = false)
         if (sellerProfileStoreName.length == 0) {
             setsellerProfileStoreName(sellerProfileStoreName => sellerProfileStoreName = passparamsStoreName)
         }
@@ -49,6 +60,9 @@ export default function editprofile({ route, navigation }) {
         }
         if (sellerProfileUnitNumber.length == 0) {
             setsellerProfileUnitNumber(sellerProfileUnitNumber => sellerProfileUnitNumber = passparamsUnitNumber)
+        }
+        if (sellerStoreDescription.length == 0) {
+            setsellerStoreDescription(sellerStoreDescription => sellerStoreDescription = passparamsDescription)
         }
         seteditButton(editButton => editButton = "Completed")
         if (editButton == "Completed") {
@@ -75,6 +89,7 @@ export default function editprofile({ route, navigation }) {
                 mobile_number: sellerProfileMobile,
                 address: sellerProfileAddress,
                 unit_number: sellerProfileUnitNumber,
+                store_description: sellerStoreDescription
             })
         })
             .then(response => response.json())
@@ -103,6 +118,16 @@ export default function editprofile({ route, navigation }) {
                     <Image source={{ uri: `${passparamsImgURL}` }} style={{ width: '80%', height: 150, marginLeft: 'auto', marginRight: 'auto', borderRadius: 10 }} />
                 </View>
                 {/* </Card> */}
+
+                {changeprofileButton ? (
+                    <View style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: '1%' }}>
+                        <TouchableOpacity onPress={changePic}>
+                            <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 17, textDecorationLine: 'underline' }}>
+                                Change Profile Picture
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                ) : null}
 
                 {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
                 <View style={styles.eachProfileInfo}>
@@ -144,6 +169,10 @@ export default function editprofile({ route, navigation }) {
                 <View style={styles.eachProfileInfo}>
                     <TextInput style={[styles.eachProfileInfoText, { textAlign: 'center' }]} placeholder={passparamsUnitNumber} value={'' + sellerProfileUnitNumber} onChangeText={function (text) { setsellerProfileUnitNumber(text) }} />
                 </View>
+
+                <View style={styles.storeDescriptionInfo}>
+                    <TextInput multiline={true} style={[styles.eachProfileInfoText, { textAlign: 'center', width: '90%', marginLeft: 'auto', marginRight: 'auto' }]} placeholder={passparamsDescription} value={'' + sellerStoreDescription} onChangeText={function (text) { setsellerStoreDescription(text) }} />
+                </View>
                 {/* </Card> */}
 
                 {/* <Card style={{ marginTop: '10%', borderRadius: 10, width: '80%', padding: '2%', backgroundColor: '#5A9896' }}> */}
@@ -163,13 +192,24 @@ export default function editprofile({ route, navigation }) {
 
 const styles = StyleSheet.create({
     eachProfileInfo: {
-        marginTop: '3%', 
-        borderRadius: 10, 
-        width: '85%', 
-        backgroundColor: 'white', 
-        marginLeft: 'auto', 
-        marginRight: 'auto', 
-        borderRadius: 10, 
+        marginTop: '3%',
+        borderRadius: 10,
+        width: '85%',
+        backgroundColor: 'white',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        borderRadius: 10,
+        elevation: 3
+    },
+    storeDescriptionInfo: {
+        marginTop: '3%',
+        borderRadius: 10,
+        width: '85%',
+        height: 200,
+        backgroundColor: 'white',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        borderRadius: 10,
         elevation: 3
     },
     eachProfileInfoText: {
