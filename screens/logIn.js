@@ -71,7 +71,6 @@ export default function logIn({ navigation }) {
             // storing the jwt token response into the async storage
             const jsonValue = JSON.stringify(value)
             AsyncStorage.setItem('token', jsonValue)
-            AsyncStorage.setItem('testing', 'halo')
             AsyncStorage.setItem('stroring1', login_email)
             console.log('Success to store token ')
 
