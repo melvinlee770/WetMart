@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAddressBook, faEnvelope, faLocationArrow, faMapMarker, faPhone, faPlayCircle, faStore, faUser, faWallet, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import Navbar from '../components/navbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import DropDownPicker from 'react-native-dropdown-picker';
+import { Picker } from '@react-native-community/picker';
 
 export default function productdetails({ route,navigation }) {
 
@@ -16,8 +16,7 @@ export default function productdetails({ route,navigation }) {
     const _price = String(route.params.price)
     const _weight = String(route.params.weight)
     const _desc = route.params.desc
-    const _availability = route.params.availability
-    const [avail,setavailability]=useState();
+    const _availability = route.params.availability 
     const [items,setItems] = useState([
         {label: 'Available', value: true},
         {label: 'Unavailable', value: false}
@@ -40,26 +39,21 @@ export default function productdetails({ route,navigation }) {
         console.log(sellerid)
     },[])
 
+    const [selectedValue, setSelectedValue] = useState(_availability);
 
     function AvailabilityForm() {
-        const [open, setOpen] = useState(false);
-        const [value, setValue] = useState(_availability);
 
         return (
-            <DropDownPicker
-                open={open}
-                value={value}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
-                dropDownDirection="TOP"
-                onChangeValue={(value) => {
-                    console.log(value)
-                    setavailability(value);
-                }}
-                style={{ borderColor: 'transparent' }}
-            />
+
+            <Picker
+                selectedValue={selectedValue}
+                style={{ height: 50, width: '100%' }}
+                onValueChange={(itemValue,itemPosition) => setSelectedValue(itemValue)}>
+                {items.map(move => {
+                    return <Picker.Item label={move.label} value={move.value} key={move.key} />
+                })}
+            </Picker>
+
         );
     }
 
@@ -75,7 +69,7 @@ export default function productdetails({ route,navigation }) {
             console.log(price)
             console.log(description)
             console.log(weight)
-            console.log(avail)
+            console.log(selectedValue)
             if(name==undefined||price==undefined||weight==undefined||description==undefined||name==""||price==""||weight==""||description==""){
                 Alert.alert(
                     "Invalid inputs",
@@ -86,7 +80,7 @@ export default function productdetails({ route,navigation }) {
                     }],{cancelable:false}
                 )
             }else{
-            fetch("http://192.168.1.66:3000/seller/list/product/edit",
+            fetch("http://192.168.1.23:3000/seller/list/product/edit",
             {
                 method: "PUT",
                 headers: {
@@ -99,7 +93,7 @@ export default function productdetails({ route,navigation }) {
                     price: price,
                     productdescription: description,
                     weight: weight,
-                    availability:avail
+                    availability:selectedValue
                   })
             })
             .then(response=>{
@@ -140,7 +134,7 @@ export default function productdetails({ route,navigation }) {
 
     function deleteProduct(){
 
-        fetch("http://192.168.1.66:3000/seller/list/product/delete",
+        fetch("http://192.168.1.23:3000/seller/list/product/delete",
         {
             method: "DELETE",
             headers: {

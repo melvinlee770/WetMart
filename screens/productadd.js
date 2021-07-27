@@ -1,49 +1,52 @@
 import React, { useState, useEffect, } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, ScrollView, TextInput, Alert } from 'react-native';
+import { Button, StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, ScrollView, TextInput, Alert } from 'react-native';
 import { Card } from 'react-native-shadow-cards'
 import { useFocusEffect } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAddressBook, faEnvelope, faLocationArrow, faMapMarker, faPhone, faPlayCircle, faStore, faUser, faWallet, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import Navbar from '../components/navbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import DropDownPicker from 'react-native-dropdown-picker';
+import { Picker } from '@react-native-community/picker';
+import { launchImageLibrary } from 'react-native-image-picker'
 
 export default function productdetails({ route,navigation }) {
 
     const categories = []
     const [items, setItems] = useState([]);
-    const [categoryid,setcategory]=useState(0);
     function insertMarketList() {
-        fetch("http://192.168.1.66:3000/seller/list/category")
+        fetch("http://192.168.1.23:3000/seller/list/category")
             .then(response => response.json())
             // .then(json => { console.log(json) })
             .then(json => {
-                for (let i = 0; i < json[0].length; i++) {
-                    categories.push(json[0][i])
-                    items.push({ label: categories[i].category_name, value: categories[i].product_category_id })
+
+                while (categories.length > 0) {
+                    categories.pop()
                 }
+                categories.push({ key: 0, label: 'Please select a category', value: '' })
+                while (items.length > 0) {
+                    items.pop()
+                }
+                for (let i = 0; i < json[0].length; i++) {
+                    categories.push({ key: i + 1, label: json[0][i].category_name, value: json[0][i].product_category_id })
+                }
+                setItems(items => items = categories)
             })
             .catch((error) => { console.log('Error') })
     }
 
+    const [selectedValue, setSelectedValue] = useState("Please select a category");
+
     function CategoryListForm() {
-        const [open, setOpen] = useState(false);
-        const [value, setValue] = useState(null);
 
         return (
-            <DropDownPicker
-                open={open}
-                value={value}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
-                dropDownDirection="TOP"
-                onChangeValue={(value) => {
-                    setcategory(value);
-                }}
-                style={{ borderColor: 'transparent' }}
-            />
+            <Picker
+                selectedValue={selectedValue}
+                style={{ height: 50, width: '100%' }}
+                onValueChange={(itemValue,itemPosition) => setSelectedValue(itemValue)}>
+                {items.map(move => {
+                    return <Picker.Item label={move.label} value={move.value} key={move.key} />
+                })}
+            </Picker>
         );
     }
 
@@ -72,7 +75,7 @@ export default function productdetails({ route,navigation }) {
         const description=props.productdescription
 
         function submit(){
-            if(name==undefined||price==undefined||weight==undefined||description==undefined||name==""||price==""||weight==""||description==""){
+            if(imgshowinform==undefined||name==undefined||price==undefined||weight==undefined||description==undefined||imgshowinform=="https://www.logolynx.com/images/logolynx/2a/2a71ec307740510ce1e7300904131154.png"||name==""||price==""||weight==""||description==""){
                 Alert.alert(
                     "Invalid inputs",
                     "Please key in valid inputs",
@@ -82,7 +85,7 @@ export default function productdetails({ route,navigation }) {
                     }],{cancelable:false}
                 )
             }else{
-            fetch("http://192.168.1.66:3000/seller/list/product/add",
+            fetch("http://192.168.1.23:3000/seller/list/product/add",
             {
                 method: "POST",
                 headers: {
@@ -90,8 +93,8 @@ export default function productdetails({ route,navigation }) {
                   },
                   body: JSON.stringify({
                     sellerid: sellerid._W,
-                    categoryid: categoryid,
-                    productimage: "https://i.ibb.co/80kCwq5/c721459d-3826-4461-9e79-c077d5cf191e-3-ca214f10bb3c042f473588af8b240eca.jpg",
+                    categoryid: selectedValue,
+                    productimage: imgshowinform,
                     productname: name,
                     price: price,
                     productdescription: description,
@@ -134,7 +137,58 @@ export default function productdetails({ route,navigation }) {
         )
     }
 
+    const handleChoosePhoto = () => {
+        const options = {
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+            includeBase64: true
+        };
+        launchImageLibrary(options, (response) => {
+            if (response.didCancel) {
+                console.log('User cancelled image picker')
+            }
+            else if (response.error) {
+                console.log('Imagepicker Error: ', response.error)
+            }
+            else {
+                // console.log(response.assets[0].base64)
+                // console.log(response.assets[0].fileName)
+                // console.log(response.assets[0].type)
+                // console.log(response.assets[0].uri)
+                const fd = new FormData()
+                fd.append("file", {
+                    name: response.assets[0].fileName,
+                    type: response.assets[0].type,
+                    data: response.assets[0].base64,
+                    uri:
+                        Platform.OS === 'android' ? response.assets[0].uri : response.assets[0].uri.replace("file://", "")
+                })
+                fetch("http://192.168.1.23:3000/images", {
+                    method: "POST",
+                    headers: {
+                        'Accept': "application/json",
+                        'Content-Type': 'multipart/form-data',
+                    },
+                    body: fd
+                })
+                    .then((response) => response.json())
+                    .then(json => {
+                        console.log(json.imagePath)
+                        setimgshowinform(json.imagePath)
+                        updatesignup_imglink(json.imagePath)
+                        console.log('successs')
+                    })
+                    .catch((error) => {
+                        console.log('Error for upload image')
+                        console.log(error)
+                    })
+            }
+        })
+    }
 
+    const [imgshowinform, setimgshowinform] = useState('https://www.logolynx.com/images/logolynx/2a/2a71ec307740510ce1e7300904131154.png')
     const [productname, updatename] = useState()
     const [price, updateprice] = useState()
     const [weight, updateweight] = useState()
@@ -142,15 +196,14 @@ export default function productdetails({ route,navigation }) {
 
     return(
         <SafeAreaView style={styles.container}>
+        <Card onPress={() => { console.log('onclick') }} style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', alignItems: 'center', marginTop: '11%' }}>
+            <View style={styles.cardcontainer}>
+                <Image source={{ uri: `${imgshowinform}` }} style={styles.imageStyle} />
+                <Button title="Upload Photo of Store" style={styles.userStyle} onPress={handleChoosePhoto}></Button>
+            </View>
+        </Card>
 
-        <View>
-            <Image source={require('../img/up.png')} style={{ width: 100, height: 100, marginLeft: 'auto', marginRight: 'auto', marginTop: 60 }} />
-        </View>
-        <View>
-            <Text style={{fontFamily: 'Montserrat-Regular',fontSize:16,marginLeft:'auto',marginRight:'auto'}}>
-                Upload Photo of Product
-            </Text>
-        </View>
+        
         <View style={styles.eachProfileInfo}>
             <FontAwesomeIcon icon={faStore} size={25} style={{ color: '#5A9896',alignSelf:'center' }} />
             <TextInput onChangeText={function (text) { updatename(text) }} value={productname} style={styles.eachProfileInfoText} placeholder="Product Name" placeholderTextColor='#808080'/>
@@ -220,5 +273,14 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         elevation: 3,
         height: 100,
+    },
+    cardcontainer: {
+        flex: 1,
+    },
+    imageStyle: {
+        flexGrow: 1,
+        width: "50%",
+        height: "18%",
+        alignSelf: 'center',
     },
 });
