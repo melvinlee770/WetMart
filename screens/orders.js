@@ -1,6 +1,7 @@
-import React, { useState, useEffect, } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, ImageBackground, FlatList, SafeAreaView, TouchableOpacity, Modal, Image, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faPlayCircle, faWallet, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { Card } from 'react-native-shadow-cards'
@@ -22,9 +23,14 @@ export default function orders() {
     const posts = first_detailsItem
     const secondposts = second_detailsItem
 
-    useEffect(() => {
-        drawer()
-    }, [buttonColorLeft, buttonColorRight])
+    useFocusEffect(
+        React.useCallback(() => {
+            console.log('testing')
+            drawer()
+            return () => {
+                null
+            }
+        }, [buttonColorLeft, buttonColorRight]))
 
     const drawer = async () => {
         try {
@@ -265,7 +271,7 @@ export default function orders() {
             )
         }
     }
-    
+
     //show the front end of the app
     return (
         <SafeAreaView style={{ height: '100%' }}>
@@ -288,7 +294,7 @@ export default function orders() {
                     </View>
                     <Text style={{ textAlign: 'center', fontFamily: 'Montserrat-Bold', fontSize: 30, textDecorationLine: 'underline' }}>Order Details</Text>
                     <ScrollView style={{ height: '40%' }}>
-                    <ShowFirstModalContent posts={posts}></ShowFirstModalContent>
+                        <ShowFirstModalContent posts={posts}></ShowFirstModalContent>
                     </ScrollView>
                     <ShowSecondModalContent secondposts={secondposts}></ShowSecondModalContent>
                     <Card style={{ height: '10%', width: '70%', marginLeft: 'auto', marginRight: 'auto', marginTop: '10%', alignItems: 'center', justifyContent: 'center', backgroundColor: '#5A9896' }}>
