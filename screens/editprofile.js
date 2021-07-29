@@ -1,6 +1,5 @@
 import React, { useState, useEffect, } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, ScrollView, TextInput } from 'react-native';
-import { Card } from 'react-native-shadow-cards'
 import { launchImageLibrary } from 'react-native-image-picker'
 import { host } from '../common'
 
@@ -35,86 +34,88 @@ export default function editprofile({ route, navigation }) {
     const [changeprofileButton, setchangeprofileButton] = useState(true)
 
     const changePic = () => {
-        var replaceHTTP_1 = passparamsImgURL.replace(/(^\w+:|^)\/\//, '');
-        var replaceHTTP_2 = replaceHTTP_1.split("/").pop();
-        fetch(host + '/images?key=' + replaceHTTP_2, {
-            method: 'DELETE'
-        })
-        fetch(host + '/update/seller/image?seller_id=' + passparamsSellerID,
-            {
-                method: 'PUT'
-            })
-            .then((response) => {
-                if (response.status == 200) {
-                    const options = {
-                        storageOptions: {
-                            skipBackup: true,
-                            path: 'images',
-                        },
-                        includeBase64: true
-                    };
-                    launchImageLibrary(options, (response) => {
-                        if (response.didCancel) {
-                            setpassparamsImgURL(passparamsImgURL => passparamsImgURL = 'https://www.logolynx.com/images/logolynx/2a/2a71ec307740510ce1e7300904131154.png')
-                        }
-                        else if (response.error) {
-                            console.log('Imagepicker Error: ', response.error)
-                        }
-                        else {
-                            // console.log(response.assets[0].base64)
-                            // console.log(response.assets[0].fileName)
-                            // console.log(response.assets[0].type)
-                            // console.log(response.assets[0].uri)
-                            const fd = new FormData()
-                            fd.append("file", {
-                                name: response.assets[0].fileName,
-                                type: response.assets[0].type,
-                                data: response.assets[0].base64,
-                                uri:
-                                    Platform.OS === 'android' ? response.assets[0].uri : response.assets[0].uri.replace("file://", "")
-                            })
-                            fetch("http://192.168.1.66:3000/images", {
-                                method: "POST",
-                                headers: {
-                                    'Accept': "application/json",
-                                    'Content-Type': 'multipart/form-data',
-                                },
-                                body: fd
-                            })
-                                .then((response) => response.json())
-                                .then(json => {
-                                    console.log(json.imagePath)
-                                    setpassparamsImgURL(passparamsImgURL => passparamsImgURL = json.imagePath)
-                                    fetch(host + '/update/seller/image/new?seller_id=' + passparamsSellerID, {
-                                        method: 'PUT',
-                                        headers: {
-                                            Accept: 'application/json',
-                                            'Content-Type': 'application/json'
-                                        },
-                                        body: JSON.stringify({
-                                            store_image_id: passparamsImgURL
-                                        })
-                                    })
-                                        .then((response) => response.json())
-                                        .then((json) => {
-                                            console.log('change profile pic on database')
-                                        })
-                                        .catch((error) => {
-                                            console.log(error)
-                                        })
-                                    console.log('successs')
-                                })
-                                .catch((error) => {
-                                    console.log('Error for upload image')
-                                    console.log(error)
-                                })
-                        }
-                    })
-                }
-                else if (response.status == 404) {
-                }
-            })
-            .catch((error => { console.log('Error' + error) }))
+        
+
+        // var replaceHTTP_1 = passparamsImgURL.replace(/(^\w+:|^)\/\//, '');
+        // var replaceHTTP_2 = replaceHTTP_1.split("/").pop();
+        // fetch(host + '/images?key=' + replaceHTTP_2, {
+        //     method: 'DELETE'
+        // })
+        // fetch(host + '/update/seller/image?seller_id=' + passparamsSellerID,
+        //     {
+        //         method: 'PUT'
+        //     })
+        //     .then((response) => {
+        //         if (response.status == 200) {
+        //             const options = {
+        //                 storageOptions: {
+        //                     skipBackup: true,
+        //                     path: 'images',
+        //                 },
+        //                 includeBase64: true
+        //             };
+        //             launchImageLibrary(options, (response) => {
+        //                 if (response.didCancel) {
+        //                     setpassparamsImgURL(passparamsImgURL => passparamsImgURL = 'https://www.logolynx.com/images/logolynx/2a/2a71ec307740510ce1e7300904131154.png')
+        //                 }
+        //                 else if (response.error) {
+        //                     console.log('Imagepicker Error: ', response.error)
+        //                 }
+        //                 else {
+        //                     // console.log(response.assets[0].base64)
+        //                     // console.log(response.assets[0].fileName)
+        //                     // console.log(response.assets[0].type)
+        //                     // console.log(response.assets[0].uri)
+        //                     const fd = new FormData()
+        //                     fd.append("file", {
+        //                         name: response.assets[0].fileName,
+        //                         type: response.assets[0].type,
+        //                         data: response.assets[0].base64,
+        //                         uri:
+        //                             Platform.OS === 'android' ? response.assets[0].uri : response.assets[0].uri.replace("file://", "")
+        //                     })
+        //                     fetch("http://192.168.1.66:3000/images", {
+        //                         method: "POST",
+        //                         headers: {
+        //                             'Accept': "application/json",
+        //                             'Content-Type': 'multipart/form-data',
+        //                         },
+        //                         body: fd
+        //                     })
+        //                         .then((response) => response.json())
+        //                         .then(json => {
+        //                             console.log(json.imagePath)
+        //                             setpassparamsImgURL(passparamsImgURL => passparamsImgURL = json.imagePath)
+        //                             fetch(host + '/update/seller/image/new?seller_id=' + passparamsSellerID, {
+        //                                 method: 'PUT',
+        //                                 headers: {
+        //                                     Accept: 'application/json',
+        //                                     'Content-Type': 'application/json'
+        //                                 },
+        //                                 body: JSON.stringify({
+        //                                     store_image_id: passparamsImgURL
+        //                                 })
+        //                             })
+        //                                 .then((response) => response.json())
+        //                                 .then((json) => {
+        //                                     console.log('change profile pic on database')
+        //                                 })
+        //                                 .catch((error) => {
+        //                                     console.log(error)
+        //                                 })
+        //                             console.log('successs')
+        //                         })
+        //                         .catch((error) => {
+        //                             console.log('Error for upload image')
+        //                             console.log(error)
+        //                         })
+        //                 }
+        //             })
+        //         }
+        //         else if (response.status == 404) {
+        //         }
+        //     })
+        //     .catch((error => { console.log('Error' + error) }))
     }
 
     const Edited = () => {
@@ -192,11 +193,9 @@ export default function editprofile({ route, navigation }) {
                     </Text>
                 </View>
 
-                {/* <Card style={{ height: '20%', width: '80%', borderRadius: 23, }}> */}
                 <View>
                     <Image source={{ uri: `${passparamsImgURL}` }} style={{ width: '80%', height: 150, marginLeft: 'auto', marginRight: 'auto', borderRadius: 10 }} />
                 </View>
-                {/* </Card> */}
 
                 {changeprofileButton ? (
                     <View style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: '1%' }}>
@@ -208,43 +207,30 @@ export default function editprofile({ route, navigation }) {
                     </View>
                 ) : null}
 
-                {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
                 <View style={styles.eachProfileInfo}>
                     <TextInput style={[styles.eachProfileInfoText, { textAlign: 'center' }]} placeholder={passparamsEmail} value={'' + sellerProfileEmail} onChangeText={function (text) { setsellerProfileEmail(text) }} />
                 </View>
-                {/* </Card> */}
 
-                {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
                 <View style={styles.eachProfileInfo}>
                     <TextInput style={[styles.eachProfileInfoText, { textAlign: 'center' }]} placeholder={passparamsStoreName} value={'' + sellerProfileStoreName} onChangeText={function (text) { setsellerProfileStoreName(text) }} />
                 </View>
-                {/* </Card> */}
 
-                {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
                 <View style={styles.eachProfileInfo}>
                     <TextInput style={[styles.eachProfileInfoText, { textAlign: 'center' }]} placeholder={passparamsFirstName} value={'' + sellerProfileFirstName} onChangeText={function (text) { setsellerProfileFirstName(text) }} />
                 </View>
-                {/* </Card> */}
 
-                {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
                 <View style={styles.eachProfileInfo}>
                     <TextInput style={[styles.eachProfileInfoText, { textAlign: 'center' }]} placeholder={passparamsLastName} value={'' + sellerProfileLastName} onChangeText={function (text) { setsellerProfileLastName(text) }} />
                 </View>
-                {/* </Card> */}
 
-                {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
                 <View style={styles.eachProfileInfo}>
                     <TextInput style={[styles.eachProfileInfoText, { textAlign: 'center' }]} placeholder={passparamsMobile} value={'' + sellerProfileMobile} onChangeText={function (text) { setsellerProfileMobile(text) }} />
                 </View>
-                {/* </Card> */}
 
-                {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
                 <View style={styles.eachProfileInfo}>
                     <TextInput style={[styles.eachProfileInfoText, { textAlign: 'center' }]} placeholder={passparamsAddress} value={'' + sellerProfileAddress} onChangeText={function (text) { setsellerProfileAddress(text) }} />
                 </View>
-                {/* </Card> */}
 
-                {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
                 <View style={styles.eachProfileInfo}>
                     <TextInput style={[styles.eachProfileInfoText, { textAlign: 'center' }]} placeholder={passparamsUnitNumber} value={'' + sellerProfileUnitNumber} onChangeText={function (text) { setsellerProfileUnitNumber(text) }} />
                 </View>
@@ -252,9 +238,7 @@ export default function editprofile({ route, navigation }) {
                 <View style={styles.storeDescriptionInfo}>
                     <TextInput multiline={true} style={[styles.eachProfileInfoText, { textAlign: 'center', width: '90%', marginLeft: 'auto', marginRight: 'auto' }]} placeholder={passparamsDescription} value={'' + sellerStoreDescription} onChangeText={function (text) { setsellerStoreDescription(text) }} />
                 </View>
-                {/* </Card> */}
 
-                {/* <Card style={{ marginTop: '10%', borderRadius: 10, width: '80%', padding: '2%', backgroundColor: '#5A9896' }}> */}
                 <View style={{ marginBottom: '5%', marginTop: '5%', borderRadius: 10, width: '80%', padding: '2%', backgroundColor: '#5A9896', marginLeft: 'auto', marginRight: 'auto', elevation: 3 }}>
                     <TouchableOpacity onPress={Edited}>
                         <Text style={{ textAlign: 'center', fontFamily: 'Montserrat-Bold', fontSize: 20, color: 'white' }}>
