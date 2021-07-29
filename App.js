@@ -14,6 +14,7 @@ import homeScreen from './screens/home'
 import ordersScreen from './screens/orders'
 import profileScreen from './screens/profile'
 import editprofileScreen from './screens/editprofile'
+import editprofilepicScreen from './screens/changeprofilepic'
 import changepasswordScreen from './screens/changePassword'
 import Navbar from './components/navbar'
 import testAuth from './screens/testAuth'
@@ -133,7 +134,7 @@ const MyStack = () => {
           }}
           name="homeScreen"
           component={homeScreen} />
-          <Stack.Screen
+        <Stack.Screen
           options={{
             title: 'Products',
             headerLeft: null,
@@ -146,7 +147,7 @@ const MyStack = () => {
           }}
           name="productsScreen"
           component={productsScreen} />
-          <Stack.Screen
+        <Stack.Screen
           options={{
             title: 'Products',
             headerLeft: null,
@@ -159,7 +160,7 @@ const MyStack = () => {
           }}
           name="productDScreen"
           component={productDScreen} />
-          <Stack.Screen
+        <Stack.Screen
           options={{
             title: 'Products',
             headerLeft: null,
@@ -171,7 +172,7 @@ const MyStack = () => {
           }}
           name="productAScreen"
           component={productAScreen} />
-          <Stack.Screen
+        <Stack.Screen
           options={{
             title: 'Products',
             headerLeft: null,
@@ -184,7 +185,7 @@ const MyStack = () => {
           }}
           name="productEScreen"
           component={productEScreen} />
-          <Stack.Screen
+        <Stack.Screen
           options={{
             title: 'Finances',
             headerLeft: null,
@@ -196,7 +197,7 @@ const MyStack = () => {
           }}
           name="financeScreen"
           component={financeScreen} />
-          <Stack.Screen
+        <Stack.Screen
           options={{
             title: 'Bank Account Details',
             headerLeft: null,
@@ -243,6 +244,17 @@ const MyStack = () => {
           }}
           name="editprofileScreen"
           component={editprofileScreen} />
+        <Stack.Screen
+          options={{
+            title: 'Edit Profile Picture',
+            headerTransparent: true,
+            headerTitleStyle: {
+              fontFamily: 'Montserrat-Bold',
+              fontSize: 25
+            }
+          }}
+          name="editprofilepicScreen"
+          component={editprofilepicScreen} />
         <Stack.Screen
           options={{
             title: 'Change Password',
