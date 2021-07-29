@@ -67,7 +67,7 @@ export default function financedetails({ route,navigation }) {
                     }],{cancelable:false}
                 )
             }else{
-            fetch("http://192.168.1.23:3000/seller/update/finance",
+            fetch(host + "/seller/update/finance",
             {
                 method: "PUT",
                 headers: {

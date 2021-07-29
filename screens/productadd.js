@@ -14,7 +14,7 @@ export default function productdetails({ route,navigation }) {
     const categories = []
     const [items, setItems] = useState([]);
     function insertMarketList() {
-        fetch("http://192.168.1.23:3000/seller/list/category")
+        fetch(host + "/seller/list/category")
             .then(response => response.json())
             // .then(json => { console.log(json) })
             .then(json => {
@@ -85,7 +85,7 @@ export default function productdetails({ route,navigation }) {
                     }],{cancelable:false}
                 )
             }else{
-            fetch("http://192.168.1.23:3000/seller/list/product/add",
+            fetch(host + "/seller/list/product/add",
             {
                 method: "POST",
                 headers: {
@@ -165,7 +165,7 @@ export default function productdetails({ route,navigation }) {
                     uri:
                         Platform.OS === 'android' ? response.assets[0].uri : response.assets[0].uri.replace("file://", "")
                 })
-                fetch("http://192.168.1.23:3000/images", {
+                fetch(host + "/images", {
                     method: "POST",
                     headers: {
                         'Accept': "application/json",

@@ -80,7 +80,7 @@ export default function productdetails({ route,navigation }) {
                     }],{cancelable:false}
                 )
             }else{
-            fetch("http://192.168.1.23:3000/seller/list/product/edit",
+            fetch(host + "/seller/list/product/edit",
             {
                 method: "PUT",
                 headers: {
@@ -134,7 +134,7 @@ export default function productdetails({ route,navigation }) {
 
     function deleteProduct(){
 
-        fetch("http://192.168.1.23:3000/seller/list/product/delete",
+        fetch(host + "/seller/list/product/delete",
         {
             method: "DELETE",
             headers: {
