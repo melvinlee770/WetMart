@@ -1,6 +1,7 @@
 import React, { useState, useEffect, } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, ScrollView, TextInput, Alert } from 'react-native';
 import { Card } from 'react-native-shadow-cards'
+import {host} from '../common'
 
 export default function changepassword({ navigation, route }) {
 
@@ -10,7 +11,7 @@ export default function changepassword({ navigation, route }) {
     const [retypePassword, setretypePassword] = useState('')
     const [sellerNewPassword, setsellerNewPassword] = useState('')
 
-    const updateSellerURL = 'http://192.168.1.66:3000/seller/update/password?seller_id=' + passparamsSellerID
+    const updateSellerURL = host + '/seller/update/password?seller_id=' + passparamsSellerID
 
     const ChangePasswordButton = () => {
         if (sellerOldPassword != retypePassword) {

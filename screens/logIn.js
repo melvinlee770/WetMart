@@ -9,18 +9,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import jwt_decode from 'jwt-decode';
 import { Card } from 'react-native-shadow-cards'
 import Background from '../img/big.jpeg'
+import {host} from '../common'
 
 
 export default function logIn({ navigation }) {
+
+  const [seller_id, updateseller_id] = useState('')
 
   // use props to use back the useState data
   function SellerLoginButton(props) {
     const seller_email = props.login_email
     const seller_password = props.login_password
-    const seller_id = []
 
     function submitLogin() {
-      fetch("http://192.168.1.66:3000/seller/login",    //seller login
+      fetch(host + "/seller/login",    //seller login
         {
           method: "POST",
           headers: {
@@ -74,19 +76,18 @@ export default function logIn({ navigation }) {
             AsyncStorage.setItem('stroring1', login_email)
             console.log('Success to store token ')
 
-            const getSellerIDURL = 'http://192.168.1.66:3000/seller/id/login?seller_email=' + seller_email
+            const getSellerIDURL = host + '/seller/id/login?seller_email=' + seller_email
             fetch(getSellerIDURL)
               .then(response => response.json())
               .then(json => {
-                while (seller_id.length >0) {
-                  seller_id.pop()
-                }
-                seller_id.push(json[0].seller_id)
-                AsyncStorage.setItem('stroringID', String(seller_id[0]))
-                console.log("using seller id: "+seller_id[0])
+                console.log(json[0])
+                updateseller_id(seller_id => seller_id = json[0].seller_id)
+                AsyncStorage.setItem('stroringID', String(json[0].seller_id))
+                console.log("using seller id: "+seller_id)
+                loginNavigate(json[0].seller_id,seller_email)
               })
               .catch(error => console.log(error))
-              loginNavigate()
+              
           }
         })
         .catch((error => { console.log(error) }))
@@ -96,8 +97,9 @@ export default function logIn({ navigation }) {
      * ========================== navigation to the home page =========================
      */
 
-    function loginNavigate() {                //do not delete
-      setTimeout(function () { navigation.navigate('homeScreen', { email: login_email, id: seller_id[0]}) }, 2000)
+    function loginNavigate(seller_id,seller_email) {   
+      alert(seller_id + seller_email)             //do not delete
+      navigation.navigate('homeScreen', { email: seller_email, id: seller_id}) 
     }
     return (
       <Card style={styles.login_signup_button}>

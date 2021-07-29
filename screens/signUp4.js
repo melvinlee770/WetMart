@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, ImageBackground, TextInput } from 'react-native';
 import { Card } from 'react-native-shadow-cards'
 import Background from '../img/big.jpeg'
+import {host} from '../common'
 
 export default function signUp({ navigation, route }) {
 
@@ -22,7 +23,7 @@ export default function signUp({ navigation, route }) {
     const [fourpassBank, setfourpassBank] = useState(route.params.thirdpage_bank)
     const [fourpassBankNum, setfourpassBankNum] = useState(route.params.thirdpage_bankaccountnum)
 
-    const registerurl = "http://192.168.1.66:3000/seller/register"
+    const registerurl = host + "/seller/register"
 
 
     const nextScreen = () => {

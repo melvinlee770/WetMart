@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, ImageBackground, TextInput } from 'react-native';
 import { Card } from 'react-native-shadow-cards'
 import Background from '../img/big.jpeg'
+import {host} from '../common'
 
 export default function signUp({navigation}){
 

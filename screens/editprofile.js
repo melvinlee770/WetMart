@@ -1,6 +1,8 @@
 import React, { useState, useEffect, } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, ScrollView, TextInput } from 'react-native';
 import { Card } from 'react-native-shadow-cards'
+import { launchImageLibrary } from 'react-native-image-picker'
+import { host } from '../common'
 
 export default function editprofile({ route, navigation }) {
 
@@ -33,9 +35,86 @@ export default function editprofile({ route, navigation }) {
     const [changeprofileButton, setchangeprofileButton] = useState(true)
 
     const changePic = () => {
-        fetch('http://192.168.1.66:3000/images', {
-            
+        var replaceHTTP_1 = passparamsImgURL.replace(/(^\w+:|^)\/\//, '');
+        var replaceHTTP_2 = replaceHTTP_1.split("/").pop();
+        fetch(host + '/images?key=' + replaceHTTP_2, {
+            method: 'DELETE'
         })
+        fetch(host + '/update/seller/image?seller_id=' + passparamsSellerID,
+            {
+                method: 'PUT'
+            })
+            .then((response) => {
+                if (response.status == 200) {
+                    const options = {
+                        storageOptions: {
+                            skipBackup: true,
+                            path: 'images',
+                        },
+                        includeBase64: true
+                    };
+                    launchImageLibrary(options, (response) => {
+                        if (response.didCancel) {
+                            setpassparamsImgURL(passparamsImgURL => passparamsImgURL = 'https://www.logolynx.com/images/logolynx/2a/2a71ec307740510ce1e7300904131154.png')
+                        }
+                        else if (response.error) {
+                            console.log('Imagepicker Error: ', response.error)
+                        }
+                        else {
+                            // console.log(response.assets[0].base64)
+                            // console.log(response.assets[0].fileName)
+                            // console.log(response.assets[0].type)
+                            // console.log(response.assets[0].uri)
+                            const fd = new FormData()
+                            fd.append("file", {
+                                name: response.assets[0].fileName,
+                                type: response.assets[0].type,
+                                data: response.assets[0].base64,
+                                uri:
+                                    Platform.OS === 'android' ? response.assets[0].uri : response.assets[0].uri.replace("file://", "")
+                            })
+                            fetch("http://192.168.1.66:3000/images", {
+                                method: "POST",
+                                headers: {
+                                    'Accept': "application/json",
+                                    'Content-Type': 'multipart/form-data',
+                                },
+                                body: fd
+                            })
+                                .then((response) => response.json())
+                                .then(json => {
+                                    console.log(json.imagePath)
+                                    setpassparamsImgURL(passparamsImgURL => passparamsImgURL = json.imagePath)
+                                    fetch(host + '/update/seller/image/new?seller_id=' + passparamsSellerID, {
+                                        method: 'PUT',
+                                        headers: {
+                                            Accept: 'application/json',
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({
+                                            store_image_id: passparamsImgURL
+                                        })
+                                    })
+                                        .then((response) => response.json())
+                                        .then((json) => {
+                                            console.log('change profile pic on database')
+                                        })
+                                        .catch((error) => {
+                                            console.log(error)
+                                        })
+                                    console.log('successs')
+                                })
+                                .catch((error) => {
+                                    console.log('Error for upload image')
+                                    console.log(error)
+                                })
+                        }
+                    })
+                }
+                else if (response.status == 404) {
+                }
+            })
+            .catch((error => { console.log('Error' + error) }))
     }
 
     const Edited = () => {
@@ -73,7 +152,7 @@ export default function editprofile({ route, navigation }) {
         }
     }
     function nextEditStep() {
-        const updateProfileURL = 'http://192.168.1.66:3000/seller/update/profile?seller_id=' + passparamsSellerID
+        const updateProfileURL = host + '/seller/update/profile?seller_id=' + passparamsSellerID
         fetch(updateProfileURL, {
             method: "PUT",
             headers: {

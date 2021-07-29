@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAddressBook, faEnvelope, faLocationArrow, faMapMarker, faPhone, faPlayCircle, faStore, faUser, faWallet, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { Card } from 'react-native-shadow-cards'
 import Navbar from '../components/navbar';
+import {host} from '../common'
 
 export default function profile({ navigation }) {
 
@@ -25,7 +26,7 @@ export default function profile({ navigation }) {
         try {
             let defg = await AsyncStorage.getItem('stroringID')
             setcallsellerid(defg)
-            const showSellerProfileURL = 'http://192.168.1.66:3000/seller/show/profile?seller_id=' + Number(defg)
+            const showSellerProfileURL = host + '/seller/show/profile?seller_id=' + Number(defg)
 
             fetch(showSellerProfileURL)
                 .then((response) => response.json())
@@ -83,6 +84,10 @@ export default function profile({ navigation }) {
         navigation.navigate('loginScreen')
     }
 
+    const buttonToChangePic = () => {
+        console.log('hh')
+    }
+
     return (
         // <SafeAreaView >
         // <View style={{ marginTop: '10%', alignItems: 'center'}}>
@@ -95,9 +100,10 @@ export default function profile({ navigation }) {
                 </View>
 
                 {/* <Card style={{ height: '20%', width: '80%', borderRadius: 23, }}> */}
-                <View>
+                <View onPress={buttonToChangePic} >
                     <Image source={{ uri: `${sellerProfilePic}` }} style={{ width: '80%', height: 150, marginLeft: 'auto', marginRight: 'auto', borderRadius: 10 }} />
                 </View>
+
                 {/* </Card> */}
 
                 {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}

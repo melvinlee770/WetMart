@@ -7,6 +7,7 @@ import { faPlayCircle, faWallet, faWindowClose } from '@fortawesome/free-solid-s
 import { Card } from 'react-native-shadow-cards'
 import Navbar from '../components/navbar';
 import { call } from 'react-native-reanimated';
+import {host} from '../common'
 
 export default function orders() {
 
@@ -25,7 +26,6 @@ export default function orders() {
 
     useFocusEffect(
         React.useCallback(() => {
-            console.log('testing')
             drawer()
             return () => {
                 null
@@ -36,8 +36,8 @@ export default function orders() {
         try {
             let defg = await AsyncStorage.getItem('stroringID')
             setcallsellerid(defg)
-            const showSellerLeftOrder_URL = 'http://192.168.1.66:3000/seller/show/order/pending?seller_id=' + Number(defg)
-            const showSellerRightOrder_URL = 'http://192.168.1.66:3000/seller/show/order/completed?seller_id=' + Number(defg)
+            const showSellerLeftOrder_URL = host + '/seller/show/order/pending?seller_id=' + Number(defg)
+            const showSellerRightOrder_URL = host + '/seller/show/order/completed?seller_id=' + Number(defg)
 
             if (buttonColorLeft == '#5A9896' && buttonColorRight == 'white') {
                 fetch(showSellerLeftOrder_URL)
@@ -88,8 +88,8 @@ export default function orders() {
     }
 
     const buttonToUpdateOrder = () => {
-        const updateOrderURL = 'http://192.168.1.66:3000/seller/update/order?order_id=' + spe_order_id
-        const showSellerOrder_URL = 'http://192.168.1.66:3000/seller/show/order/pending?seller_id=' + callsellerid
+        const updateOrderURL = host + '/seller/update/order?order_id=' + spe_order_id
+        const showSellerOrder_URL = host + '/seller/show/order/pending?seller_id=' + callsellerid
         fetch(updateOrderURL, {
             method: "PUT",
             headers: {
@@ -190,7 +190,7 @@ export default function orders() {
 
         const allproductAquantityarr = []    //array for the useState
         const allinfoarr = []       //array for the useState
-        const showSellerOrderDetails_URL = 'http://192.168.1.66:3000/seller/show/order/details?seller_id=' + callsellerid + '&order_id=' + order_id
+        const showSellerOrderDetails_URL = host + '/seller/show/order/details?seller_id=' + callsellerid + '&order_id=' + order_id
         fetch(showSellerOrderDetails_URL)
             .then((response) => response.json())
             .then((json) => {

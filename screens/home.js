@@ -7,16 +7,18 @@ import { faPlayCircle, faWallet, faWindowClose } from '@fortawesome/free-solid-s
 import { Card } from 'react-native-shadow-cards'
 import Navbar from '../components/navbar';
 import jwtDecode from 'jwt-decode';
+import {host} from '../common'
+import { ConfigurationServicePlaceholders } from 'aws-sdk/lib/config_service_placeholders';
 
 
 export default function home({ route, navigation }) {
 
     const seller_home_email = route.params.email       //pass the data from the login page  // const { email } = route.params
-    const seller_home_id = route.params.id                                                 // const { id } = route.params
+    const seller_home_id = route.params.id                                               // const { id } = route.params
 
-    const showSellerName_URL = 'http://192.168.1.66:3000/seller/home/show/name?seller_email=' + seller_home_email
-    const showSellerSales_URL = 'http://192.168.1.66:3000/seller/home/show/amount?seller_id=' + Number(seller_home_id)
-    const showSellerOrder_URL = 'http://192.168.1.66:3000/seller/show/order/pending?seller_id=' + Number(seller_home_id)
+    const showSellerName_URL = host + '/seller/home/show/name?seller_email=' + seller_home_email
+    const showSellerSales_URL = host + '/seller/home/show/amount?seller_id=' + Number(seller_home_id)
+    const showSellerOrder_URL = host + '/seller/show/order/pending?seller_id=' + Number(seller_home_id)
 
     const [nameOfSeller, setnameOfSeller] = useState('')
     const [nameOfStore, setnameOfStore] = useState('')
@@ -51,6 +53,7 @@ export default function home({ route, navigation }) {
             fetch(showSellerSales_URL)
                 .then((response) => response.json())
                 .then(json => {
+                    console.log(json)
                     setnoOfSales(noOfSales => noOfSales = 0)
                     setnoOfSales(noOfSales => noOfSales = json[0].amount)
                     setnoOfSalesBox(noOfSalesBox => noOfSalesBox = true)
@@ -100,7 +103,7 @@ export default function home({ route, navigation }) {
 
         const allproductAquantityarr = []    //array for the useState
         const allinfoarr = []       //array for the useState
-        const showSellerOrderDetails_URL = 'http://192.168.1.66:3000/seller/show/order/details?seller_id=' + seller_home_id + '&order_id=' + order_id
+        const showSellerOrderDetails_URL = host + '/seller/show/order/details?seller_id=' + seller_home_id + '&order_id=' + order_id
         fetch(showSellerOrderDetails_URL)
             .then((response) => response.json())
             .then((json) => {
@@ -196,7 +199,7 @@ export default function home({ route, navigation }) {
     }
 
     const buttonToUpdateOrder = () => {
-        const updateOrderURL = 'http://192.168.1.66:3000/seller/update/order?order_id=' + spe_order_id
+        const updateOrderURL = host + '/seller/update/order?order_id=' + spe_order_id
         fetch(updateOrderURL, {
             method: "PUT",
             headers: {
