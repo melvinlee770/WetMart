@@ -1,5 +1,5 @@
 import React, { useState, useEffect, } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, ScrollView, TextInput, Alert } from 'react-native';
+import { Button,StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, ScrollView, TextInput, Alert } from 'react-native';
 import { Card } from 'react-native-shadow-cards'
 import { useFocusEffect } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -7,7 +7,8 @@ import { faAddressBook, faEnvelope, faLocationArrow, faMapMarker, faPhone, faPla
 import Navbar from '../components/navbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from '@react-native-community/picker';
-
+import { launchImageLibrary } from 'react-native-image-picker'
+import {host} from '../common'
 export default function productdetails({ route,navigation }) {
 
     const _productid = route.params.productid
@@ -88,7 +89,7 @@ export default function productdetails({ route,navigation }) {
                   },
                   body: JSON.stringify({
                     productid: _productid,
-                    productimage: "https://i.ibb.co/80kCwq5/c721459d-3826-4461-9e79-c077d5cf191e-3-ca214f10bb3c042f473588af8b240eca.jpg",
+                    productimage: imgshowinform,
                     productname: name,
                     price: price,
                     productdescription: description,
@@ -164,6 +165,58 @@ export default function productdetails({ route,navigation }) {
         .catch((error=>{console.log(error);}))
     }
     
+    const handleChoosePhoto = () => {
+        const options = {
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+            includeBase64: true
+        };
+        launchImageLibrary(options, (response) => {
+            if (response.didCancel) {
+                console.log('User cancelled image picker')
+            }
+            else if (response.error) {
+                console.log('Imagepicker Error: ', response.error)
+            }
+            else {
+                // console.log(response.assets[0].base64)
+                // console.log(response.assets[0].fileName)
+                // console.log(response.assets[0].type)
+                // console.log(response.assets[0].uri)
+                const fd = new FormData()
+                fd.append("file", {
+                    name: response.assets[0].fileName,
+                    type: response.assets[0].type,
+                    data: response.assets[0].base64,
+                    uri:
+                        Platform.OS === 'android' ? response.assets[0].uri : response.assets[0].uri.replace("file://", "")
+                })
+                fetch(host + "/images", {
+                    method: "POST",
+                    headers: {
+                        'Accept': "application/json",
+                        'Content-Type': 'multipart/form-data',
+                    },
+                    body: fd
+                })
+                    .then((response) => response.json())
+                    .then(json => {
+                        console.log(json.imagePath)
+                        setimgshowinform(json.imagePath)
+                        updatesignup_imglink(json.imagePath)
+                        console.log('successs')
+                    })
+                    .catch((error) => {
+                        console.log('Error for upload image')
+                        console.log(error)
+                    })
+            }
+        })
+    }
+
+    const [imgshowinform, setimgshowinform] = useState(_imgsource)
 
     const [productname, updatename] = useState(_name)
     const [price, updateprice] = useState(_price)
@@ -178,7 +231,7 @@ export default function productdetails({ route,navigation }) {
                     Products
                 </Text>
             </View>
-            <View style={{ marginBottom: '5%', marginTop: '3%', borderRadius: 10, width: '40%', padding: '1%', backgroundColor: '#5A9896', marginLeft: 'auto',marginRight:'3%', elevation: 3 }}>
+            <View style={{ marginBottom: '2%', marginTop: '3%', borderRadius: 10, width: '40%', padding: '1%', backgroundColor: '#5A9896', marginLeft: 'auto',marginRight:'3%', elevation: 3 }}>
                 <TouchableOpacity onPress={()=>{deleteProduct();}}>
                     <Text style={{ textAlign: 'center', fontFamily: 'Montserrat-Bold', fontSize: 18, color: 'white' }}>
                         Delete Product
@@ -186,14 +239,12 @@ export default function productdetails({ route,navigation }) {
                 </TouchableOpacity>
             </View>
         </View>
-        <View>
-            <Image source={{ uri: `${_imgsource}` }} style={{ width: 100, height: 100, marginLeft: 'auto', marginRight: 'auto'}} />
-        </View>
-        <View>
-            <Text style={{fontFamily: 'Montserrat-Regular',fontSize:16,marginLeft:'auto',marginRight:'auto'}}>
-                Upload Photo of Product
-            </Text>
-        </View>
+        <Card onPress={() => { console.log('onclick') }} style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', alignItems: 'center'}}>
+            <View style={styles.cardcontainer}>
+                <Image source={{ uri: `${imgshowinform}` }} style={styles.imageStyle} />
+                <Button title="Upload Photo of Image" style={styles.userStyle} onPress={handleChoosePhoto}></Button>
+            </View>
+        </Card>
         <View style={styles.eachProfileInfo}>
             <FontAwesomeIcon icon={faStore} size={25} style={{ color: '#5A9896',alignSelf:'center' }} />
             <TextInput onChangeText={function (text) { updatename(text) }} defaultValue={productname} style={styles.eachProfileInfoText} placeholder="Product Name" placeholderTextColor='#808080'/>
@@ -263,5 +314,14 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         elevation: 3,
         height: 100,
+    },
+    cardcontainer: {
+        flex: 1,
+    },
+    imageStyle: {
+        flexGrow: 1,
+        width: "50%",
+        height: "18%",
+        alignSelf: 'center',
     },
 });

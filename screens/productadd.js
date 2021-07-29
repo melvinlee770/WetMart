@@ -8,7 +8,7 @@ import Navbar from '../components/navbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from '@react-native-community/picker';
 import { launchImageLibrary } from 'react-native-image-picker'
-
+import {host} from '../common'
 export default function productdetails({ route,navigation }) {
 
     const categories = []
@@ -199,7 +199,7 @@ export default function productdetails({ route,navigation }) {
         <Card onPress={() => { console.log('onclick') }} style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', alignItems: 'center', marginTop: '11%' }}>
             <View style={styles.cardcontainer}>
                 <Image source={{ uri: `${imgshowinform}` }} style={styles.imageStyle} />
-                <Button title="Upload Photo of Store" style={styles.userStyle} onPress={handleChoosePhoto}></Button>
+                <Button title="Upload Photo of Image" style={styles.userStyle} onPress={handleChoosePhoto}></Button>
             </View>
         </Card>
 
