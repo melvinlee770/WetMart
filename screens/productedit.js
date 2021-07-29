@@ -7,6 +7,7 @@ import { faAddressBook, faEnvelope, faLocationArrow, faMapMarker, faPhone, faPla
 import Navbar from '../components/navbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from '@react-native-community/picker';
+import {host} from '../common'
 
 export default function productdetails({ route,navigation }) {
 

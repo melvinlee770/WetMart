@@ -8,6 +8,7 @@ import Navbar from '../components/navbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from '@react-native-community/picker';
 import { launchImageLibrary } from 'react-native-image-picker'
+import {host} from '../common'
 
 export default function productdetails({ route,navigation }) {
 
