@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAddressBook, faEnvelope, faLocationArrow, faMapMarker, faPhone, faPlayCircle, faStore, faUser, faWallet, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { Card } from 'react-native-shadow-cards'
 import Navbar from '../components/navbar';
-import {host} from '../common'
+import { host } from '../common'
 
 export default function profile({ navigation }) {
 
@@ -85,7 +85,7 @@ export default function profile({ navigation }) {
     }
 
     const buttonToChangePic = () => {
-        console.log('hh')
+        navigation.navigate('editprofilepicScreen', {pass_imgURL_edit: sellerProfilePic})
     }
 
     return (
@@ -100,10 +100,18 @@ export default function profile({ navigation }) {
                 </View>
 
                 {/* <Card style={{ height: '20%', width: '80%', borderRadius: 23, }}> */}
-                <View onPress={buttonToChangePic} >
+                <View>
                     <Image source={{ uri: `${sellerProfilePic}` }} style={{ width: '80%', height: 150, marginLeft: 'auto', marginRight: 'auto', borderRadius: 10 }} />
                 </View>
 
+
+                <View style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: '3%' }}>
+                    <TouchableOpacity onPress ={buttonToChangePic}>
+                        <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 17, textDecorationLine: 'underline' }}>
+                            Change Profile Picture
+                        </Text>
+                    </TouchableOpacity>
+                </View>
                 {/* </Card> */}
 
                 {/* <Card style={{ marginTop: '3%', borderRadius: 10, width: '85%', padding: '2%', flexDirection: 'row' }}> */}
@@ -178,7 +186,7 @@ export default function profile({ navigation }) {
 
                 <View style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: '3%' }}>
                     <TouchableOpacity onPress={buttonToChangePassword}>
-                        <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 17, textDecorationLine: 'underline' }}>
+                        <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 17, textDecorationLine: 'underline', color: 'black'  }}>
                             Change Password
                         </Text>
                     </TouchableOpacity>
@@ -186,7 +194,7 @@ export default function profile({ navigation }) {
 
                 <View style={{ marginLeft: 'auto', marginRight: 'auto' }}>
                     <TouchableOpacity onPress={buttonToEditProfile}>
-                        <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 17, textDecorationLine: 'underline' }}>
+                        <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 17, textDecorationLine: 'underline', color: 'black' }}>
                             Edit Profile
                         </Text>
                     </TouchableOpacity>

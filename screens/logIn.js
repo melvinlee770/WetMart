@@ -83,7 +83,6 @@ export default function logIn({ navigation }) {
                 console.log(json[0])
                 updateseller_id(seller_id => seller_id = json[0].seller_id)
                 AsyncStorage.setItem('stroringID', String(json[0].seller_id))
-                console.log("using seller id: "+seller_id)
                 loginNavigate(json[0].seller_id,seller_email)
               })
               .catch(error => console.log(error))
@@ -98,7 +97,7 @@ export default function logIn({ navigation }) {
      */
 
     function loginNavigate(seller_id,seller_email) {   
-      alert(seller_id + seller_email)             //do not delete
+      alert("using seller id:" + seller_id + " using seller email:" + seller_email)             //do not delete
       navigation.navigate('homeScreen', { email: seller_email, id: seller_id}) 
     }
     return (

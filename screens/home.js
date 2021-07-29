@@ -53,7 +53,7 @@ export default function home({ route, navigation }) {
             fetch(showSellerSales_URL)
                 .then((response) => response.json())
                 .then(json => {
-                    console.log(json)
+                    // console.log(json)
                     setnoOfSales(noOfSales => noOfSales = 0)
                     setnoOfSales(noOfSales => noOfSales = json[0].amount)
                     setnoOfSalesBox(noOfSalesBox => noOfSalesBox = true)
