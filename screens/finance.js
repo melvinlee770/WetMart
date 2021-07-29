@@ -7,6 +7,7 @@ import { faAddressBook, faEnvelope, faLocationArrow, faMapMarker, faPhone, faPla
 import Navbar from '../components/navbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from "@react-navigation/native";
+import {host} from '../common'
 
 export default function finances({ route,navigation }) {
     LogBox.ignoreAllLogs()
