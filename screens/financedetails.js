@@ -6,7 +6,10 @@ import { faAddressBook, faEnvelope, faLocationArrow, faMapMarker, faPhone, faPla
 import Navbar from '../components/navbar';
 import { Picker } from '@react-native-community/picker';
 import {host} from '../common'
+<<<<<<< HEAD
 
+=======
+>>>>>>> 928f2f18441fba2c8054c368b0a78c10cd2c2040
 export default function financedetails({ route,navigation }) {
     const fullname = route.params.fullname
     const bank = route.params.bank

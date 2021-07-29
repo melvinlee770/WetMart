@@ -7,7 +7,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Navbar from '../components/navbar';
 import { useIsFocused } from "@react-navigation/native";
 import {host} from '../common'
-
 export default function products({route, navigation}){
     const isFocused = useIsFocused();
     LogBox.ignoreAllLogs()
