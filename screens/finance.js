@@ -74,7 +74,7 @@ export default function finances({ route,navigation }) {
                 <Text style={[styles.CardText, { fontSize: 20, marginLeft: '5%', marginTop:'5%',fontWeight:'bold'}]}>{(item.type_of_transaction=="Income") ? "Daily Profit" : "Withdrawal"}</Text>
                 <Text style={[styles.CardText, { fontSize: 13, marginLeft: '5%'}]}>Type of Transaction - {item.type_of_transaction}</Text>
                 <Text style={[styles.CardText, { fontSize: 13, marginLeft: '5%'}]}>{item.date}</Text>
-                <Text style={[styles.CardText, { fontSize: 20, marginLeft: '5%',fontWeight:'bold'}]}>${item.amount}</Text>
+                <Text style={[styles.CardText, { fontSize: 20, marginLeft: '5%',fontWeight:'bold'}]}>{item.amount}</Text>
             </View>
         </Card>
     );
@@ -83,7 +83,7 @@ export default function finances({ route,navigation }) {
         <SafeAreaView style={{ flex: 1, height:'100%' }}>
             <Card style={styles.SalesAmount}>
                 <Text style={[styles.SalesAmountText, { fontSize: 15, textAlign: 'center' }]}>Total Wallet Amount</Text>
-                <Text style={[styles.SalesAmountText, { fontSize: 45, marginLeft: '5%' }]}> <FontAwesomeIcon icon={faWallet} size={32} style={styles.SalesAmount_icon} /> $ {walletamt}</Text>
+                <Text style={[styles.SalesAmountText, { fontSize: 45, marginLeft: '5%' }]}> <FontAwesomeIcon icon={faWallet} size={32} style={styles.SalesAmount_icon} />  {walletamt}</Text>
             </Card>
             <View style={{ marginBottom: '5%', marginTop: '5%', borderRadius: 10, padding: '2%', backgroundColor: '#5A9896', marginLeft: 'auto',marginRight:'auto', elevation: 3 }}>
                 <TouchableOpacity onPress={()=>navigation.navigate('financeDetails',{fullname:fullname,bank:bank,accno:accno})}>

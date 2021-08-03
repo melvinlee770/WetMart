@@ -1,1 +1,1 @@
-export const host = 'http://192.168.1.66:3000'
+export const host = 'https://wetmart-backend.herokuapp.com'

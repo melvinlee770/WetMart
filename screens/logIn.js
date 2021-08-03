@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import jwt_decode from 'jwt-decode';
 import { Card } from 'react-native-shadow-cards'
 import Background from '../img/big.jpeg'
-import {host} from '../common'
+import { host } from '../common'
 
 
 export default function logIn({ navigation }) {
@@ -27,6 +27,7 @@ export default function logIn({ navigation }) {
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
+            'Accept': 'application/json'
           },
           body: JSON.stringify({
             email: seller_email,
@@ -83,10 +84,10 @@ export default function logIn({ navigation }) {
                 console.log(json[0])
                 updateseller_id(seller_id => seller_id = json[0].seller_id)
                 AsyncStorage.setItem('stroringID', String(json[0].seller_id))
-                loginNavigate(json[0].seller_id,seller_email)
+                loginNavigate(json[0].seller_id, seller_email)
               })
               .catch(error => console.log(error))
-              
+
           }
         })
         .catch((error => { console.log(error) }))
@@ -96,9 +97,9 @@ export default function logIn({ navigation }) {
      * ========================== navigation to the home page =========================
      */
 
-    function loginNavigate(seller_id,seller_email) {   
+    function loginNavigate(seller_id, seller_email) {
       alert("using seller id:" + seller_id + " using seller email:" + seller_email)             //do not delete
-      navigation.navigate('homeScreen', { email: seller_email, id: seller_id}) 
+      navigation.navigate('homeScreen', { email: seller_email, id: seller_id })
     }
     return (
       <Card style={styles.login_signup_button}>
@@ -128,7 +129,7 @@ export default function logIn({ navigation }) {
 
       <Card style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', alignItems: 'center' }}>
         <Image source={require('../img/email.png')} style={{ marginLeft: '5%' }} />
-        <TextInput placeholder="Email" placeholderTextColor='#808080' 
+        <TextInput placeholder="Email" placeholderTextColor='#808080'
           value={'' + login_email} onChangeText={function (text) { updateLoginEmail(text) }} />
       </Card>
 

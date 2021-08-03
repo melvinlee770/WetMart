@@ -85,7 +85,7 @@ export default function profile({ navigation }) {
     }
 
     const buttonToChangePic = () => {
-        navigation.navigate('editprofilepicScreen', {pass_imgURL_edit: sellerProfilePic})
+        navigation.navigate('editprofilepicScreen', {pass_id_pic: callsellerid, pass_imgURL_edit: sellerProfilePic})
     }
 
     return (
