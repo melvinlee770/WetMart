@@ -31,6 +31,11 @@ export default function editprofile({ route, navigation }) {
     const [sellerProfileUnitNumber, setsellerProfileUnitNumber] = useState('')
     const [sellerStoreDescription, setsellerStoreDescription] = useState('')
 
+    let email_rjx = /^([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)$/gm
+    let emailisValid = email_rjx.test(sellerProfileEmail)
+    let mobile_rjx = /^[0-9]{8}$/gm
+    let mobileisValid = mobile_rjx.test(sellerProfileMobile)
+
     const Edited = () => {
         if (sellerProfileEmail.length == 0) {
             setsellerProfileEmail(sellerProfileEmail => sellerProfileEmail = passparamsEmail)
@@ -58,7 +63,15 @@ export default function editprofile({ route, navigation }) {
         }
         seteditButton(editButton => editButton = "Completed")
         if (editButton == "Completed") {
+            if (!emailisValid) {
+                alert('Please input the proper email')
+            }
+            else if (!mobileisValid) {
+                alert('Please input the proper mobile number')
+            }
+            else {
             nextEditStep()
+            }
         }
         else {
             console.log('complete fill in the update')

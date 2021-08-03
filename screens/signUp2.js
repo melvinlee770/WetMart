@@ -23,8 +23,11 @@ export default function signUp({ route, navigation }) {
     const nextScreen = () => {
         let fistnamerjx = /^[a-zA-z]+$/
         let lastnamerjx = /^[a-zA-z]+$/
+        let mobile_rjx = /^[0-9]{8}$/gm
         let firstnameisValid = fistnamerjx.test(signup_firstname)
         let lastnameisValid = lastnamerjx.test(signup_lastname)
+        let mobileisValid = mobile_rjx.test(signup_mobilenumber)
+
         if (signup_firstname.length == 0) {
             alert('Please input your first name')
         }
@@ -54,6 +57,9 @@ export default function signUp({ route, navigation }) {
         }
         else if (signup_mobilenumber.length == 0) {
             alert('Please input your mobile number')
+        }
+        else if (!mobileisValid) {
+            alert('Please input the correct mobile number')
         }
         else if (signup_firstname.length !== 0 && !!firstnameisValid && signup_lastname.length !== 0 && !!lastnameisValid && selectedGenderValue !== "Please pick one of the gender in the list" && signup_dob.length !== 0 && signup_address.length !== 0 && signup_levelnumber !== 0 && signup_houseunit !== 0) {
             navigation.navigate('signupScreen3', {
@@ -90,7 +96,7 @@ export default function signUp({ route, navigation }) {
         setDate(currentDate);
 
         let tempDate = new Date(currentDate)
-        let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear()
+        let fDate = tempDate.getFullYear() + '-' + (tempDate.getMonth() + 1) + '-' + tempDate.getDate()
         setText(fDate)
         setTextColor('black')
         updatesignup_dob(fDate)
@@ -141,8 +147,8 @@ export default function signUp({ route, navigation }) {
                     onValueChange={(itemValue, itemIndex) => setSelectedGenderValue(itemValue)}
                 >
                     <Picker.Item label="Please pick one of the gender in the list" value="Please pick one of the gender in the list" />
-                    <Picker.Item label="Male" value="M" />
-                    <Picker.Item label="Female" value="F" />
+                    <Picker.Item label="Male" value="m" />
+                    <Picker.Item label="Female" value="f" />
                 </Picker>
             </Card>
 

@@ -82,6 +82,7 @@ export default function profile({ navigation }) {
 
     const buttonToLogOut = () => {
         navigation.navigate('loginScreen')
+        AsyncStorage.clear()
     }
 
     const buttonToChangePic = () => {

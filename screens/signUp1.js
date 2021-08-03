@@ -144,6 +144,8 @@ export default function signUp({ navigation }) {
         const nextScreen = () => {
             let emailrjx = /^([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)$/gm
             let emailisValid = emailrjx.test(signup_email)
+            let password_rjx = /[a-zA-Z0-9]{8,}/gm
+            let passwordisValid = password_rjx.test(signup_password)
             if (signup_imglink.length == 0) {
                 alert('Please upload an image for your profile')
             }
@@ -158,6 +160,9 @@ export default function signUp({ navigation }) {
             }
             else if (signup_password.length == 0) {
                 alert('Please input your password')
+            }
+            else if (!passwordisValid) {
+                alert('Please input the password with correct format, at least have 8 character and only contain alphabet nad number')
             }
             else if (signup_retypePassword.length == 0) {
                 alert('Please input your password again')

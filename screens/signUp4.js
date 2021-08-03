@@ -22,6 +22,7 @@ export default function signUp({ navigation, route }) {
     const [fourpassMobile, setfourpassMobile] = useState(route.params.thirdpageMobile)
     const [fourpassBank, setfourpassBank] = useState(route.params.thirdpage_bank)
     const [fourpassBankNum, setfourpassBankNum] = useState(route.params.thirdpage_bankaccountnum)
+    const [fourpassFullName, setfourpassFullName] = useState(route.params.thirdpage_fullname)
 
     const registerurl = host + "/seller/register"
 
@@ -53,7 +54,8 @@ export default function signUp({ navigation, route }) {
                         mobile_number: fourpassMobile,
                         bank: fourpassBank,
                         bank_account: fourpassBankNum,
-                        store_description: storedescription
+                        store_description: storedescription,
+                        full_name: fourpassFullName
                     })
                 })
                 .then(response => response.json())
@@ -90,7 +92,7 @@ export default function signUp({ navigation, route }) {
     return (
         <ImageBackground source={Background} style={styles.container}>
             <Card style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', alignItems: 'center', marginTop: '3%' }}>
-                <TextInput placeholder="Store Description" placeholderTextColor='#808080' style={{ height: 300, width: '80%', textAlign: 'center', marginRight: 'auto', marginLeft: 'auto' }} multiline={true}
+                <TextInput placeholder="Store Description (optional)" placeholderTextColor='#808080' style={{ height: 300, width: '80%', textAlign: 'center', marginRight: 'auto', marginLeft: 'auto' }} multiline={true}
                     value={'' + storedescription} onChangeText={function (text) { setstoredescription(text) }} />
             </Card>
             <Card style={{

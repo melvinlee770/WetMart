@@ -25,6 +25,7 @@ export default function signUp({ navigation, route }) {
     const [thirdpassMobile, setthirdpassMobile] = useState(route.params.secondpage_mobile)
 
     const [signup_bankaccountnum, updatesignup_bankaccountnum] = useState('')
+    const [signup_fullname, updatesignup_fullname] = useState('')
 
 
     const nextScreen = () => {
@@ -38,7 +39,7 @@ export default function signUp({ navigation, route }) {
             navigation.navigate('signupScreen4', {
                 thirdpageImgUrl: thirdpassImgUrl, thirdpageEmail: thirdpassEmail, thirdpageStoreName: thirdpassStoreName, thirdpagePassword: thirdpassPassword, thirdpageSelectedMarket: thirdpassSelectedMarket, thirdpageSelectedStoreCat: thirdpassSelectedStoreCat,
                 thirdpageFirstName: thirdpassFirstName, thirdpageLastName: thirdpassLastName, thirdpageGender: thirdpassGender, thirdpageDOB: thirdpassDOB, thirdpageAddress: thirdpassAddress, thirdpageUnitNumber: thirdpassUnitNumber, thirdpageMobile: thirdpassMobile,
-                thirdpage_bank: selectedBankValue, thirdpage_bankaccountnum: signup_bankaccountnum
+                thirdpage_bank: selectedBankValue, thirdpage_bankaccountnum: signup_bankaccountnum, thirdpage_fullname: signup_fullname
             })
         // navigation.navigate('signupScreen4')
     }
@@ -72,6 +73,14 @@ export default function signUp({ navigation, route }) {
                 <TextInput placeholder="Bank Account Number" placeholderTextColor='#808080' keyboardType='numeric'
                     value={'' + signup_bankaccountnum} onChangeText={function (text) { updatesignup_bankaccountnum(text) }} />
             </Card>
+
+            <Card style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', alignItems: 'center', marginTop: '3%' }}>
+                <FontAwesomeIcon icon={faLock} size={22} style={{ color: '#5A9896', marginLeft: '2%' }} />
+                <TextInput placeholder="Bank Account User Name" placeholderTextColor='#808080'
+                    value={'' + signup_fullname} onChangeText={function (text) { updatesignup_fullname(text) }} />
+            </Card>
+
+            
 
             <TouchableOpacity
                 onPress={nextScreen}

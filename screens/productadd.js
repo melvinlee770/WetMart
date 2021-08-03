@@ -215,7 +215,7 @@ export default function productdetails({ route,navigation }) {
         </View>
         <View style={styles.eachProfileInfo}>
             <FontAwesomeIcon icon={faStore} size={25} style={{ color: '#5A9896',alignSelf:'center' }} />
-            <TextInput onChangeText={function (text) { updateweight(text) }} value={weight} style={styles.eachProfileInfoText} placeholder="Weight" placeholderTextColor='#808080'/>
+            <TextInput onChangeText={function (text) { updateweight(text) }} value={weight} style={styles.eachProfileInfoText} placeholder="Weight (g)" placeholderTextColor='#808080'/>
         </View>
         <View style={styles.eachProfileInfo}>
             <CategoryListForm></CategoryListForm>
