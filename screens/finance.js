@@ -56,7 +56,6 @@ export default function finances({ route,navigation }) {
                 else if (response.status == 404) {
                     console.log('No products can be found')
                 }
-                console.log("HGeLp")
             })
             .then((response) => {
                 setData(response.rows)
@@ -96,7 +95,7 @@ export default function finances({ route,navigation }) {
             <FlatList
                 data={data}
                 renderItem={renderItem}
-                keyExtractor={data => data.market_image_id}
+                keyExtractor={data => data.seller_id}
             />
             <Navbar></Navbar>
         </SafeAreaView>

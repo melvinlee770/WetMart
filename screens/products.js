@@ -51,9 +51,11 @@ export default function products({route, navigation}){
             .catch((error => { console.log('Error' + error) }))
     }, []) */
 
+   
     useEffect(()=>[
         x()
     ],[isFocused])
+    
     const x = async() => {
         try{
             const defg = await AsyncStorage.getItem('stroringID')
@@ -84,6 +86,7 @@ export default function products({route, navigation}){
             console.log(error)
         }
     }
+
 
     const renderItem = ({ item }) => (
         <Card style={styles.SalesAmount}>
