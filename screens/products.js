@@ -76,7 +76,11 @@ export default function products({route, navigation}){
                 console.log("HGeLp")
             })
             .then((response) => {
-                setData(response.rows)
+                var y=response.rows
+                for (var x=0;x<y.length;x++){
+                    y[x].key = x;
+                }
+                setData(y)
             })
             .catch((error => { console.log('Error' + error) }))
         }
@@ -121,7 +125,7 @@ export default function products({route, navigation}){
             <FlatList
                 data={data}
                 renderItem={renderItem}
-                keyExtractor={data => data.market_image_id}
+                keyExtractor={data => data.key}
             />
             <Navbar></Navbar>
             </SafeAreaView>
