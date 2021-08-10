@@ -12,12 +12,12 @@ export default function financedetails({ route,navigation }) {
     const accno = route.params.accno
     const [_fullname,setname]=useState(fullname)
     const [_bank,setbank]=useState(bank)
-    const [_accno,setaccno]=useState('')
+    const [_accno,setaccno]=useState(accno)
     const [sellerid,setID] = useState('')
     const [items,setItems] = useState([
-        {label: 'DBS', value: 'DBS'},
-        {label: 'OCBC', value: 'OCBC'},
-        {label: 'UOB', value: 'UOB'}
+        {label: 'DBS', value: 'DBS',key: 1},
+        {label: 'OCBC', value: 'OCBC',key: 2},
+        {label: 'UOB', value: 'UOB',key: 3}
     ]);
     
     const retrieveID = () =>{
