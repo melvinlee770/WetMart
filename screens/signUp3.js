@@ -35,6 +35,9 @@ export default function signUp({ navigation, route }) {
         else if (signup_bankaccountnum.length == 0) {
             alert('Please input your bank account number')
         }
+        // else if (signup_bankaccountnum.length !== 14) {
+        //     alert('Please inout the correct bank account number')
+        // }
         else if (selectedBankValue !== 'Please pick one of the bank in the list' && signup_bankaccountnum.length !== 0)
             navigation.navigate('signupScreen4', {
                 thirdpageImgUrl: thirdpassImgUrl, thirdpageEmail: thirdpassEmail, thirdpageStoreName: thirdpassStoreName, thirdpagePassword: thirdpassPassword, thirdpageSelectedMarket: thirdpassSelectedMarket, thirdpageSelectedStoreCat: thirdpassSelectedStoreCat,

@@ -150,7 +150,9 @@ export default function logIn({ navigation }) {
         </TouchableOpacity>
       </Card>
 
-      <Text style={{ color: 'black', fontFamily: 'Montserrat-Regular', fontSize: 15, marginLeft: 'auto', marginRight: 'auto' }} onPress={buttonToReset}>Forget Password? Reset</Text>
+      <Text style={{ color: 'black', fontFamily: 'Montserrat-Regular', fontSize: 15, marginLeft: 'auto', marginRight: 'auto' }}>If you have any issue</Text>
+      <Text style={{ color: 'black', fontFamily: 'Montserrat-Regular', fontSize: 15, marginLeft: 'auto', marginRight: 'auto' }}>Please email to </Text>
+      <Text style={{ color: 'black', fontFamily: 'Montserrat-Regular', fontSize: 15, marginLeft: 'auto', marginRight: 'auto', fontWeight: 'bold' }}>wetmart.sg@gmail.com</Text>
 
     </ImageBackground>
   )

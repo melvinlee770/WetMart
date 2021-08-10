@@ -95,7 +95,7 @@ export default function productdetails({ route,navigation }) {
         <View style={styles.eachProfileInfo}>
             <FontAwesomeIcon icon={faStore} size={25} style={{ color: '#5A9896' }} />
             <Text style={styles.eachProfileInfoText}>
-                {data.weight}
+                {data.weight} g
             </Text>
         </View>
         <View style={styles.eachProfileInfo}>

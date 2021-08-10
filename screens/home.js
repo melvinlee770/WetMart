@@ -7,8 +7,8 @@ import { faPlayCircle, faWallet, faWindowClose } from '@fortawesome/free-solid-s
 import { Card } from 'react-native-shadow-cards'
 import Navbar from '../components/navbar';
 import jwtDecode from 'jwt-decode';
-import {host} from '../common'
-import { ConfigurationServicePlaceholders } from 'aws-sdk/lib/config_service_placeholders';
+import { host } from '../common'
+
 
 
 export default function home({ route, navigation }) {
@@ -31,24 +31,19 @@ export default function home({ route, navigation }) {
     const posts = first_detailsItem
     const secondposts = second_detailsItem
 
-
-    useEffect(() => {
-
-        fetch(showSellerName_URL)
-            .then((response) => response.json())
-            .then(json => {
-                setnameOfSeller(nameOfSeller => nameOfSeller = '')
-                setnameOfStore(nameOfStore => nameOfStore = '')
-                setnameOfSeller(nameOfSeller => nameOfSeller + 'Welcome, ' + json[0].first_name)
-                setnameOfStore(nameOfStore => nameOfStore + json[0].store_name)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }, [])
-
     useFocusEffect(
         React.useCallback(() => {
+            fetch(showSellerName_URL)
+                .then((response) => response.json())
+                .then(json => {
+                    setnameOfSeller(nameOfSeller => nameOfSeller = '')
+                    setnameOfStore(nameOfStore => nameOfStore = '')
+                    setnameOfSeller(nameOfSeller => nameOfSeller + 'Welcome, ' + json[0].first_name)
+                    setnameOfStore(nameOfStore => nameOfStore + json[0].store_name)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
 
             fetch(showSellerSales_URL)
                 .then((response) => response.json())
