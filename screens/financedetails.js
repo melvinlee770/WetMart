@@ -54,7 +54,17 @@ export default function financedetails({ route,navigation }) {
         const accno=props.accno
 
         function submit(){
-            if(fullname==undefined||bank==undefined||accno==undefined||fullname==""||bank==""||accno==""){
+            if(accno.length<7) {
+                Alert.alert(
+                    "Invalid inputs",
+                    "Please key in your correct bank account number",
+                    [{
+                        text: "Cancel",
+                        style: "cancel"
+                    }],{cancelable:false}
+                )
+            }
+            else if(fullname==undefined||bank==undefined||accno==undefined||fullname==""||bank==""||accno==""){
                 console.log(fullname)
                 console.log(bank)
                 console.log(accno)

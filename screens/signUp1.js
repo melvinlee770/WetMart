@@ -5,6 +5,7 @@ import { Card } from 'react-native-shadow-cards';
 import { Picker } from '@react-native-community/picker';
 import { launchImageLibrary } from 'react-native-image-picker'
 import Background from '../img/big.jpeg';
+import { host } from '../common'
 
 
 export default function signUp({ navigation }) {
@@ -14,8 +15,9 @@ export default function signUp({ navigation }) {
     const storecats = []
     const [storecatsItems, setstorecatsItems] = useState([])
 
-    useEffect(() => {                                   //fetch the market list when the screen loaded
-        fetch("http://192.168.1.66:3000/seller/list/market")
+    useEffect(() => {  
+        console.log('heelo')                                 //fetch the market list when the screen loaded
+        fetch(host + "/seller/list/market")
             .then(response => response.json())
             // .then(json => { console.log(json) })
             .then(json => {
@@ -33,7 +35,7 @@ export default function signUp({ navigation }) {
             })
             .catch((error) => { console.log('Error for listing the market ') })
 
-        fetch('http://192.168.1.66:3000/seller/list/store/category')
+        fetch(host + '/seller/list/store/category')
             .then(response => response.json())
             .then(json => {
                 while (storecats.length > 0) {
