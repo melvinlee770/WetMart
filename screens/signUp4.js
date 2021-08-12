@@ -92,7 +92,7 @@ export default function signUp({ navigation, route }) {
     return (
         <ImageBackground source={Background} style={styles.container}>
             <Card style={{ width: '70%', marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', alignItems: 'center', marginTop: '3%' }}>
-                <TextInput placeholder="Store Description (optional)" placeholderTextColor='#808080' style={{ height: 300, width: '80%', textAlign: 'center', marginRight: 'auto', marginLeft: 'auto' }} multiline={true}
+                <TextInput placeholder="Store Description" placeholderTextColor='#808080' style={{ height: 300, width: '80%', textAlign: 'center', marginRight: 'auto', marginLeft: 'auto' }} multiline={true}
                     value={'' + storedescription} onChangeText={function (text) { setstoredescription(text) }} />
             </Card>
             <Card style={{
