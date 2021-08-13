@@ -28,16 +28,17 @@ export default function signUp({ route, navigation }) {
         let lastnameisValid = lastnamerjx.test(signup_lastname)
         let mobileisValid = mobile_rjx.test(signup_mobilenumber)
 
+        console.log(firstnameisValid)
         if (signup_firstname.length == 0) {
             alert('Please input your first name')
         }
-        else if (!firstnameisValid) {
+        else if (firstnameisValid == false) {
             alert('First name only input by using alphabet')
         }
         else if (signup_lastname.length == 0) {
             alert('Please input your last name')
         }
-        else if (!lastnameisValid) {
+        else if (lastnameisValid == false) {
             alert('Last name only input by using alphabet')
         }
         else if (selectedGenderValue == "Please pick one of the gender in the list") {
@@ -61,6 +62,7 @@ export default function signUp({ route, navigation }) {
         else if (!mobileisValid) {
             alert('Please input the correct mobile number')
         }
+        
         else if (signup_firstname.length !== 0 && !!firstnameisValid && signup_lastname.length !== 0 && !!lastnameisValid && selectedGenderValue !== "Please pick one of the gender in the list" && signup_dob.length !== 0 && signup_address.length !== 0 && signup_levelnumber !== 0 && signup_houseunit !== 0) {
             navigation.navigate('signupScreen3', {
                 secondpage_imgurl: passtoImgUrl, secondpage_email: passtoEmail, secondpage_storename: passtoStoreName, secondpage_password: passtoPassword, secondpage_selectedmarket: passtoSelectedMarket, secondpage_selectedstorecat: passtoSelectedCat,
