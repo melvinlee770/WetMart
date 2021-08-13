@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, ImageBackground, TextInput } from 'react-native';
 import { Card } from 'react-native-shadow-cards'
 import Background from '../img/big.jpeg'
-import {host} from '../common'
+import { host } from '../common'
 
 export default function signUp({ navigation, route }) {
 
@@ -31,7 +31,7 @@ export default function signUp({ navigation, route }) {
         if (storedescription.length == 0) {
             alert('Please input some store description')
         }
-        else if (storedescription !== 0) {
+        else if (storedescription.length !== 0) {
             fetch(registerurl,
                 {
                     method: "POST",
@@ -59,12 +59,12 @@ export default function signUp({ navigation, route }) {
                     })
                 })
                 .then(response => response.json())
-                .then(json => {
-                    console.log('sucess register')
-                    console.log(json.command)
+                .then((json) => {
+                    console.log('tesing')
+                    console.log(json)
                     navigation.navigate('signupScreen5')
                 })
-                .catch((error => { console.log(error) }))
+                .catch((error) => {console.log(error)})
         }
         // console.log(fourpassImgUrl)
         // console.log(fourpassEmail)
